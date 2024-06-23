@@ -245,14 +245,14 @@ $(document).ready(function() {
 
 
 //Create references to the dropdown's
-const yearSelect = document.getElementById("year");
-const monthSelect = document.getElementById("month");
-const daySelect = document.getElementById("day");
+// const yearSelect = document.getElementById("year");
+// const monthSelect = document.getElementById("month");
+// const daySelect = document.getElementById("day");
 
-const months = ['Jan', 'Feb', 'Mar', 'Apr',
-    'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct',
-    'Nov', 'Dec'
-];
+// const months = ['Jan', 'Feb', 'Mar', 'Apr',
+//     'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct',
+//     'Nov', 'Dec'
+// ];
 
 //Months are always the same
 // (function populateMonths() {
