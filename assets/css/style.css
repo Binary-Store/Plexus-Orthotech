@@ -2715,11 +2715,6 @@ span.searchBtn {
     justify-content:start;
     gap: 1rem;
 }
-.video-container{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: start;
-}
 .product-sidebar{
     width: 340px;
     height: fit-content;
