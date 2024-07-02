@@ -1,0 +1,183 @@
+/* CSS styles for the category section */
+.category-container {
+    margin-top: 20px;
+    background-color: #ffffff;
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.category-header-div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.category-container h2 {
+    color: #333;
+    margin-top: 0;
+    font-size: 1.5em;
+}
+
+.category-container #add-category-btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 15px 25px; /* Increased padding for larger button */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    font-size: 1.1em;
+}
+
+.category-container #add-category-btn:hover {
+    background-color: #45a049;
+    transform: scale(1.05);
+}
+
+.category-container ul {
+    list-style: none;
+    padding: 0;
+}
+
+.category-container ul li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0; /* Increased padding for larger height */
+    border-bottom: 1px solid #ccc;
+}
+
+.category-name {
+    flex: 1;
+    font-size: 1.2em;
+}
+
+.category-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.category-buttons button {
+    color: white;
+    padding: 10px 15px; /* Increased padding for larger buttons */
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    width: 110px;
+    transition: background-color 0.3s, transform 0.3s;
+    font-size: 1em;
+}
+
+.category-buttons .edit-category-btn {
+    background-color: #008CBA;
+}
+
+.category-buttons .edit-category-btn:hover {
+    background-color: #007B9E;
+    transform: scale(1.05);
+}
+
+.category-buttons .delete-category-btn {
+    background-color: #f44336;
+}
+
+.category-buttons .delete-category-btn:hover {
+    background-color: #e53935;
+    transform: scale(1.05);
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding-top: 60px;
+}
+
+.modal.show {
+    display: block;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 400px;
+    border-radius: 10px;
+    position: relative;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    animation: fadeIn 0.3s;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.close {
+    color: #aaa;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+}
+
+.error {
+    color: #f44336;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.success {
+    color: #4CAF50;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+#category-name {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1em;
+}
+
+.modal-content button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 15px 20px; /* Increased padding for larger button */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.1em;
+    transition: background-color 0.3s, transform 0.3s;
+    min-width: 160px;
+}
+
+.modal-content button:hover {
+    background-color: #45a049;
+    transform: scale(1.05);
+}

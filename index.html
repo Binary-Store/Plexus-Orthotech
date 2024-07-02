@@ -361,64 +361,10 @@
                 <h6 class="hc-news-subhead">Product</h6>
                 <h4 class="hc-news-heading" data-aos="fade-down">The Products We Offer</h4>
             </div>
-            <div class="hc-service-row">
-                <a href="./product.html" data-aos="zoom-in">
-                    <div class="hc-service-card">
-                        <div class="hc-sercardimg hc-servone">
-                            <img src="assets/images/product/product1.jpeg" class="hc-service_img" alt="product photo" />
-                        </div>
-                    </div>
-                </a>
-                <a href="./product.html" data-aos="zoom-in">
-                    <div class="hc-service-card">
-                        <div class="hc-sercardimg hc-servtwo">
-                            <img src="assets/images/product/product2.jpeg" class="hc-service_img" alt="product photo" />
-                        </div>
-                    </div>
-                </a>
-                <a href="./product.html" data-aos="zoom-in">
-                    <div class="hc-service-card">
-                        <div class="hc-sercardimg hc-servthree">
-                            <img src="assets/images/product/product3.jpeg" class="hc-service_img" alt="product photo" />
-                        </div>
-                    </div>
-                </a>
-                <a href="./product.html" data-aos="zoom-in">
-                    <div class="hc-service-card">
-                        <div class="hc-sercardimg hc-servfour">
-                            <img src="assets/images/product/product4.jpeg" class="hc-service_img" alt="product photo" />
-                        </div>
-                    </div>
-                </a>
-                <a href="./product.html" data-aos="zoom-in">
-                    <div class="hc-service-card">
-                        <div class="hc-sercardimg hc-servfive">
-                            <img src="assets/images/product/product5.jpeg" class="hc-service_img" alt="product photo" />
-                        </div>
-                    </div>
-                </a>
-                <a href="./product.html" data-aos="zoom-in">
-                    <div class="hc-service-card">
-                        <div class="hc-sercardimg hc-servsix">
-                            <img src="assets/images/product/product6.jpeg" class="hc-service_img" alt="product photo" />
-                        </div>
-                    </div>
-                </a>
-                <a href="./product.html" data-aos="zoom-in">
-                    <div class="hc-service-card hc-sevencard">
-                        <div class="hc-sercardimg hc-servseven">
-                            <img src="assets/images/product/product7.jpeg" class="hc-service_img" alt="product photo" />
-                        </div>
-                    </div>
-                </a>
-                <a href="./product.html" data-aos="zoom-in">
-                    <div class="hc-service-card hc-sevencard">
-                        <div class="hc-sercardimg hc-serveight">
-                            <img src="assets/images/product/product8.jpeg" class="hc-service_img" alt="product photo" />
-                        </div>
-                    </div>
-                </a>
+            <div class="hc-service-row" id="product-container">
+                <!-- Products will be dynamically inserted here -->
             </div>
+            
         </div>
     </div>
     <!-- product section end -->
@@ -970,6 +916,47 @@
         });
     </script>
     <script src="assets/js/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            function fetchProducts() {
+                $.ajax({
+                    url: './admin/includes/last_8_products.php', // Your API endpoint
+                    method: 'GET',
+                    dataType: 'json',
+                    success: function(response) {
+                        if (response.success) {
+                            populateProducts(response.data);
+                        } else {
+                            console.error('Error fetching products:', response.error);
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('AJAX error:', error);
+                    }
+                });
+            }
+
+            function populateProducts(products) {
+                const productContainer = $('#product-container');
+                productContainer.empty(); // Clear existing content
+
+                products.forEach((product, index) => {
+                    const productCard = `
+                        <a href="./product.html" data-aos="zoom-in">
+                            <div class="hc-service-card">
+                                <div class="hc-sercardimg hc-serv${index + 1}">
+                                    <img src="${'./admin/'+product.image}" class="hc-service_img" alt="${product.name}" />
+                                </div>
+                            </div>
+                        </a>`;
+                    productContainer.append(productCard);
+                });
+            }
+
+            fetchProducts();
+        });
+    </script>
+
     <script src="assets/js/bootstrap.min.js"></script>
     <script src="assets/js/swiper-bundle.min.js"></script>
     <script src="assets/js/custom.js"></script>

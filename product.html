@@ -95,85 +95,23 @@
   <!-- product section start -->
   <div class="hc-faq-wrapper hc-sections mt-5 mt-md-2 mt-lg-0">
     <div class="container">
-      <div class="hc-news-top">
-        <h6 class="hc-news-subhead" data-aos="fade-down">Our Product</h6>
-        <h4 class="hc-news-heading" data-aos="fade-down">The Product We Offer</h4>
-        <p class="hc-paragraph" data-aos="zoom-in" data-aos-delay="400">Discover our high-quality products designed to
-          meet your every need.
-        </p>
-      </div>
-      <div class="product-container">
-        <div class="product-sidebar" data-aos="fade-up" data-aos-delay="400">
-          <ul>
-            <li class="bold">Category 1</li>
-            <ul>
-              <li class="fs-8">Sub Category 1</li>
-              <li class="fs-8">Sub Category 2</li>
-              <li class="fs-8">Sub Category 3</li>
-            </ul>
-            <li class="bold">Category 2</li>
-            <ul>
-              <li class="fs-8">Sub Category 1</li>
-              <li class="fs-8">Sub Category 2</li>
-              <li class="fs-8">Sub Category 3</li>
-            </ul>
-          </ul>
+        <div class="hc-news-top">
+            <h6 class="hc-news-subhead" data-aos="fade-down">Our Product</h6>
+            <h4 class="hc-news-heading" data-aos="fade-down">The Product We Offer</h4>
+            <p class="hc-paragraph" data-aos="zoom-in" data-aos-delay="400">Discover our high-quality products designed to meet your every need.</p>
         </div>
-        <div class="product-content">
-          <div class="hc-service-row">
-            <div data-aos="zoom-in">
-              <div class="hc-service-card">
-                <div class="hc-sercardimg hc-servone">
-                  <img src="assets/images/product/product1.jpeg" class="hc-service_img" alt="product photo" />
-                </div>
-              </div>
+        <div class="product-container">
+            <div class="product-sidebar" data-aos="fade-up" data-aos-delay="400">
+                <ul id="category-list">
+                    <!-- Dynamic categories and subcategories will be appended here -->
+                </ul>
             </div>
-            <div data-aos="zoom-in">
-              <div class="hc-service-card">
-                <div class="hc-sercardimg hc-servone">
-                  <img src="assets/images/product/product2.jpeg" class="hc-service_img" alt="product photo" />
+            <div class="product-content">
+                <div class="hc-service-row" id="product-list">
+                    <!-- Dynamic products will be appended here -->
                 </div>
-              </div>
             </div>
-            <div data-aos="zoom-in">
-              <div class="hc-service-card">
-                <div class="hc-sercardimg hc-servone">
-                  <img src="assets/images/product/product3.jpeg" class="hc-service_img" alt="product photo" />
-                </div>
-              </div>
-            </div>
-            <div data-aos="zoom-in">
-              <div class="hc-service-card">
-                <div class="hc-sercardimg hc-servone">
-                  <img src="assets/images/product/product4.jpeg" class="hc-service_img" alt="product photo" />
-                </div>
-              </div>
-            </div>
-            <div data-aos="zoom-in">
-              <div class="hc-service-card">
-                <div class="hc-sercardimg hc-servone">
-                  <img src="assets/images/product/product5.jpeg" class="hc-service_img" alt="product photo" />
-                </div>
-              </div>
-            </div>
-            <div data-aos="zoom-in">
-              <div class="hc-service-card">
-                <div class="hc-sercardimg hc-servone">
-                  <img src="assets/images/product/product6.jpeg" class="hc-service_img" alt="product photo" />
-                </div>
-              </div>
-            </div>
-            <div data-aos="zoom-in">
-              <div class="hc-service-card">
-                <div class="hc-sercardimg hc-servone">
-                  <img src="assets/images/product/product7.jpeg" class="hc-service_img" alt="product photo" />
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
-      </div>
-
     </div>
   </div>
   <!-- product section end -->
@@ -317,14 +255,102 @@
   </div>
   <!-- footer section end -->
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="assets/js/jquery.min.js"></script>
+  
   <script>
     AOS.init({
       offset: 170,
       duration: 1000,
     });
 
+    $(document).ready(function() {
+      var active_subcategory = '';
+      var products;
+      function fetchProducts() {
+          $.ajax({
+              url: './admin/includes/fetch_data.php',
+              method: 'GET',
+              dataType: 'json',
+              success: function(response) {
+                  if (response.success) {
+                      active_subcategory = response.data.categories[0].subcategories[0].id;
+                      products = response.data.products;
+                      populateCategories(response.data.categories);
+                      populateProducts(response.data.products,active_subcategory,"subcategory");
+                  } else {
+                      console.error('Error fetching data:', response.error);
+                  }
+              },
+              error: function(xhr, status, error) {
+                  console.error('AJAX error:', error);
+              }
+          });
+      }
+
+      function populateCategories(categories) {
+          const categoryList = $('#category-list');
+          categoryList.empty();
+          
+          categories.forEach(category => {
+              const categoryItem = $('<li class="bold category-item" data-category-id="' + category.id + '"></li>').text(category.name);
+              const subcategoryList = $('<ul></ul>');
+
+              // Ensure subcategories is an array
+              const subcategories = Array.isArray(category.subcategories) ? category.subcategories : [category.subcategories];
+
+              subcategories.forEach(subcategory => {
+                const subcategoryItem = $('<li class="fs-8 subcategory-item" data-subcategory-id="' + subcategory.id + '"></li>').text(subcategory.name);
+                subcategoryList.append(subcategoryItem);
+              });
+
+              categoryList.append(categoryItem);
+              categoryList.append(subcategoryList);
+          });
+
+          $('.category-item').on('click', function() {
+            const categoryId = $(this).data('category-id');
+            categoryClick(categoryId);
+          });
+
+          $('.subcategory-item').on('click', function() {
+            const subcategoryId = $(this).data('subcategory-id');
+            subcategoryClick(subcategoryId);
+          });
+      }
+
+
+      function populateProducts(products,populate_id,type) {
+          const productList = $('#product-list');
+          productList.empty();
+          products.forEach(product => {
+            var ref_id = (type == "category") ? product.category_id : product.subcategory_id;
+
+            if(ref_id == populate_id){
+              const productCard = `
+                  <div data-aos="zoom-in">
+                      <div class="hc-service-card">
+                          <div class="hc-sercardimg hc-servone">
+                              <img src="${'./admin/'+product.image}" class="hc-service_img" alt="${product.name}" />
+                          </div>
+                      </div>
+                  </div>`;
+              productList.append(productCard);
+            }
+          });
+      }
+
+      function categoryClick(category_id){
+        populateProducts(products,category_id,"category");
+      }
+
+      function subcategoryClick(subcategory_id){
+        populateProducts(products,subcategory_id,"subcategory");
+      }
+      fetchProducts();
+
+    });
+
   </script>
-  <script src="assets/js/jquery.min.js"></script>
   <script src="assets/js/bootstrap.min.js"></script>
   <script src="assets/js/swiper-bundle.min.js"></script>
   <script src="assets/js/custom.js"></script>

@@ -110,16 +110,16 @@
             elit,sed do eiusmod tempor incididunt ut labore et dolore magna seddo.</p>
         </div>
         <div class="hc-rightbaner carearForm-container">
-          <form class="carearForm" id="appointmentform">
-            <h4 class="hc-appointment-head">Carear Form</h4>
+          <form class="carearForm" id="appointmentform" enctype="multipart/form-data">
+            <h4 class="hc-appointment-head">Career Form</h4>
             <p class="hc-paragraph">Get details in your inbox right now</p>
-            <div class="hc-appointinput ">
-              <input type="text" placeholder="Full Name" id="name" name="name" />
-              <input type="phone" placeholder="Phone" id="phone" name="phone" />
-              <input type="email" placeholder="Email" id="email" name="email" />
-              <input type="file" placeholder="Upload Resume" id="resume" name="resume" accept=".pdf" />
+            <div class="hc-appointinput">
+                <input type="text" placeholder="Full Name" id="name" name="name" required />
+                <input type="tel" pattern="[0-9]{10}" placeholder="Phone" id="phone" name="contact" required />
+                <input type="email" placeholder="Email" id="email" name="email" required />
+                <input type="file" id="resume" name="resume" accept=".pdf" required />
             </div>
-            <a href="javascript:;" class="hc-about-btn hc-formbtn">Submit</a>
+            <button type="submit" class="hc-about-btn hc-formbtn">Submit</button>
           </form>
         </div>
       </div>
@@ -311,6 +311,45 @@
     });
   </script>
   <script src="assets/js/jquery.min.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.getElementById('appointmentform');
+
+        form.addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent default form submission
+
+            // Fetch form data
+            const formData = new FormData(form);
+
+            // Perform client-side validation (optional)
+            const name = formData.get('name');
+            const email = formData.get('email');
+            const contact = formData.get('contact');
+            const resume = formData.get('resume');
+
+            if (!name || !email || !contact || !resume) {
+                alert('Please fill in all required fields.');
+                return;
+            }
+
+            // Perform AJAX submission
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', './admin/includes/careers_submit.php');
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        alert(xhr.responseText); // Display server response
+                        form.reset(); // Reset form after successful submission
+                    } else {
+                        alert('Error submitting form. Please try again later.'); // Handle server errors
+                    }
+                }
+            };
+            xhr.send(formData);
+        });
+    });
+  </script>
   <script src="assets/js/bootstrap.min.js"></script>
   <script src="assets/js/swiper-bundle.min.js"></script>
   <script src="assets/js/custom.js"></script>
