@@ -85,7 +85,7 @@
               <a href="./contact.html">Contact Us</a>
             </li>
             <li data-aos="fade-down" data-aos-delay="1000">
-              <a href="./carear.html">carear</a>
+              <a href="./Career.html">Career</a>
             </li>
           </ul>
         </div>
@@ -101,48 +101,8 @@
         <h4 class="hc-news-heading">Watch Our Video Content Here</h4>
         <p class="hc-paragraph">Check out our latest video for exciting insights and updates..</p>
       </div>
-      <div class="row">
-        <div class="col-12 col-md-5 m-auto mb-4">
-          <div class="card">
-            <div class="ratio ratio-16x9">
-              <iframe width="560" height="315" src="https://www.youtube.com/embed/wVsFdnThhrw?si=z9NWJPN5gkX6HDdi"
-                title="YouTube video player" frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-            </div>
-          </div>
-        </div>
-        <div class="col-12 col-md-5 m-auto mb-4">
-          <div class="card">
-            <div class="ratio ratio-16x9">
-              <iframe width="560" height="315" src="https://www.youtube.com/embed/wVsFdnThhrw?si=z9NWJPN5gkX6HDdi"
-                title="YouTube video player" frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-            </div>
-          </div>
-        </div>
-        <div class="col-12 col-md-5 m-auto mb-4">
-          <div class="card">
-            <div class="ratio ratio-16x9">
-              <iframe width="560" height="315" src="https://www.youtube.com/embed/wVsFdnThhrw?si=z9NWJPN5gkX6HDdi"
-                title="YouTube video player" frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-            </div>
-          </div>
-        </div>
-        <div class="col-12 col-md-5 m-auto mb-4">
-          <div class="card">
-            <div class="ratio ratio-16x9">
-              <iframe width="560" height="315" src="https://www.youtube.com/embed/wVsFdnThhrw?si=z9NWJPN5gkX6HDdi"
-                title="YouTube video player" frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-            </div>
-          </div>
-        </div>
-
+      <div class="row" id="videoContainer">
+        <!-- Video iframes will be dynamically added here -->
       </div>
     </div>
   </div>
@@ -168,12 +128,20 @@
         <div class="hc-newsletrimg">
           <img src="assets/images/newsletter.png" class="hc-newsleter_img" alt="newsleter" />
           <div class="hc-newsletrinput hc-newssecond">
-            <input type="email" placeholder="Your Email Here..." id="newsemail" class="hc-input" />
-            <div class="hc-nesbtn">
-              <a href="javascript:;" class="hc-bnrbtn">Subscribe
-                <img src="assets/images/rightarrow.png" class="hc-rightarrow" alt="rightarrow" />
-              </a>
-            </div>
+            <form id="myForm2" onsubmit="sendEmail(event)">
+              <input type="email" placeholder="Your Email Here." name="email" id="lname" class="hc-input" />
+              <div class="hc-nesbtn">
+                <button type="submit" class="hc-bnrbtn">Subscribe
+                  <img src="assets/images/rightarrow.png" class="hc-rightarrow" alt="rightarrow" />
+                </button>
+              </div>
+              <div id="submittingforrmail" style="display: none; color: white;">
+                Subscribing....
+              </div>
+              <div id="notificationforemail" style="display: none; color: white">
+                Subscribe Successfully
+              </div>
+            </form>
           </div>
         </div>
       </div>
@@ -234,7 +202,7 @@
                 <a href="./contact.html">Contact Us</a>
               </li>
               <li>
-                <a href="./carear.html">Carear</a>
+                <a href="./Career.html">Career</a>
               </li>
             </ul>
           </div>
@@ -281,7 +249,7 @@
       </div>
       <!-- copyright section start -->
       <div class="hc-copyright-wrapper">
-        <p class="hc-paragraph hs-paragraph-copy "> Copyright © 2024 Plexus orthotech. All Right Reserved</p>
+        <p class="hc-paragraph hs-paragraph-copy "> Copyright © 2024 <a href="https://topgrowth.in/" target="_blank">TopGrowth.in</a>. All Right Reserved</p>
       </div>
       <!-- copyright section end -->
     </div>
@@ -293,11 +261,58 @@
       offset: 170,
       duration: 1000,
     });
+
+    // Function to fetch video data and populate iframes
+    document.addEventListener('DOMContentLoaded', function () {
+      fetchVideoData();
+    });
+
+    async function fetchVideoData() {
+      try {
+        const response = await fetch('./admin/includes/get_videos.php');
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const videoData = await response.json();
+        renderVideos(videoData);
+      } catch (error) {
+        console.error('Error fetching video data:', error);
+      }
+    }
+
+    function renderVideos(videoData) {
+      const videoContainer = document.getElementById('videoContainer');
+      videoData.forEach(video => {
+        const iframe = document.createElement('iframe');
+        iframe.setAttribute('width', '560');
+        iframe.setAttribute('height', '315');
+        iframe.setAttribute('src', video.video_Link);
+        iframe.setAttribute('title', 'YouTube video player');
+        iframe.setAttribute('frameborder', '0');
+        iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
+        iframe.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
+        iframe.setAttribute('allowfullscreen', '');
+        
+        const cardDiv = document.createElement('div');
+        cardDiv.classList.add('col-12', 'col-md-5', 'm-auto', 'mb-4');
+        const card = document.createElement('div');
+        card.classList.add('card');
+        const ratioDiv = document.createElement('div');
+        ratioDiv.classList.add('ratio', 'ratio-16x9');
+
+        ratioDiv.appendChild(iframe);
+        card.appendChild(ratioDiv);
+        cardDiv.appendChild(card);
+        videoContainer.appendChild(cardDiv);
+      });
+    }
   </script>
   <script src="assets/js/jquery.min.js"></script>
   <script src="assets/js/bootstrap.min.js"></script>
   <script src="assets/js/swiper-bundle.min.js"></script>
   <script src="assets/js/custom.js"></script>
+  <script src="assets/js/form.js"></script>
+
   <script src="assets/js/jquery.nice-select.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/11.0.5/swiper-bundle.min.js" crossorigin="anonymous"
     referrerpolicy="no-referrer"></script>

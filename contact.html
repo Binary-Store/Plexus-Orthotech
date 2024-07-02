@@ -85,7 +85,7 @@
               <a href="#">Contact Us</a>
             </li>
             <li data-aos="fade-down" data-aos-delay="1000">
-              <a href="./carear.html">carear</a>
+              <a href="./Career.html">Career</a>
             </li>
           </ul>
         </div>
@@ -130,14 +130,21 @@
               <p class="hc-paragraph">Senior Cardiologist</p>
             </div>
           </div>
-          <form class="hc-appointmnetform" id="appointmentform">
+          <form class="hc-appointmnetform" id="myForm" onsubmit="sendData(event)">
             <h4 class="hc-appointment-head">Contact Us</h4>
             <p class="hc-paragraph">Get details in your inbox right now</p>
             <div class="hc-appointinput">
-              <input type="text" placeholder="Full Name" id="name" name="name" />
-              <input type="phone" placeholder="Phone" id="phone" name="phone" />
-              <input type="email" placeholder="Email" id="email" name="email" />
-              <textarea type="message" placeholder="Message" rows="4" id="message" name="message"></textarea>
+              <input type="text" placeholder="Full Name" id="name" name="name" required/>
+              <input type="tel" placeholder="Phone" id="phone" name="number" pattern="[0-9]{10}" required/>
+              <input type="email" placeholder="Email" id="email" name="email" required/>
+              <textarea type="message" placeholder="Message" rows="4" id="message" name="message" required></textarea>
+
+            </div>
+            <div id="submitting" style="display: none;">
+              Submitting form.....
+            </div>
+            <div id="notification" style="display: none;">
+              Message sent Successfully
             </div>
             <!-- <div class="hc-daterow">
                               <select name="day" id="day"></select>
@@ -149,7 +156,7 @@
                                   <select name="year" id="year"> </select>
                               </div>
                           </div> -->
-            <a href="javascript:;" class="hc-about-btn hc-formbtn">contact Us</a>
+            <button type="submit" class="hc-about-btn hc-formbtn">submit form</button>
           </form>
         </div>
       </div>
@@ -166,11 +173,20 @@
           <p class="hc-paragraph">Subscribe to our newsletter to get regular update about online medical
             sessions. Get latest news in your inbox.</p>
           <div class="hc-newsletrinput hc-newsfirst">
-            <input type="email" placeholder="Your Email Here..." id="lname" class="hc-input" />
-            <div class="hc-nesbtn">
-              <a href="javascript:;" class="hc-bnrbtn">Subscribe
-                <img src="assets/images/rightarrow.png" class="hc-rightarrow" alt="rightarrow" />
-              </a>
+            <form  id="myForm2" onsubmit="sendEmail(event)">
+              <input type="email" placeholder="Your Email Here." name="email" id="lname" class="hc-input" />
+              <div class="hc-nesbtn">
+                  <button type="submit" class="hc-bnrbtn">Subscribe
+                      <img src="assets/images/rightarrow.png" class="hc-rightarrow" alt="rightarrow" />
+                  </button>
+              </div>
+              <div id="submittingforrmail" style="display: none; color: white;">
+                  Subscribing....
+                </div>
+                <div id="notificationforemail" style="display: none; color: white">
+                  Subscribe Successfully
+                </div>
+          </form>
             </div>
           </div>
         </div>
@@ -243,7 +259,7 @@
                 <a href="./contact.html">Contact Us</a>
               </li>
               <li>
-                <a href="./carear.html">Carear</a>
+                <a href="./Career.html">Career</a>
               </li>
             </ul>
           </div>
@@ -290,7 +306,7 @@
       </div>
       <!-- copyright section start -->
       <div class="hc-copyright-wrapper">
-        <p class="hc-paragraph hs-paragraph-copy "> Copyright © 2024 Plexus orthotech. All Right Reserved</p>
+        <p class="hc-paragraph hs-paragraph-copy "> Copyright © 2024 <a href="https://topgrowth.in/" target="_blank">TopGrowth.in</a>. All Right Reserved</p>
       </div>
       <!-- copyright section end -->
     </div>
@@ -307,7 +323,10 @@
   <script src="assets/js/bootstrap.min.js"></script>
   <script src="assets/js/swiper-bundle.min.js"></script>
   <script src="assets/js/custom.js"></script>
+  <script src="assets/js/form.js"></script>
+
   <script src="assets/js/jquery.nice-select.min.js"></script>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/11.0.5/swiper-bundle.min.js" crossorigin="anonymous"
     referrerpolicy="no-referrer"></script>
 </body>

@@ -777,8 +777,9 @@ p {
 }
 
 .hc-about-top {
+    display: flex;
+    flex-direction: column;
     text-align: left;
-    position: relative;
 }
 
 .hc-about-top h6 {
@@ -959,7 +960,7 @@ p {
 }
 
 .hc-appointmnetform h4,
-.carearForm h4 {
+.CareerForm h4 {
     font-size: 20px;
     font-weight: 700;
     color: var(--hc-head-color);
@@ -1033,14 +1034,14 @@ p {
 }
 
 .hc-appointmnetform .hc-about-btn ,
-.carearForm .hc-about-btn{
+.CareerForm .hc-about-btn{
     max-width: 280px;
     margin-top: 20px;
     height: 50px;
 }
 
 .hc-appointmnetform a:hover,
-.carearForm a:hover{
+.CareerForm a:hover{
     color: var(--hc-white-color);
 }
 
@@ -1433,6 +1434,11 @@ p {
 .hc-testimonial-textcol .hc-depicon {
     position: absolute;
     bottom: 140px;
+}
+
+.custom-depicon{
+    position: unset !important;
+    margin-top: 60px;
 }
 
 /* testimonial section css end  */
@@ -2499,7 +2505,7 @@ span.searchBtn {
 }
 
 @media(max-width:540px) {
-    .carearForm{
+    .CareerForm{
         width: 100% !important;
     }
     .hc-about-btn {
@@ -2519,7 +2525,7 @@ span.searchBtn {
         font-size: 13px;
     }
     .hc-appointmnetform .hc-about-btn,
-    .carearForm .hc-about-btn {
+    .CareerForm .hc-about-btn {
         max-width: 100%;
     }
     .hc-newsletterbox {
@@ -2533,7 +2539,7 @@ span.searchBtn {
         width: 100px;
     }
     .hc-appointmnetform h4
-    ,.carearForm h4{
+    ,.CareerForm h4{
         font-size: 18px;
     }
     .hc-appointment-img .hc-lilybox {
@@ -2773,7 +2779,7 @@ span.searchBtn {
 .hero-logo{
     height: 150px;
 } 
-.carearForm-container{
+.CareerForm-container{
     display: flex;
     justify-content: center;
 }
@@ -2793,7 +2799,7 @@ input[type="file"]::-webkit-file-upload-button {
     margin-right: 16px;
     transition: background-color 200ms;
   }
-.carearForm{
+.CareerForm{
     width: 336px;
     height: 468px;
     background-color: var(--hc-white-color);
