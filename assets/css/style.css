@@ -1849,6 +1849,7 @@ p {
     text-align: right;
 }
 
+
 .linkedin a {
     width: 40px;
     height: 40px;
@@ -2374,6 +2375,12 @@ span.searchBtn {
 }
 
 @media(max-width:767px) {
+    .pc-container{
+        padding-top: 100px !important;
+    }
+    .input-grop-container{
+        width: 100% !important;
+    }
     .product-container{
         flex-direction: column;
     }
@@ -2812,4 +2819,6 @@ input[type="file"]::-webkit-file-upload-button {
         height: 100px !important;
     } 
 }
-
+.input-grop-container{
+    width: 25%;
+}

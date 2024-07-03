@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Begin Head -->
+
+<head>
+    <!--=== Required meta tags ===-->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <!--=== custom css ===-->
+    <link href="../../assets/fonts/metropolis.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../../assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../../assets/css/animate.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="shortcut icon" type="image/png" href="../../assets/images/favicon.png" />
+    <link rel="stylesheet" href="../../assets/css/style.css" />
+
+    <link rel="stylesheet" href="../css/index.css">
+    <!--=== custom css ===-->
+    <title>Plexus Orthotech - Admin pannel</title>
+</head>
+
+<body>
+
+    <div class="hc-header-wrapper hc-sections">
+        <div class=" hc-container">
+            <div class="hc-navbar-wrapper">
+                <div class="hc-brand-logo">
+                    <a href="../../index.html">
+                        <img src="../../assets/images/logo.png" class="hc-logo" alt="logo" />
+                    </a>
+                    <div class="hc-toggle-btn">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+                <div class="hc-navbar-menu">
+                    <ul>
+                        <li class="responsive-logo">
+                            <a href="#">
+                                <img src="../../assets/images/logo.png" />
+                            </a>
+                        </li>
+                        <li class="active">
+                            <a href="#">Product</a>
+                        </li>
+                        <li>
+                            <a href="./category.html">Category</a>
+                        </li>
+                        <li>
+                            <a href="./careers.html">Careers</a>
+                        </li>
+                        <li>
+                            <a href="./video.html">Video</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="hc-department-wrapper hc-sections pc-container">
+        <div class="d-block d-lg-flex justify-content-start gap-3 m-3">
+            <div class="input-group input-grop-container mb-3">
+                <input type="text" class="form-control">
+                <div class="input-group-append"><button class="btn btn-primary"><i class="fas fa-search"></i></button>
+                </div>
+            </div>
+            <!-- Button trigger modal -->
+            <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                add Product
+            </button>
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Add Product</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <div class="mb-3 col-12">
+                                    <label for="product-name" class="form-label">Product Name</label>
+                                    <input type="text" class="form-control" id="product-name">
+                                </div>
+                                <div class="mb-3 col-12">
+                                    <label for="validationCustom04" class="form-label">Category</label>
+                                    <select class="form-select" id="validationCustom04" required>
+                                        <option selected disabled value="">Choose...</option>
+                                        <option>1</option>
+                                    </select>
+                                    <div class="invalid-feedback">
+                                        Please select a valid state.
+                                    </div>
+                                </div>
+                                <div class="mb-3 col-12">
+                                    <label for="validationCustom04" class="form-label">Sub Category</label>
+                                    <select class="form-select" id="validationCustom04" required>
+                                        <option selected disabled value="">Choose...</option>
+                                        <option>1</option>
+                                    </select>
+                                    <div class="invalid-feedback">
+                                        Please select a valid state.
+                                    </div>
+                                </div>
+                                <div class="mb-3 col-12">
+                                    <label for="validationCustom04" class="form-label">Description</label>
+                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                    <div class="invalid-feedback">
+                                        Please select a valid state.
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex justify-content-around flex-wrap">
+            <div class="product-card">
+                <img src="../../assets/images/product/product1.jpeg" alt="Product Image">
+                <h3>dhami</h3>
+                <p>naman</p>
+                <p>Category:category 1</p>
+                <p>Subcategory:subcategory 2</p>
+                <button class="edit-product-btn" data-id="1">Edit</button>
+                <button class="delete-product-btn" data-id="1">Delete</button>
+            </div>
+            <div class="product-card">
+                <img src="../../assets/images/product/product1.jpeg" alt="Product Image">
+                <h3>dhami</h3>
+                <p>naman</p>
+                <p>Category:category 1</p>
+                <p>Subcategory:subcategory 2</p>
+                <button class="edit-product-btn" data-id="1">Edit</button>
+                <button class="delete-product-btn" data-id="1">Delete</button>
+            </div>
+            <div class="product-card">
+                <img src="../../assets/images/product/product1.jpeg" alt="Product Image">
+                <h3>dhami</h3>
+                <p>naman</p>
+                <p>Category:category 1</p>
+                <p>Subcategory:subcategory 2</p>
+                <button class="edit-product-btn" data-id="1">Edit</button>
+                <button class="delete-product-btn" data-id="1">Delete</button>
+            </div>
+            <div class="product-card">
+                <img src="../../assets/images/product/product1.jpeg" alt="Product Image">
+                <h3>dhami</h3>
+                <p>naman</p>
+                <p>Category:category 1</p>
+                <p>Subcategory:subcategory 2</p>
+                <button class="edit-product-btn" data-id="1">Edit</button>
+                <button class="delete-product-btn" data-id="1">Delete</button>
+            </div>
+            <div class="product-card">
+                <img src="../../assets/images/product/product1.jpeg" alt="Product Image">
+                <h3>dhami</h3>
+                <p>naman</p>
+                <p>Category:category 1</p>
+                <p>Subcategory:subcategory 2</p>
+                <button class="edit-product-btn" data-id="1">Edit</button>
+                <button class="delete-product-btn" data-id="1">Delete</button>
+            </div>
+            <div class="product-card">
+                <img src="../../assets/images/product/product1.jpeg" alt="Product Image">
+                <h3>dhami</h3>
+                <p>naman</p>
+                <p>Category:category 1</p>
+                <p>Subcategory:subcategory 2</p>
+                <button class="edit-product-btn" data-id="1">Edit</button>
+                <button class="delete-product-btn" data-id="1">Delete</button>
+            </div>
+            <div class="product-card">
+                <img src="../../assets/images/product/product1.jpeg" alt="Product Image">
+                <h3>dhami</h3>
+                <p>naman</p>
+                <p>Category:category 1</p>
+                <p>Subcategory:subcategory 2</p>
+                <button class="edit-product-btn" data-id="1">Edit</button>
+                <button class="delete-product-btn" data-id="1">Delete</button>
+            </div>
+            <div class="product-card">
+                <img src="../../assets/images/product/product1.jpeg" alt="Product Image">
+                <h3>dhami</h3>
+                <p>naman</p>
+                <p>Category:category 1</p>
+                <p>Subcategory:subcategory 2</p>
+                <button class="edit-product-btn" data-id="1">Edit</button>
+                <button class="delete-product-btn" data-id="1">Delete</button>
+            </div>
+            <div class="product-card">
+                <img src="../../assets/images/product/product1.jpeg" alt="Product Image">
+                <h3>dhami</h3>
+                <p>naman</p>
+                <p>Category:category 1</p>
+                <p>Subcategory:subcategory 2</p>
+                <button class="edit-product-btn" data-id="1">Edit</button>
+                <button class="delete-product-btn" data-id="1">Delete</button>
+            </div>
+            <div class="product-card">
+                <img src="../../assets/images/product/product1.jpeg" alt="Product Image">
+                <h3>dhami</h3>
+                <p>naman</p>
+                <p>Category:category 1</p>
+                <p>Subcategory:subcategory 2</p>
+                <button class="edit-product-btn" data-id="1">Edit</button>
+                <button class="delete-product-btn" data-id="1">Delete</button>
+            </div>
+            <div class="product-card">
+                <img src="../../assets/images/product/product1.jpeg" alt="Product Image">
+                <h3>dhami</h3>
+                <p>naman</p>
+                <p>Category:category 1</p>
+                <p>Subcategory:subcategory 2</p>
+                <button class="edit-product-btn" data-id="1">Edit</button>
+                <button class="delete-product-btn" data-id="1">Delete</button>
+            </div>
+            <div class="product-card">
+                <img src="../../assets/images/product/product1.jpeg" alt="Product Image">
+                <h3>dhami</h3>
+                <p>naman</p>
+                <p>Category:category 1</p>
+                <p>Subcategory:subcategory 2</p>
+                <button class="edit-product-btn" data-id="1">Edit</button>
+                <button class="delete-product-btn" data-id="1">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../assets/js/jquery.min.js"></script>
+    <script src="../../assets/js/bootstrap.min.js"></script>
+    <script src="../../assets/js/swiper-bundle.min.js"></script>
+    <script src="../../assets/js/custom.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/11.0.5/swiper-bundle.min.js" crossorigin="anonymous"
+        referrerpolicy="no-referrer"></script>
+
+</body>
+
+</html>

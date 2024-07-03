@@ -1,6 +1,4 @@
-$(document).ready(function() {
-    $('select').niceSelect();
-});
+
 
 (function($) {
     "use strict";
