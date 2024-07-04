@@ -49,13 +49,16 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
 }
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
   try {
-    $productsStmt = $pdo->query('SELECT * FROM products ORDER BY created_at DESC');
+    $productsStmt = $pdo->query('SELECT p.name AS name, p.description, p.image, c.name AS category, sc.name AS subcategory
+        FROM products p
+        INNER JOIN categories c ON p.category_id = c.id
+        INNER JOIN subcategories sc ON p.subcategory_id = sc.id');
     $products = $productsStmt->fetchAll(PDO::FETCH_ASSOC);
     $response = array('success' => true, 'products' => $products);
     echo json_encode($response);
 
   } catch (PDOException $e) {
-    $response = array('success' => false, 'message' => "Something went wrong");
+    $response = array('success' => false, 'message' => $e->getMessage());
     echo json_encode($response);
     exit();
   }

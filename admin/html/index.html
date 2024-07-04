@@ -18,6 +18,13 @@
     <link rel="stylesheet" href="../css/index.css">
     <!--=== custom css ===-->
     <title>Plexus Orthotech - Admin pannel</title>
+    <script src="../js/index.js"></script>
+    <script>
+        //TODO : Add this script to all admin pages once login functionlity compleate
+        // document.addEventListener('DOMContentLoaded', function () {
+        //     checkCookieAndRedirect('adminToken', './login.html');
+        // });
+    </script>
 </head>
 
 <body>
@@ -80,157 +87,55 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form>
+                            <form class="needs-validation" id="product-form" novalidate>
                                 <div class="mb-3 col-12">
                                     <label for="product-name" class="form-label">Product Name</label>
-                                    <input type="text" class="form-control" id="product-name">
+                                    <input type="text" class="form-control" id="product-name" required>
+                                    <div class="invalid-feedback">
+                                        Please enter a valid product name.
+                                    </div>
                                 </div>
                                 <div class="mb-3 col-12">
-                                    <label for="validationCustom04" class="form-label">Category</label>
-                                    <select class="form-select" id="validationCustom04" required>
+                                    <label for="product-category" class="form-label">Category</label>
+                                    <select class="form-select border" id="product-category" required>
+                                        <option selected disabled value="">Select Category ...</option>
+                                    </select>
+                                    <div class="invalid-feedback">
+                                        Please select a Category
+                                    </div>
+                                </div>
+                                <div class="mb-3 col-12">
+                                    <label for="product-subcategory" class="form-label">Sub Category</label>
+                                    <select class="form-select border" id="product-subcategory" required>
                                         <option selected disabled value="">Choose...</option>
                                         <option>1</option>
                                     </select>
                                     <div class="invalid-feedback">
-                                        Please select a valid state.
+                                        Please select a Sub Category
                                     </div>
                                 </div>
                                 <div class="mb-3 col-12">
-                                    <label for="validationCustom04" class="form-label">Sub Category</label>
-                                    <select class="form-select" id="validationCustom04" required>
-                                        <option selected disabled value="">Choose...</option>
-                                        <option>1</option>
-                                    </select>
+                                    <label for="product-desctiption" class="form-label">Description</label>
+                                    <textarea class="form-control" id="product-desctiption" rows="3"></textarea>
                                     <div class="invalid-feedback">
-                                        Please select a valid state.
+                                        Please enter a valid Description
                                     </div>
                                 </div>
                                 <div class="mb-3 col-12">
-                                    <label for="validationCustom04" class="form-label">Description</label>
-                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                    <label for="product-img" class="form-label">Image</label>
+                                    <input type="file" class="form-control" id="product-img" required>
                                     <div class="invalid-feedback">
-                                        Please select a valid state.
+                                        plese upload a image
                                     </div>
                                 </div>
+                                <button type="submit" class="btn btn-primary">create</button>
                             </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="d-flex justify-content-around flex-wrap">
-            <div class="product-card">
-                <img src="../../assets/images/product/product1.jpeg" alt="Product Image">
-                <h3>dhami</h3>
-                <p>naman</p>
-                <p>Category:category 1</p>
-                <p>Subcategory:subcategory 2</p>
-                <button class="edit-product-btn" data-id="1">Edit</button>
-                <button class="delete-product-btn" data-id="1">Delete</button>
-            </div>
-            <div class="product-card">
-                <img src="../../assets/images/product/product1.jpeg" alt="Product Image">
-                <h3>dhami</h3>
-                <p>naman</p>
-                <p>Category:category 1</p>
-                <p>Subcategory:subcategory 2</p>
-                <button class="edit-product-btn" data-id="1">Edit</button>
-                <button class="delete-product-btn" data-id="1">Delete</button>
-            </div>
-            <div class="product-card">
-                <img src="../../assets/images/product/product1.jpeg" alt="Product Image">
-                <h3>dhami</h3>
-                <p>naman</p>
-                <p>Category:category 1</p>
-                <p>Subcategory:subcategory 2</p>
-                <button class="edit-product-btn" data-id="1">Edit</button>
-                <button class="delete-product-btn" data-id="1">Delete</button>
-            </div>
-            <div class="product-card">
-                <img src="../../assets/images/product/product1.jpeg" alt="Product Image">
-                <h3>dhami</h3>
-                <p>naman</p>
-                <p>Category:category 1</p>
-                <p>Subcategory:subcategory 2</p>
-                <button class="edit-product-btn" data-id="1">Edit</button>
-                <button class="delete-product-btn" data-id="1">Delete</button>
-            </div>
-            <div class="product-card">
-                <img src="../../assets/images/product/product1.jpeg" alt="Product Image">
-                <h3>dhami</h3>
-                <p>naman</p>
-                <p>Category:category 1</p>
-                <p>Subcategory:subcategory 2</p>
-                <button class="edit-product-btn" data-id="1">Edit</button>
-                <button class="delete-product-btn" data-id="1">Delete</button>
-            </div>
-            <div class="product-card">
-                <img src="../../assets/images/product/product1.jpeg" alt="Product Image">
-                <h3>dhami</h3>
-                <p>naman</p>
-                <p>Category:category 1</p>
-                <p>Subcategory:subcategory 2</p>
-                <button class="edit-product-btn" data-id="1">Edit</button>
-                <button class="delete-product-btn" data-id="1">Delete</button>
-            </div>
-            <div class="product-card">
-                <img src="../../assets/images/product/product1.jpeg" alt="Product Image">
-                <h3>dhami</h3>
-                <p>naman</p>
-                <p>Category:category 1</p>
-                <p>Subcategory:subcategory 2</p>
-                <button class="edit-product-btn" data-id="1">Edit</button>
-                <button class="delete-product-btn" data-id="1">Delete</button>
-            </div>
-            <div class="product-card">
-                <img src="../../assets/images/product/product1.jpeg" alt="Product Image">
-                <h3>dhami</h3>
-                <p>naman</p>
-                <p>Category:category 1</p>
-                <p>Subcategory:subcategory 2</p>
-                <button class="edit-product-btn" data-id="1">Edit</button>
-                <button class="delete-product-btn" data-id="1">Delete</button>
-            </div>
-            <div class="product-card">
-                <img src="../../assets/images/product/product1.jpeg" alt="Product Image">
-                <h3>dhami</h3>
-                <p>naman</p>
-                <p>Category:category 1</p>
-                <p>Subcategory:subcategory 2</p>
-                <button class="edit-product-btn" data-id="1">Edit</button>
-                <button class="delete-product-btn" data-id="1">Delete</button>
-            </div>
-            <div class="product-card">
-                <img src="../../assets/images/product/product1.jpeg" alt="Product Image">
-                <h3>dhami</h3>
-                <p>naman</p>
-                <p>Category:category 1</p>
-                <p>Subcategory:subcategory 2</p>
-                <button class="edit-product-btn" data-id="1">Edit</button>
-                <button class="delete-product-btn" data-id="1">Delete</button>
-            </div>
-            <div class="product-card">
-                <img src="../../assets/images/product/product1.jpeg" alt="Product Image">
-                <h3>dhami</h3>
-                <p>naman</p>
-                <p>Category:category 1</p>
-                <p>Subcategory:subcategory 2</p>
-                <button class="edit-product-btn" data-id="1">Edit</button>
-                <button class="delete-product-btn" data-id="1">Delete</button>
-            </div>
-            <div class="product-card">
-                <img src="../../assets/images/product/product1.jpeg" alt="Product Image">
-                <h3>dhami</h3>
-                <p>naman</p>
-                <p>Category:category 1</p>
-                <p>Subcategory:subcategory 2</p>
-                <button class="edit-product-btn" data-id="1">Edit</button>
-                <button class="delete-product-btn" data-id="1">Delete</button>
-            </div>
+        <div class="d-flex justify-content-around flex-wrap" id="product-container">
         </div>
     </div>
 
@@ -238,8 +143,93 @@
     <script src="../../assets/js/bootstrap.min.js"></script>
     <script src="../../assets/js/swiper-bundle.min.js"></script>
     <script src="../../assets/js/custom.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/11.0.5/swiper-bundle.min.js" crossorigin="anonymous"
-        referrerpolicy="no-referrer"></script>
+    <script>
+        let url = 'http://localhost/plexus/admin/includes/product.php'
+        let productUrl = 'http://localhost/plexus/admin/images'
+        let product = []
+        let category = []
+
+        let form = document.getElementById('product-form')
+
+        form.addEventListener('submit', function (event) {
+            if (!form.checkValidity()) {
+                event.preventDefault()
+                event.stopPropagation()
+            }
+            // TODO : Add ajax call to save data
+
+            form.classList.add('was-validated')
+        })
+        $.ajax({
+            url: 'http://localhost/plexus/admin/includes/category.php',
+            type: 'GET',
+            success: function (data) {
+                console.log(data, "category")
+                category = data.categories
+                renderCategory(category)
+            },
+            error: function (error) {
+                console.log(error)
+            }
+        })
+
+        $.ajax({
+            url: url,
+            type: 'GET',
+            success: function (data) {
+                product = data.products
+                renderProduct(product)
+            },
+            error: function (error) {
+                console.log(error)
+            }
+        })
+
+        function renderCategory(category) {
+            let product_category = document.getElementById('product-category')
+            category.forEach(element => {
+                let option = document.createElement('option')
+                option.value = element.id
+                option.innerText = element.name
+                product_category.appendChild(option)
+            });
+            product_category.addEventListener('change', function () {
+                renderSubCategory(this.value); // Render subcategories based on selected category
+            });
+
+        }
+        function renderSubCategory(id) {
+
+            let product_subcategory = document.getElementById('product-subcategory')
+            // Clear previous subcategories
+            product_subcategory.innerHTML = '<option selected disabled value="">Choose...</option>'
+            let catgoryIndex = category.findIndex(element => element.id == id)
+            let subcategory = category[catgoryIndex].subcategories
+            subcategory.forEach(element => {
+                let option = document.createElement('option')
+                option.value = element.id
+                option.innerText = element.name
+                product_subcategory.appendChild(option)
+            });
+
+        }
+        function renderProduct(product) {
+            let container = document.getElementById("product-container")
+            product.forEach(element => {
+                let productCard = document.createElement('div')
+                productCard.classList.add('product-card')
+                productCard.innerHTML = `
+                <img src="${productUrl}/${element.image}" alt="Product Image">
+                <h3>${element.name}</h3>
+                <p>${element.description}</p>
+                <p>Category:${element.category}</p>
+                <p>Subcategory:${element.subcategory}</p>
+                <button class="edit-product-btn" data-id="${element.id}">Edit</button>
+                <button class="delete-product-btn" data-id="${element.id}">Delete</button>`
+                container.innerHTML = container.innerHTML + productCard.outerHTML;
+            });
+        }
+    </script>
 
 </body>
 

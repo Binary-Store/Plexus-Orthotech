@@ -17,7 +17,7 @@
 
   <link rel="stylesheet" href="../css/index.css">
   <!--=== custom css ===-->
-  <title>Plexus Orthotech - Admin pannel</title>
+  <title>Plexus Orthotech - Admin pannel - category</title>
 </head>
 
 <body>
@@ -131,7 +131,7 @@
       </div>
     </div>
     <div class="table-responsive m-4">
-      <table class="table table-striped table-hover">
+      <table class="table table-hover main-table">
         <thead>
           <tr>
             <th>No</th>
@@ -141,34 +141,54 @@
         </thead>
         <tbody>
           <tr>
-            <td>1</td>
-            <td>category 1</td>
-            <td>edit</td>
+            <td class="align-middle">1</td>
+            <td class="align-middle">category 1</td>
+            <td>
+              <div class="action">
+                <img src="../../assets/images/admin/edit.svg" alt="edit icon">
+                <img src="../../assets/images/admin/delete.svg" alt="delete icon">
+              </div>
+            </td>
           </tr>
           <tr>
-            <td>1</td>
-            <td>category 1</td>
-            <td>edit</td>
+            <td class="align-middle">1</td>
+            <td class="align-middle">category 1</td>
+            <td>
+              <div class="action">
+                <img src="../../assets/images/admin/edit.svg" alt="edit icon">
+                <img src="../../assets/images/admin/delete.svg" alt="delete icon">
+              </div>
+            </td>
           </tr>
           <tr>
-            <td>1</td>
-            <td>category 1</td>
-            <td>edit</td>
+            <td class="align-middle">1</td>
+            <td class="align-middle">category 1</td>
+            <td>
+              <div class="action">
+                <img src="../../assets/images/admin/edit.svg" alt="edit icon">
+                <img src="../../assets/images/admin/delete.svg" alt="delete icon">
+              </div>
+            </td>
           </tr>
           <tr>
-            <td>1</td>
-            <td>category 1</td>
-            <td>edit</td>
+            <td class="align-middle">1</td>
+            <td class="align-middle">category 1</td>
+            <td>
+              <div class="action">
+                <img src="../../assets/images/admin/edit.svg" alt="edit icon">
+                <img src="../../assets/images/admin/delete.svg" alt="delete icon">
+              </div>
+            </td>
           </tr>
           <tr>
-            <td>1</td>
-            <td>category 1</td>
-            <td>edit</td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>category 1</td>
-            <td>edit</td>
+            <td class="align-middle">1</td>
+            <td class="align-middle">category 1</td>
+            <td>
+              <div class="action">
+                <img src="../../assets/images/admin/edit.svg" alt="edit icon">
+                <img src="../../assets/images/admin/delete.svg" alt="delete icon">
+              </div>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -183,34 +203,57 @@
     referrerpolicy="no-referrer"></script>
   <script>
     $(document).ready(function () {
-      $('table tr').click(function () {
-        let table = `<tr><div class="table-responsive m-4">
-            <table>
-              <thead>
-                <tr>
-                  <th>No</th>
-                  <th>Sub Category Name</th>
-                  <th>action</th>
-                </tr>
+      $('table tbody').on('click', 'tr', function () {
+        const tr = $(this).closest('tr');
+        const nextRow = tr.next('.sub-table-row');
+
+        if (nextRow.length) {
+          // If sub-table rows are already present, remove them
+          nextRow.remove();
+        } else {
+          // Otherwise, add the sub-table rows
+          let table = `
+        <tr class="sub-table-row">
+          <td colspan="3">
+            <div class="m-3">
+              <table class="table table-striped table-hover W-100">
+                <thead>
+                  <tr>
+                    <th>No</th>
+                    <th>Sub Category</th>
+                    <th>Action</th>
+                  </tr>
                 </thead>
                 <tbody>
-                `
-        const tr = $(this).closest('tr');
-        table += `<tr>
-                  <td>1</td>
-                  <td>Sub Category 1</td>
-                  <td>edit</td>
-                </tr>`
-        table += `<tr>
-                  <td>1</td>
-                  <td>Sub Category 1</td>
-                  <td>edit</td>`
-        table += `</tbody>
-                  </table>
-                  </div></tr>`
-        tr.append(table)
-      })
-    })
+                  <tr>
+                    <td class="align-middle">1</td>
+                    <td class="align-middle">Sub Category 1</td>
+                    <td><div class="sub-category-action">
+                <img src="../../assets/images/admin/edit2.svg" alt="edit icon">
+                <img src="../../assets/images/admin/delete2.svg" alt="delete icon">
+              </div></td>
+                  </tr>
+                    <tr>
+                    <td class="align-middle">1</td>
+                    <td class="align-middle">Sub Category 1</td>
+                    <td><div class="sub-category-action">
+                <img src="../../assets/images/admin/edit2.svg" alt="edit icon">
+                <img src="../../assets/images/admin/delete2.svg" alt="delete icon">
+              </div></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </td>
+        </tr>
+      `;
+
+          tr.after(table);
+        }
+      });
+    });
+
+
   </script>
 
 </body>
