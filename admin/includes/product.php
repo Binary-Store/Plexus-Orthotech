@@ -52,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $productsStmt = $pdo->query('SELECT p.name AS name, p.description, p.image, c.name AS category, sc.name AS subcategory
         FROM products p
         INNER JOIN categories c ON p.category_id = c.id
-        INNER JOIN subcategories sc ON p.subcategory_id = sc.id');
+        LEFT JOIN subcategories sc ON p.subcategory_id = sc.id');
     $products = $productsStmt->fetchAll(PDO::FETCH_ASSOC);
     $response = array('success' => true, 'products' => $products);
     echo json_encode($response);
@@ -67,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
   $productName = $_POST['product_name'];
   $productDescription = $_POST['product_description'];
   $categoryId = $_POST['category_id'];
-  $subcategoryId = $_POST['subcategory_id'];
+  $subcategoryId = $_POST['subcategory_id'] ?? '-1';
   $imageName = null;
 
   if (isset($_FILES['product_image']) && $_FILES['product_image']['error'] == 0) {

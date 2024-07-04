@@ -106,19 +106,12 @@
                                 </div>
                                 <div class="mb-3 col-12">
                                     <label for="product-subcategory" class="form-label">Sub Category</label>
-                                    <select class="form-select border" id="product-subcategory" required>
+                                    <select class="form-select border" id="product-subcategory">
                                         <option selected disabled value="">Choose...</option>
                                         <option>1</option>
                                     </select>
                                     <div class="invalid-feedback">
                                         Please select a Sub Category
-                                    </div>
-                                </div>
-                                <div class="mb-3 col-12">
-                                    <label for="product-desctiption" class="form-label">Description</label>
-                                    <textarea class="form-control" id="product-desctiption" rows="3"></textarea>
-                                    <div class="invalid-feedback">
-                                        Please enter a valid Description
                                     </div>
                                 </div>
                                 <div class="mb-3 col-12">
@@ -143,6 +136,7 @@
     <script src="../../assets/js/bootstrap.min.js"></script>
     <script src="../../assets/js/swiper-bundle.min.js"></script>
     <script src="../../assets/js/custom.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         let url = 'http://localhost/plexus/admin/includes/product.php'
         let productUrl = 'http://localhost/plexus/admin/images'
@@ -223,7 +217,7 @@
                 <h3>${element.name}</h3>
                 <p>${element.description}</p>
                 <p>Category:${element.category}</p>
-                <p>Subcategory:${element.subcategory}</p>
+                ${element.subcategory !== null ? `< p > Subcategory:${element.subcategory}</p >` : ``}
                 <button class="edit-product-btn" data-id="${element.id}">Edit</button>
                 <button class="delete-product-btn" data-id="${element.id}">Delete</button>`
                 container.innerHTML = container.innerHTML + productCard.outerHTML;
