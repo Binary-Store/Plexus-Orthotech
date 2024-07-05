@@ -112,7 +112,7 @@
   <script>
     //add video form 
     const form = document.getElementById('add_video_form');
-    const url = 'http://localhost/plexus/admin/includes/video.php'
+    const url = 'http://localhost/Plexus-Orthotech/admin/includes/video.php'
     let videos = []
 
     $('#videoModel').on('hidden.bs.modal', function (e) {
@@ -198,7 +198,6 @@
                 referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
             </div>
             <div class="action d-flex align-middle justify-content-start gap-4 mt-3">
-              <img class="border" src="../../assets/images/admin/edit.svg" onClick="editVideoCard(${element.id})" alt="edit icon">
               <img class="border" src="../../assets/images/admin/delete.svg" onClick="deleteVideoCard(${element.id})" alt="delete icon">
             </div>
           </div>`;
