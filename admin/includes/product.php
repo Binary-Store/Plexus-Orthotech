@@ -87,7 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $stmt->execute([$productName, $imageName, $categoryId, $subcategoryId]);
     // get last added product data
     $lastId = $pdo->lastInsertId();
-    $stmt = $pdo->prepare('SELECT p.name AS name, p.image, c.name AS category,c.id AS category_id,sc.id AS subcategory_id, sc.name AS subcategory
+    $stmt = $pdo->prepare('SELECT p.id AS id, p.name AS name, p.image, c.name AS category,c.id AS category_id,sc.id AS subcategory_id, sc.name AS subcategory
         FROM products p
         INNER JOIN categories c ON p.category_id = c.id
         LEFT JOIN subcategories sc ON p.subcategory_id = sc.id

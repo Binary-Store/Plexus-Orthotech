@@ -51,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
   $productName = $_POST['product_name'];
   $categoryId = $_POST['category_id'];
-  $subcategoryId = $_POST['subcategory_id'];
+  $subcategoryId = $_POST['subcategory_id'] ?? null;
   $productId = $_POST['product_id'];
   $imageName = null;
 
@@ -67,6 +67,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       exit();
     }
   }
+
+  // get image name of current product
   $stmt = $pdo->prepare('SELECT image FROM products WHERE id = ?');
   $stmt->execute([$productId]);
   $currentProduct = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -81,11 +83,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $imageName = $currentImageName;
   }
   try {
-    $stmt = $pdo->prepare('UPDATE products SET name = ?, description = ?, image = ?, category_id = ?, subcategory_id = ? WHERE id = ?');
-    $stmt->execute([$productName, $productDescription, $imageName, $categoryId, $subcategoryId, $productId]);
-    $response = array('success' => true, 'message' => "Product updated successfully");
+    $stmt = $pdo->prepare('UPDATE products SET name = ?, image = ?, category_id = ?, subcategory_id = ? WHERE id = ?');
+    $stmt->execute([$productName, $imageName, $categoryId, $subcategoryId, $productId]);
+
+    // get product details
+    $stmt = $pdo->prepare('SELECT  p.id AS id ,p.name AS name, p.image, c.name AS category,c.id AS category_id,sc.id AS subcategory_id, sc.name AS subcategory
+        FROM products p
+        INNER JOIN categories c ON p.category_id = c.id
+        LEFT JOIN subcategories sc ON p.subcategory_id = sc.id
+        WHERE p.id = ?');
+    $stmt->execute([$productId]);
+    $product = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    $response = array('success' => true, 'message' => "Product update successfully", 'product' => $product);
   } catch (PDOException $e) {
-    $response = array('success' => false, 'message' => "Something went wrong");
+    $response = array('success' => false, 'message' => $e->getMessage());
   }
   echo json_encode($response);
 
