@@ -156,7 +156,7 @@
         let product = []
         let category = []
         let isEdit = false
-        const editUrl = 'http://localhost/plexus/admin/includes/editProduct.php'
+        const editUrl = 'http://localhost/Plexus-Orthotech/admin/includes/editProduct.php'
 
         let form = document.getElementById('product-form')
 
@@ -228,7 +228,7 @@
         )
 
         $.ajax({
-            url: 'http://localhost/plexus/admin/includes/category.php',
+            url: 'http://localhost/Plexus-Orthotech/admin/includes/category.php',
             type: 'GET',
             success: function (data) {
                 category = data.categories
