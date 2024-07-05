@@ -83,6 +83,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
   }
 
   try {
+    // sub category null and product name and category id should be unique
+    $stmt = $pdo->prepare('SELECT * FROM products WHERE name = ? AND category_id = ? AND subcategory_id IS NULL');
+    $stmt->execute([$productName, $categoryId]);
+    $product = $stmt->fetch(PDO::FETCH_ASSOC);
+    if ($product) {
+      http_response_code(402);
+      $response = array('success' => false, 'message' => 'Product name already exists in the category');
+      echo json_encode($response);
+      exit();
+    }
+
     $stmt = $pdo->prepare('INSERT INTO products (name, image, category_id, subcategory_id) VALUES (?, ?, ?, ?)');
     $stmt->execute([$productName, $imageName, $categoryId, $subcategoryId]);
     // get last added product data

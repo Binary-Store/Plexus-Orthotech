@@ -1,13 +1,8 @@
-
-document.getElementById('notification').style.display = 'none';
-document.getElementById('submitting').style.display = 'none';
-
-document.getElementById('notificationforemail').style.display = 'none';
-document.getElementById('submittingforrmail').style.display = 'none';
-
-
 // funcation for the full contact us page;
 function sendData(event){
+    document.getElementById('notification').style.display = 'none';
+    document.getElementById('submitting').style.display = 'none';
+
     event.preventDefault();
     
     var formData = {
@@ -36,11 +31,12 @@ function sendData(event){
     xhr.send(JSON.stringify(formData));
 }
 
-
 //funcation for the email subscribe
 
-
 function sendEmail(event){
+    document.getElementById('notificationforemail').style.display = 'none';
+    document.getElementById('submittingforrmail').style.display = 'none';
+
     event.preventDefault();
     
     var formData = {
@@ -55,7 +51,7 @@ function sendEmail(event){
     xhr.onreadystatechange = function() {
         if (xhr.readyState == 4 && xhr.status == 200) {
 
-            document.forms["myForm"].reset();
+            document.forms["myForm2"].reset();
             document.getElementById('submittingforrmail').style.display = 'none';
             document.getElementById('notificationforemail').style.display = 'block';
             setTimeout(function() {

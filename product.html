@@ -84,7 +84,7 @@
               <a href="./contact.html">Contact Us</a>
             </li>
             <li data-aos="fade-down" data-aos-delay="1000">
-              <a href="./Career.html">Career</a>
+              <a href="./career.html">Career</a>
             </li>
           </ul>
         </div>
@@ -95,23 +95,24 @@
   <!-- product section start -->
   <div class="hc-faq-wrapper hc-sections mt-5 mt-md-2 mt-lg-0">
     <div class="container">
-        <div class="hc-news-top">
-            <h6 class="hc-news-subhead" data-aos="fade-down">Our Product</h6>
-            <h4 class="hc-news-heading" data-aos="fade-down">The Product We Offer</h4>
-            <p class="hc-paragraph" data-aos="zoom-in" data-aos-delay="400">Discover our high-quality products designed to meet your every need.</p>
+      <div class="hc-news-top">
+        <h6 class="hc-news-subhead" data-aos="fade-down">Our Product</h6>
+        <h4 class="hc-news-heading" data-aos="fade-down">The Product We Offer</h4>
+        <p class="hc-paragraph" data-aos="zoom-in" data-aos-delay="400">Discover our high-quality products designed to
+          meet your every need.</p>
+      </div>
+      <div class="product-container">
+        <div class="product-sidebar" data-aos="fade-up" data-aos-delay="400">
+          <ul id="category-list">
+            <!-- Dynamic categories and subcategories will be appended here -->
+          </ul>
         </div>
-        <div class="product-container">
-            <div class="product-sidebar" data-aos="fade-up" data-aos-delay="400">
-                <ul id="category-list">
-                    <!-- Dynamic categories and subcategories will be appended here -->
-                </ul>
-            </div>
-            <div class="product-content">
-                <div class="hc-service-row" id="product-list">
-                    <!-- Dynamic products will be appended here -->
-                </div>
-            </div>
+        <div class="product-content">
+          <div class="hc-service-row" id="product-list">
+            <!-- Dynamic products will be appended here -->
+          </div>
         </div>
+      </div>
     </div>
   </div>
   <!-- product section end -->
@@ -124,20 +125,20 @@
           <p class="hc-paragraph">Subscribe to our newsletter to get regular update about online medical
             sessions. Get latest news in your inbox.</p>
           <div class="hc-newsletrinput hc-newsfirst">
-            <form  id="myForm2" onsubmit="sendEmail(event)">
+            <form id="myForm2" onsubmit="sendEmail(event)">
               <input type="email" placeholder="Your Email Here." name="email" id="lname" class="hc-input" />
               <div class="hc-nesbtn">
-                  <button type="submit" class="hc-bnrbtn">Subscribe
-                      <img src="assets/images/rightarrow.png" class="hc-rightarrow" alt="rightarrow" />
-                  </button>
+                <button type="submit" class="hc-bnrbtn">Subscribe
+                  <img src="assets/images/rightarrow.png" class="hc-rightarrow" alt="rightarrow" />
+                </button>
               </div>
               <div id="submittingforrmail" style="display: none; color: white;">
-                  Subscribing....
-                </div>
-                <div id="notificationforemail" style="display: none; color: white">
-                  Subscribe Successfully
-                </div>
-          </form>
+                Subscribing....
+              </div>
+              <div id="notificationforemail" style="display: none; color: white">
+                Subscribe Successfully
+              </div>
+            </form>
           </div>
         </div>
         <div class="hc-newsletrimg">
@@ -209,7 +210,7 @@
                 <a href="./contact.html">Contact Us</a>
               </li>
               <li>
-                <a href="./Career.html">Career</a>
+                <a href="./career.html">Career</a>
               </li>
             </ul>
           </div>
@@ -256,7 +257,8 @@
       </div>
       <!-- copyright section start -->
       <div class="hc-copyright-wrapper">
-        <p class="hc-paragraph hs-paragraph-copy "> Copyright © 2024 <a href="https://topgrowth.in/" target="_blank">TopGrowth.in</a>. All Right Reserved</p>
+        <p class="hc-paragraph hs-paragraph-copy "> Copyright © 2024 <a href="https://topgrowth.in/"
+            target="_blank">TopGrowth.in</a>. All Right Reserved</p>
       </div>
       <!-- copyright section end -->
     </div>
@@ -264,95 +266,95 @@
   <!-- footer section end -->
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script src="assets/js/jquery.min.js"></script>
-  
+
   <script>
     AOS.init({
       offset: 170,
       duration: 1000,
     });
 
-    $(document).ready(function() {
+    $(document).ready(function () {
       var active_subcategory = '';
       var products;
       function fetchProducts() {
-          $.ajax({
-              url: './admin/includes/fetch_data.php',
-              method: 'GET',
-              dataType: 'json',
-              success: function(response) {
-                  if (response.success) {
-                      active_subcategory = response.data.categories[0].subcategories[0].id;
-                      products = response.data.products;
-                      populateCategories(response.data.categories);
-                      populateProducts(response.data.products,active_subcategory,"subcategory");
-                  } else {
-                      console.error('Error fetching data:', response.error);
-                  }
-              },
-              error: function(xhr, status, error) {
-                  console.error('AJAX error:', error);
-              }
-          });
+        $.ajax({
+          url: './admin/includes/fetch_data.php',
+          method: 'GET',
+          dataType: 'json',
+          success: function (response) {
+            if (response.success) {
+              active_subcategory = response.data.categories[0].subcategories[0].id;
+              products = response.data.products;
+              populateCategories(response.data.categories);
+              populateProducts(response.data.products, active_subcategory, "subcategory");
+            } else {
+              console.error('Error fetching data:', response.error);
+            }
+          },
+          error: function (xhr, status, error) {
+            console.error('AJAX error:', error);
+          }
+        });
       }
 
       function populateCategories(categories) {
-          const categoryList = $('#category-list');
-          categoryList.empty();
-          
-          categories.forEach(category => {
-              const categoryItem = $('<li class="bold category-item" data-category-id="' + category.id + '"></li>').text(category.name);
-              const subcategoryList = $('<ul></ul>');
+        const categoryList = $('#category-list');
+        categoryList.empty();
 
-              // Ensure subcategories is an array
-              const subcategories = Array.isArray(category.subcategories) ? category.subcategories : [category.subcategories];
+        categories.forEach(category => {
+          const categoryItem = $('<li class="bold category-item" data-category-id="' + category.id + '"></li>').text(category.name);
+          const subcategoryList = $('<ul></ul>');
 
-              subcategories.forEach(subcategory => {
-                const subcategoryItem = $('<li class="fs-8 subcategory-item" data-subcategory-id="' + subcategory.id + '"></li>').text(subcategory.name);
-                subcategoryList.append(subcategoryItem);
-              });
+          // Ensure subcategories is an array
+          const subcategories = Array.isArray(category.subcategories) ? category.subcategories : [category.subcategories];
 
-              categoryList.append(categoryItem);
-              categoryList.append(subcategoryList);
+          subcategories.forEach(subcategory => {
+            const subcategoryItem = $('<li class="fs-8 subcategory-item" data-subcategory-id="' + subcategory.id + '"></li>').text(subcategory.name);
+            subcategoryList.append(subcategoryItem);
           });
 
-          $('.category-item').on('click', function() {
-            const categoryId = $(this).data('category-id');
-            categoryClick(categoryId);
-          });
+          categoryList.append(categoryItem);
+          categoryList.append(subcategoryList);
+        });
 
-          $('.subcategory-item').on('click', function() {
-            const subcategoryId = $(this).data('subcategory-id');
-            subcategoryClick(subcategoryId);
-          });
+        $('.category-item').on('click', function () {
+          const categoryId = $(this).data('category-id');
+          categoryClick(categoryId);
+        });
+
+        $('.subcategory-item').on('click', function () {
+          const subcategoryId = $(this).data('subcategory-id');
+          subcategoryClick(subcategoryId);
+        });
       }
 
 
-      function populateProducts(products,populate_id,type) {
-          const productList = $('#product-list');
-          productList.empty();
-          products.forEach(product => {
-            var ref_id = (type == "category") ? product.category_id : product.subcategory_id;
+      function populateProducts(products, populate_id, type) {
+        const productList = $('#product-list');
+        productList.empty();
+        products.forEach(product => {
+          var ref_id = (type == "category") ? product.category_id : product.subcategory_id;
 
-            if(ref_id == populate_id){
-              const productCard = `
+          if (ref_id == populate_id) {
+            const productCard = `
                   <div data-aos="zoom-in">
                       <div class="hc-service-card">
                           <div class="hc-sercardimg hc-servone">
-                              <img src="${'./admin/'+product.image}" class="hc-service_img" alt="${product.name}" />
+                              <img src="${'./admin/images/' + product.image}" class="hc-service_img" alt="${product.name}" />
                           </div>
                       </div>
                   </div>`;
-              productList.append(productCard);
-            }
-          });
+            productList.append(productCard);
+          }
+        });
       }
 
-      function categoryClick(category_id){
-        populateProducts(products,category_id,"category");
+      function categoryClick(category_id) {
+        populateProducts(products, category_id, "category");
       }
 
-      function subcategoryClick(subcategory_id){
-        populateProducts(products,subcategory_id,"subcategory");
+      function subcategoryClick(subcategory_id) {
+        populateProducts(products, subcategory_id, "subcategory");
       }
       fetchProducts();
 
