@@ -90,3 +90,13 @@
     height: 100%;
   }
 }
+#customButton{
+  background-color: #e5ffe6;
+  color: black;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  min-width: 70px;
+}

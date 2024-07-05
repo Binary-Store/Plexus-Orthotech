@@ -70,6 +70,11 @@
     .form-group button:hover {
       background-color: #0056b3;
     }
+
+    #login-error {
+      color: #d32f2f;
+      font-size: 14px;
+    }
   </style>
 </head>
 
@@ -77,18 +82,18 @@
   <div class="login-container">
     <h2>Login</h2>
     <form action="" method="post">
+      <p class="text-danger" id="login-error"></p>
       <div class="form-group">
-        <label>Username</label>
-        <input type="text" name="username" value="">
+        <label>Mobile Number</label>
+        <input type="text" name="mobileNumber" pattern="[6-9]{1}[0-9]{9}" value="" required>
         <span class="help-block">
-          <?php echo $username_err; ?>
         </span>
       </div>
       <div class="form-group">
         <label>Password</label>
-        <input type="password" name="password">
+        <input type="password" name="password" required>
         <span class="help-block">
-          error
+
         </span>
       </div>
       <div class="form-group">
@@ -96,7 +101,11 @@
       </div>
     </form>
   </div>
+  <script src="../../assets/js/jquery.min.js"></script>
+  <script src="../../assets/js/bootstrap.min.js"></script>
   <script>
+    let errorElement = document.getElementById('login-error');
+
     function setCookie(name, value, days) {
       let expires = "";
       if (days) {
@@ -107,6 +116,38 @@
       document.cookie = name + "=" + (value || "") + expires + "; path=/";
     }
     // TODO call login api and set cookie with token
+    // get data from form
+    const form = document.querySelector('form');
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const formData = new FormData(form);
+      const data = {};
+      formData.forEach((value, key) => {
+        data[key] = value;
+      });
+
+      const url = 'http://localhost/plexus/admin/includes/login.php'
+
+      //send data to server using ajax
+      $.ajax({
+        url: url,
+        type: 'POST',
+        data: JSON.stringify(data),
+        success: function (response) {
+          errorElement.innerHTML = '';
+
+          if (response.success) {
+            setCookie('adminToken', response.token, 1);
+            window.location.href = 'http://localhost/plexus/admin/html/index.html';
+          } else {
+            alert(response.message);
+          }
+        },
+        error: function (error) {
+          errorElement.innerHTML = error.responseJSON.message;
+        }
+      });
+    });
   </script>
 </body>
 

@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo json_encode($response);
     } else {
         http_response_code(404);
-        echo json_encode(array('error' => 'Invalid cradentials'));
+        echo json_encode(array('success' => false, "message" => "Invalid Credentials"));
     }
 }
 ?>

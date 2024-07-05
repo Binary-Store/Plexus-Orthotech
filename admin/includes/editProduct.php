@@ -50,7 +50,6 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
   $productName = $_POST['product_name'];
-  $productDescription = $_POST['product_description'];
   $categoryId = $_POST['category_id'];
   $subcategoryId = $_POST['subcategory_id'];
   $productId = $_POST['product_id'];

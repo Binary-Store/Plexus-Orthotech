@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
 }
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
   try {
-    $productsStmt = $pdo->query('SELECT p.name AS name, p.description, p.image, c.name AS category, sc.name AS subcategory
+    $productsStmt = $pdo->query('SELECT p.id AS id, p.name AS name, p.image, c.name AS category,c.id AS category_id,sc.id AS subcategory_id, sc.name AS subcategory
         FROM products p
         INNER JOIN categories c ON p.category_id = c.id
         LEFT JOIN subcategories sc ON p.subcategory_id = sc.id');
@@ -65,9 +65,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 } else if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
   $productName = $_POST['product_name'];
-  $productDescription = $_POST['product_description'];
   $categoryId = $_POST['category_id'];
-  $subcategoryId = $_POST['subcategory_id'] ?? '-1';
+  $subcategoryId = $_POST['subcategory_id'] ?? null;
   $imageName = null;
 
   if (isset($_FILES['product_image']) && $_FILES['product_image']['error'] == 0) {
@@ -76,6 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $imagePath = '../images/' . $imageName;
 
     if (!move_uploaded_file($image['tmp_name'], $imagePath)) {
+      http_response_code(404);
       $response = array('success' => false, 'message' => "Failed to upload image");
       echo json_encode($response);
       exit();
@@ -83,15 +83,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
   }
 
   try {
-    $stmt = $pdo->prepare('INSERT INTO products (name, description, image, category_id, subcategory_id) VALUES (?, ?, ?, ?, ?)');
-    $stmt->execute([$productName, $productDescription, $imageName, $categoryId, $subcategoryId]);
-    $response = array('success' => true, 'message' => "Product added successfully");
+    $stmt = $pdo->prepare('INSERT INTO products (name, image, category_id, subcategory_id) VALUES (?, ?, ?, ?)');
+    $stmt->execute([$productName, $imageName, $categoryId, $subcategoryId]);
+    // get last added product data
+    $lastId = $pdo->lastInsertId();
+    $stmt = $pdo->prepare('SELECT p.name AS name, p.image, c.name AS category,c.id AS category_id,sc.id AS subcategory_id, sc.name AS subcategory
+        FROM products p
+        INNER JOIN categories c ON p.category_id = c.id
+        LEFT JOIN subcategories sc ON p.subcategory_id = sc.id
+        WHERE p.id = ?');
+    $stmt->execute([$lastId]);
+    $product = $stmt->fetch(PDO::FETCH_ASSOC);
+    $response = array('success' => true, 'message' => "Product added successfully", 'product' => $product);
     echo json_encode($response);
   } catch (PDOException $e) {
+    // unlink the image if the product was not added
+    if ($imageName) {
+      unlink($imagePath);
+    }
     if ($e->getCode() == 23000) {
-      $response = array('success' => false, 'message' => "Product name must be unique within the same subcategory.");
+      http_response_code(402);
+      $response = array('success' => false, 'message' => 'Product name already exists in the category or subcategory');
     } else {
-      $response = array('success' => false, 'message' => "Something went wrong");
+      http_response_code(505);
+      $response = array('success' => false, 'message' => $e->getMessage());
     }
     echo json_encode($response);
     exit();
@@ -103,7 +118,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
   if (!is_numeric($productId)) {
     http_response_code(400); // Bad Request
-    $response = array('success' => false, 'message' => "subCategory Id is invalid");
+    $response = array('success' => false, 'message' => "product Id is invalid");
     echo json_encode($response);
     exit;
   }
