@@ -62,22 +62,55 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 } else if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $postData = file_get_contents('php://input');
 
-  function convertToEmbedUrl($url)
+  function convertToEmbedURL($url)
   {
-    parse_str(parse_url($url, PHP_URL_QUERY), $vars);
-    return "https://www.youtube.com/embed/" . $vars['v'];
+    $parsed_url = parse_url($url);
+
+    // Ensure the URL has a query component
+    if (!isset($parsed_url['query'])) {
+      return null; // Invalid URL format
+    }
+
+    // Parse the query parameters
+    parse_str($parsed_url['query'], $query_params);
+
+    // Ensure the 'v' parameter is present
+    if (!isset($query_params['v'])) {
+      return null; // Invalid URL format
+    }
+
+    // Extract the video ID
+    $videoID = $query_params['v'];
+
+    // Construct the embed URL
+    $embedURL = "https://www.youtube.com/embed/$videoID";
+
+    // Check if there is a playlist
+    if (isset($query_params['list'])) {
+      $listID = $query_params['list'];
+      $embedURL .= "?list=$listID";
+    }
+
+    return $embedURL;
   }
 
   $jsonData = json_decode($postData, true);
-  $videoUrl = convertToEmbedUrl($jsonData['url'] ?? '');
+  $videoUrl = convertToEmbedUrl($jsonData['video_url'] ?? '');
 
   try {
     $stmt = $pdo->prepare('INSERT INTO video (link) VALUES (?)');
     $stmt->execute([$videoUrl]);
-    $response = array('success' => true, 'message' => "Video added successfully");
+
+    $videoId = $pdo->lastInsertId();
+    $stmt = $pdo->prepare('SELECT * FROM video WHERE id = ?');
+    $stmt->execute([$videoId]);
+    $video = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    $response = array('success' => true, 'message' => "Video added successfully", 'videos' => $video);
     echo json_encode($response);
   } catch (PDOException $e) {
-    $response = array('success' => false, 'message' => "Something went wrong");
+    http_response_code(505);
+    $response = array('success' => false, 'message' => $e->getMessage());
     echo json_encode($response);
     exit();
   }
@@ -109,6 +142,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $response = array('success' => true, 'message' => "Video deleted successfully");
     echo json_encode($response);
   } catch (PDOException $e) {
+    http_response_code(505);
     $response = array('success' => false, 'message' => "Something went wrong");
     echo json_encode($response);
     exit();

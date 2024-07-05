@@ -17,6 +17,13 @@
   <link rel="stylesheet" href="../css/index.css">
 
   <title>Plexus Orthotech - Admin Panel - Video</title>
+  <script src="../js/index.js"></script>
+  <script>
+    //TODO : Add this script to all admin pages once login functionlity compleate
+    document.addEventListener('DOMContentLoaded', function () {
+      checkCookieAndRedirect('adminToken', './login.html');
+    });
+  </script>
 </head>
 
 <body>
@@ -71,7 +78,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <h1 class="modal-title fs-5" id="exampleModalLabel">Add Video</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <button type="button" class="btn-close" id="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
             <form id="add_video_form" class="needs-validation" novalidate>
@@ -82,102 +89,17 @@
                   Please provide a valid video link.
                 </div>
 
-                <button type="submit" class="btn btn-primary mt-4">Add Video</button>
+                <button type="submit" id="submit" class="btn btn-primary mt-4">Add</button>
             </form>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="container" id="videoContainer">
-    <div class="row g-3">
+  <div class="container">
+    <div class="row g-3" id="videoContainer">
       <!-- Video Cards -->
-      <div class="col-12 col-md-6">
-        <div class="video-card bg-white p-3">
-          <div class="w-100 d-flex justify-content-center">
-            <iframe class="iframe-tag rounded-2" src="https://www.youtube.com/embed/JnLhAGUIADU?si=atjlhMnh1TKBpnch"
-              title="YouTube video player" frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-          </div>
-          <div class="action d-flex align-middle justify-content-start gap-4 mt-3">
-            <img class="border" src="../../assets/images/admin/edit.svg" alt="edit icon">
-            <img class="border" src="../../assets/images/admin/delete.svg" alt="delete icon">
-          </div>
-        </div>
-      </div>
-      <div class="col-12 col-md-6">
-        <div class="video-card bg-white p-3">
-          <div class="w-100 d-flex justify-content-center">
-            <iframe class="iframe-tag rounded-2" src="https://www.youtube.com/embed/JnLhAGUIADU?si=atjlhMnh1TKBpnch"
-              title="YouTube video player" frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-          </div>
-          <div class="action d-flex align-middle justify-content-start gap-4 mt-3">
-            <img class="border" src="../../assets/images/admin/edit.svg" alt="edit icon">
-            <img class="border" src="../../assets/images/admin/delete.svg" alt="delete icon">
-          </div>
-        </div>
-      </div>
-      <div class="col-12 col-md-6">
-        <div class="video-card bg-white p-3">
-          <div class="w-100 d-flex justify-content-center">
-            <iframe class="iframe-tag rounded-2" src="https://www.youtube.com/embed/JnLhAGUIADU?si=atjlhMnh1TKBpnch"
-              title="YouTube video player" frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-          </div>
-          <div class="action d-flex align-middle justify-content-start gap-4 mt-3">
-            <img class="border" src="../../assets/images/admin/edit.svg" alt="edit icon">
-            <img class="border" src="../../assets/images/admin/delete.svg" alt="delete icon">
-          </div>
-        </div>
-      </div>
-      <div class="col-12 col-md-6">
-        <div class="video-card bg-white p-3">
-          <div class="w-100 d-flex justify-content-center">
-            <iframe class="iframe-tag rounded-2" src="https://www.youtube.com/embed/JnLhAGUIADU?si=atjlhMnh1TKBpnch"
-              title="YouTube video player" frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-          </div>
-          <div class="action d-flex align-middle justify-content-start gap-4 mt-3">
-            <img class="border" src="../../assets/images/admin/edit.svg" alt="edit icon">
-            <img class="border" src="../../assets/images/admin/delete.svg" alt="delete icon">
-          </div>
-        </div>
-      </div>
-      <div class="col-12 col-md-6">
-        <div class="video-card bg-white p-3">
-          <div class="w-100 d-flex justify-content-center">
-            <iframe class="iframe-tag rounded-2" src="https://www.youtube.com/embed/JnLhAGUIADU?si=atjlhMnh1TKBpnch"
-              title="YouTube video player" frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-          </div>
-          <div class="action d-flex align-middle justify-content-start gap-4 mt-3">
-            <img class="border" src="../../assets/images/admin/edit.svg" alt="edit icon">
-            <img class="border" src="../../assets/images/admin/delete.svg" alt="delete icon">
-          </div>
-        </div>
-      </div>
-      <div class="col-12 col-md-6">
-        <div class="video-card bg-white p-3">
-          <div class="w-100 d-flex justify-content-center">
-            <iframe class="iframe-tag rounded-2" src="https://www.youtube.com/embed/JnLhAGUIADU?si=atjlhMnh1TKBpnch"
-              title="YouTube video player" frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-          </div>
-          <div class="action d-flex align-middle justify-content-start gap-4 mt-3">
-            <img class="border" src="../../assets/images/admin/edit.svg" alt="edit icon">
-            <img class="border" src="../../assets/images/admin/delete.svg" alt="delete icon">
-          </div>
-        </div>
-      </div>
-      <!-- Repeat for each video card -->
-      <!-- ... -->
+
     </div>
   </div>
   </div>
@@ -185,14 +107,21 @@
   <!-- Scripts -->
   <script src="../../assets/js/jquery.min.js"></script>
   <script src="../../assets/js/bootstrap.min.js"></script>
-  <script src="../../assets/js/custom.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/11.0.5/swiper-bundle.min.js" crossorigin="anonymous"
-    referrerpolicy="no-referrer"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
   <script>
     //add video form 
     const form = document.getElementById('add_video_form');
     const url = 'http://localhost/plexus/admin/includes/video.php'
+    let videos = []
+
+    $('#videoModel').on('hidden.bs.modal', function (e) {
+      form.classList.remove('was-validated')
+      // reset form
+      form.reset()
+      document.getElementById('submit').innerText = 'Add'
+    })
+
     form.addEventListener('submit', (e) => {
       event.preventDefault()
       event.stopPropagation()
@@ -202,12 +131,90 @@
         const data = {
           video_url: video_url
         }
+        const token = getCookie('adminToken')
 
+        $.ajax({
+          url: url,
+          type: "POST",
+          data: JSON.stringify(data),
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Custom-Header': 'CustomValue'
+          },
+          success: function (response) {
+            videos = [response.videos, ...videos]
+            renderVideoCard(video_url)
+            Swal.fire({
+              icon: 'success',
+              title: 'Video Added successfully',
+              showConfirmButton: false,
+              timer: 1500
+            })
+            $('#videoModel').modal('hide');
+          },
+          error: function (error) {
+            console.log(error)
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: error.responseJSON.message
+            })
+          }
+        });
 
       }
       form.classList.add('was-validated');
     });
 
+    $.ajax({
+      url: url,
+      type: "GET",
+      success: function (response) {
+        videos = response.videos
+        renderVideoCard(videos)
+      },
+      error: function (error) {
+        console.log(error)
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: error.responseJSON.message
+        })
+      }
+    });
+
+    function renderVideoCard(video) {
+      const videoContainer = document.getElementById('videoContainer');
+      videoContainer.innerHTML = '';
+      videos.forEach(element => {
+        const videoCard = document.createElement('div');
+        videoCard.classList.add('col-12', 'col-md-6');
+        videoCard.innerHTML = `
+          <div class="video-card bg-white p-3">
+            <div class="w-100 d-flex justify-content-center">
+              <iframe class="iframe-tag rounded-2" src='${element.link}'
+                title="YouTube video player" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+            <div class="action d-flex align-middle justify-content-start gap-4 mt-3">
+              <img class="border" src="../../assets/images/admin/edit.svg" onClick="editVideoCard(${element.id})" alt="edit icon">
+              <img class="border" src="../../assets/images/admin/delete.svg" onClick="deleteVideoCard(${element.id})" alt="delete icon">
+            </div>
+          </div>`;
+        videoContainer.appendChild(videoCard);
+      });
+
+
+    }
+
+    function editVideoCard(id) {
+      console.log(id)
+    }
+
+    function deleteVideoCard(id) {
+      console.log(id)
+    }
     //get form data 
   </script>
 </body>
