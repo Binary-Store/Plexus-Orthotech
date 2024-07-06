@@ -78,7 +78,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       // Insert new subcategory
       $stmt = $pdo->prepare('INSERT INTO subcategories (name, category_id) VALUES (?, ?)');
       $stmt->execute([$subcategoryName, $categoryId]);
-      $response = array('success' => true, 'message' => "subCategory added successfully");
+
+      //get last insert id and get data
+      $lastInsertId = $pdo->lastInsertId();
+      $stmt = $pdo->prepare('SELECT * FROM subcategories WHERE id = ?');
+      $stmt->execute([$lastInsertId]);
+      $subcategory = $stmt->fetch(PDO::FETCH_ASSOC);
+
+      $response = array('success' => true, 'message' => "Subcategory added successfully", 'subcategory' => $subcategory);
     }
   } catch (PDOException $e) {
     $response = array('success' => false, 'message' => "Something went wrong");
@@ -127,7 +134,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       // Update category
       $stmt = $pdo->prepare('UPDATE subcategories SET name = ? WHERE id = ?');
       $stmt->execute([$subcategoryName, $subcategoryId]);
-      $response = array('success' => true, 'message' => "SubCategory updated successfully");
+
+      //get last inser id and send data
+      $stmt = $pdo->prepare('SELECT * FROM subcategories WHERE id = ?');
+      $stmt->execute([$subcategoryId]);
+      $subcategory = $stmt->fetch(PDO::FETCH_ASSOC); 
+      $response = array('success' => true, 'message' => "Subcategory updated successfully", 'subcategory' => $subcategory);
+
     }
   } catch (PDOException $e) {
     $response = array('success' => false, 'message' => "Something went wrong");
@@ -160,6 +173,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->execute([$subcategoryId]);
     $count = $stmt->fetchColumn();
     if ($count > 0) {
+      http_response_code(200);
       $response = array('success' => false, 'message' => "Subcategory has products. Please delete the products first.");
       echo json_encode($response);
       exit();

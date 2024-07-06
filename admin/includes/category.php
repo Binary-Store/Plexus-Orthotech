@@ -55,10 +55,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
     $stmt = $pdo->query('SELECT * FROM subcategories ORDER BY name ASC');
     $subcategories = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    //create subcategories array and add to category objects array
     foreach ($categories as $key => $category) {
-      $categories[$key]['subcategories'] = array_filter($subcategories, function ($subcategory) use ($category) {
-        return $subcategory['category_id'] == $category['id'];
-      });
+      $categories[$key]['subcategories'] = [];
+      foreach ($subcategories as $subcategory) {
+        if ($subcategory['category_id'] == $category['id']) {
+          $categories[$key]['subcategories'][] = $subcategory;
+        }
+      }
     }
     $response = array('success' => true, 'categories' => $categories);
   } catch (PDOException $e) {
@@ -81,12 +85,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $count = $stmt->fetchColumn();
 
     if ($count > 0) {
+      http_response_code(402);
       $response = array('success' => false, 'message' => "Category name '$categoryName' already exists.");
     } else {
       // Insert new category
       $stmt = $pdo->prepare('INSERT INTO categories (name) VALUES (?)');
       $stmt->execute([$categoryName]);
-      $response = array('success' => true, 'message' => "Category added successfully");
+
+      //get last insert id as category id
+      $categoryId = $pdo->lastInsertId();
+      //get data for this category id
+      $stmt = $pdo->prepare('SELECT * FROM categories WHERE id = ?');
+      $stmt->execute([$categoryId]);
+      $category = $stmt->fetch(PDO::FETCH_ASSOC);
+      
+      $response = array('success' => true, 'message' => "Category added successfully" , "category" => $category);
     }
   } catch (PDOException $e) {
     $response = array('success' => false, 'message' => "Something went wrong");
@@ -122,7 +135,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
       // Update category
       $stmt = $pdo->prepare('UPDATE categories SET name = ? WHERE id = ?');
       $stmt->execute([$categoryName, $categoryId]);
-      $response = array('success' => true, 'message' => "Category updated successfully");
+      $stmt = $pdo->prepare('SELECT * FROM categories WHERE id = ?');
+      $stmt->execute([$categoryId]);
+      $category = $stmt->fetch(PDO::FETCH_ASSOC);
+      $response = array('success' => true, 'message' => "Category updated successfully",'category' => $category);
     }
   } catch (PDOException $e) {
     $response = array('success' => false, 'message' => "Something went wrong");
@@ -155,6 +171,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $stmt->execute([$categoryId]);
     $count = $stmt->fetchColumn();
     if ($count > 0) {
+      http_response_code(402);
       $response = array('success' => false, 'message' => "Category cannot be deleted because it contains subcategories.");
       echo json_encode($response);
       exit();

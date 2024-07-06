@@ -18,6 +18,13 @@
   <link rel="stylesheet" href="../css/index.css">
   <!--=== custom css ===-->
   <title>Plexus Orthotech - Admin pannel - category</title>
+  <script src="../js/index.js"></script>
+  <script>
+    //TODO : Add this script to all admin pages once login functionlity compleate
+    document.addEventListener('DOMContentLoaded', function () {
+      checkCookieAndRedirect('adminToken', './login.html');
+    });
+  </script>
 </head>
 
 <body>
@@ -62,69 +69,72 @@
   <div class="hc-department-wrapper hc-sections pc-container">
     <div class="d-block d-lg-flex justify-content-start gap-3 m-3">
       <div class="input-group input-grop-container mb-3">
-        <input type="text" class="form-control">
-        <div class="input-group-append"><button class="btn btn-primary"><i class="fas fa-search"></i></button>
+        <input type="text" id="search" class="form-control" onchange="searchResult()">
+        <div class="input-group-append"><button class="btn btn-primary"><i class="fas fa-search" onclick="searchResult()"></i></button>
         </div>
       </div>
       <!-- Button trigger modal -->
-      <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
+      <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#categoryModal">
         add Category
       </button>
-      <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#subcategorymodel">
+      <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#subcategoryModal">
         add Sub Category
       </button>
       <!-- Modal -->
-      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal fade" id="categoryModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
             <div class="modal-header">
-              <h1 class="modal-title fs-5" id="exampleModalLabel">Add Product</h1>
+              <h1 class="modal-title fs-5" id="categoryModalLabel">Add Category</h1>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              <form>
+              <form class="needs-validation" id="category-form" novalidate>
                 <div class="mb-3 col-12">
                   <label for="category-name" class="form-label">Category Name</label>
-                  <input type="text" class="form-control" id="category-name">
+                  <input type="text" class="form-control" id="category-name" required>
+                  <div class="invalid-feedback">
+                    Please enter a valid category name.
+                  </div>
+                  <input type="hidden" class="form-control" id="category-id">
                 </div>
+                <button type="submit" id="submit" class="btn btn-primary">Add</button>
               </form>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Save changes</button>
             </div>
           </div>
         </div>
       </div>
 
       <!-- Modal -->
-      <div class="modal fade" id="subcategorymodel" tabindex="-1" aria-labelledby="subcategorymodel" aria-hidden="true">
+      <div class="modal fade" id="subcategoryModal" tabindex="-1" aria-labelledby="subcategoryModal" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
             <div class="modal-header">
-              <h1 class="modal-title fs-5" id="exampleModalLabel">Add SubCategory</h1>
+              <h1 class="modal-title fs-5" id="subcategoryModalLabel">Add SubCategory</h1>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              <form>
+              <form class="needs-validation" id="subcategory-form" novalidate>
                 <div class="mb-3 col-12">
                   <label for="category-select" class="form-label">Select Category</label>
-                  <select class="form-select" id="category-select">
-                    <option selected>Open this select menu</option>
-                    <option value="1">category 1</option>
-                    <option value="2">category 2</option>
-                    <option value="3">category 3</option>
+                  <select class="form-select" id="category-select" required>
+                    <option selected disabled value="">Select Category ...</option>
                   </select>
+                  <div class="invalid-feedback">
+                    Please select a valid category.
+                  </div>
                 </div>
                 <div class=" mb-3 col-12">
                   <label for="subcategory-name" class="form-label">SubCategory Name</label>
-                  <input type="text" class="form-control" id="subcategory-name">
+                  <input type="text" class="form-control" id="subcategory-name" required>
+                  <div class="invalid-feedback">
+                    Please enter a valid subcategory name.
+                  </div>
+
+                  <input type="hidden" class="form-control" id="subcategory-id">
                 </div>
+                <button type="submit" id="submit" class="btn btn-primary">Add</button>
               </form>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Save changes</button>
             </div>
           </div>
         </div>
@@ -137,59 +147,11 @@
             <th>No</th>
             <th>Category Name</th>
             <th>action</th>
+            <th class="d-none">id</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td class="align-middle">1</td>
-            <td class="align-middle">category 1</td>
-            <td>
-              <div class="action">
-                <img src="../../assets/images/admin/edit.svg" alt="edit icon">
-                <img src="../../assets/images/admin/delete.svg" alt="delete icon">
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td class="align-middle">1</td>
-            <td class="align-middle">category 1</td>
-            <td>
-              <div class="action">
-                <img src="../../assets/images/admin/edit.svg" alt="edit icon">
-                <img src="../../assets/images/admin/delete.svg" alt="delete icon">
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td class="align-middle">1</td>
-            <td class="align-middle">category 1</td>
-            <td>
-              <div class="action">
-                <img src="../../assets/images/admin/edit.svg" alt="edit icon">
-                <img src="../../assets/images/admin/delete.svg" alt="delete icon">
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td class="align-middle">1</td>
-            <td class="align-middle">category 1</td>
-            <td>
-              <div class="action">
-                <img src="../../assets/images/admin/edit.svg" alt="edit icon">
-                <img src="../../assets/images/admin/delete.svg" alt="delete icon">
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td class="align-middle">1</td>
-            <td class="align-middle">category 1</td>
-            <td>
-              <div class="action">
-                <img src="../../assets/images/admin/edit.svg" alt="edit icon">
-                <img src="../../assets/images/admin/delete.svg" alt="delete icon">
-              </div>
-            </td>
-          </tr>
+
         </tbody>
       </table>
     </div>
@@ -201,58 +163,423 @@
   <script src="../../assets/js/custom.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/11.0.5/swiper-bundle.min.js" crossorigin="anonymous"
     referrerpolicy="no-referrer"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script>
-    $(document).ready(function () {
-      $('table tbody').on('click', 'tr', function () {
-        const tr = $(this).closest('tr');
-        const nextRow = tr.next('.sub-table-row');
+    const categoryForm = document.getElementById('category-form');
+    const url = 'http://localhost/Plexus-Orthotech/admin/includes/category.php'
+    let categories = []
+    let isEditCategory = false;
+    let isEditSubcategory = false;
 
-        if (nextRow.length) {
-          // If sub-table rows are already present, remove them
-          nextRow.remove();
-        } else {
-          // Otherwise, add the sub-table rows
-          let table = `
-        <tr class="sub-table-row">
-          <td colspan="3">
-            <div class="m-3">
-              <table class="table table-striped table-hover W-100">
-                <thead>
-                  <tr>
-                    <th>No</th>
-                    <th>Sub Category</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td class="align-middle">1</td>
-                    <td class="align-middle">Sub Category 1</td>
-                    <td><div class="sub-category-action">
-                <img src="../../assets/images/admin/edit2.svg" alt="edit icon">
-                <img src="../../assets/images/admin/delete2.svg" alt="delete icon">
-              </div></td>
-                  </tr>
-                    <tr>
-                    <td class="align-middle">1</td>
-                    <td class="align-middle">Sub Category 1</td>
-                    <td><div class="sub-category-action">
-                <img src="../../assets/images/admin/edit2.svg" alt="edit icon">
-                <img src="../../assets/images/admin/delete2.svg" alt="delete icon">
-              </div></td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </td>
-        </tr>
-      `;
+    $('#categoryModal').on('hidden.bs.modal', function (e) {
+      categoryForm.classList.remove('was-validated')
+      // reset form
+      categoryForm.reset()
+      document.getElementById('submit').innerText = 'Add'
+    })
 
-          tr.after(table);
-        }
-      });
+    categoryForm.addEventListener('submit', (e) => {
+      event.preventDefault()
+      event.stopPropagation()
+
+      if (categoryForm.checkValidity()) {
+        //get input data as json
+        const category_name = document.getElementById('category-name').value;
+
+        //if isEditCategory then set name and id in data else only name in data
+        const data = isEditCategory ? { name: category_name, id: document.getElementById('category-id').value } : { name: category_name }
+
+        const token = getCookie('adminToken')
+
+        $.ajax({
+          url: url,
+          type: isEditCategory ? 'PUT' : 'POST',
+          data: JSON.stringify(data),
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Custom-Header': 'CustomValue'
+          },
+          success: function (response) {
+            //if isEditCategory else
+            if (isEditCategory) {
+              categories = categories.map(category => {
+                if (category.id === response.category.id) {
+                  category.name = response.category.name
+                }
+                return category
+              })
+              renderCategoryCard(categories)
+              Swal.fire({
+                icon: 'success',
+                title: 'Category Updated successfully',
+                showConfirmButton: false,
+                timer: 1500
+              })
+              isEditCategory = false;
+              $('#categoryModal').modal('hide');
+
+            } else {
+              categories = [response.category, ...categories]
+              renderCategoryCard(categories)
+              Swal.fire({
+                icon: 'success',
+                title: 'Category Added successfully',
+                showConfirmButton: false,
+                timer: 1500
+              })
+              isEditCategory = false;
+              $('#categoryModal').modal('hide');
+            }
+          },
+          error: function (error) {
+            console.log(error)
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: error.responseJSON.message
+            })
+          }
+        });
+
+      }
+      categoryForm.classList.add('was-validated');
     });
 
+    //add subcategory
+    const subcategoryForm = document.getElementById('subcategory-form');
+    const subactegoryUrl = 'http://localhost/Plexus-Orthotech/admin/includes/subcategory.php'
+    subcategoryForm.addEventListener('submit', (e) => {
+      event.preventDefault()
+      event.stopPropagation()
+
+      if (subcategoryForm.checkValidity()) {
+        //get input data as json
+        const category_id = document.getElementById('category-select').value;
+        const subcategory_name = document.getElementById('subcategory-name').value;
+
+        $('#subcategoryModal').on('hidden.bs.modal', function (e) {
+          categoryForm.classList.remove('was-validated')
+          // reset form
+          subcategoryForm.reset()
+          document.getElementById('submit').innerText = 'Add'
+        })
+        //if isEditSubcategory then set subcategoryId else not
+        let data;
+        if (isEditSubcategory) {
+          data = {
+            categoryId: category_id,
+            name: subcategory_name,
+            subcategoryId: document.getElementById('subcategory-id').value
+          }
+        } else {
+          data = {
+            categoryId: category_id,
+            name: subcategory_name
+          }
+        }
+        const token = getCookie('adminToken')
+
+        $.ajax({
+          url: subactegoryUrl,
+          type: isEditSubcategory ? 'PUT' : 'POST',
+          data: JSON.stringify(data),
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Custom-Header': 'CustomValue'
+          },
+          success: function (response) {
+            //if isEditSubcategory else
+            if (isEditSubcategory) {
+              categories = categories.map(category => {
+                category.subcategories = category.subcategories.map(subcategory => {
+                  if (subcategory.id === response.subcategory.id) {
+                    subcategory.name = response.subcategory.name
+                  }
+                  return subcategory
+                })
+                return category
+              })
+              renderCategoryCard(categories)
+              Swal.fire({
+                icon: 'success',
+                title: 'SubCategory Updated successfully',
+                showConfirmButton: false,
+                timer: 1500
+              })
+              isEditSubcategory = false;
+              $('#subcategoryModal').modal('hide');
+            }
+            else {
+              categories = categories.map(category => {
+                if (category.id === response.subcategory.category_id) {
+                  category.subcategories = [response.subcategory, ...category.subcategories]
+                }
+                return category
+              })
+              renderCategoryCard(categories)
+              Swal.fire({
+                icon: 'success',
+                title: 'SubCategory Added successfully',
+                showConfirmButton: false,
+                timer: 1500
+              })
+              $('#subcategoryModal').modal('hide');
+            }
+          },
+          error: function (error) {
+            console.log(error)
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: error.responseJSON.message
+            })
+          }
+        });
+
+      }
+      subcategoryForm.classList.add('was-validated');
+    });
+
+    $.ajax({
+      url: url,
+      type: 'GET',
+      success: function (data) {
+        categories = data.categories
+        renderCategory(categories)
+        renderCategoryCard(categories)
+      },
+      error: function (error) {
+        console.log(error)
+      }
+    })
+
+    function renderCategory(categories) {
+      const select = document.getElementById('category-select');
+      categories.forEach(category => {
+        const option = document.createElement('option');
+        option.value = category.id;
+        option.text = category.name;
+        select.appendChild(option);
+      });
+    }
+
+    //make function for edit category
+    function editCategory(id, event) {
+      event.stopPropagation()
+      const category = categories.find(category => category.id == id)
+
+      //replace add category with update category
+      const label = document.getElementById('categoryModalLabel');
+      label.innerText = 'Update Category';
+      document.getElementById('category-name').value = category.name
+      document.getElementById('category-id').value = category.id
+      document.getElementById('submit').innerText = 'Update'
+      $('#categoryModal').modal('show');
+      isEditCategory = true;
+    }
+
+    //make function for edit subcategory
+    function editSubCategory(id, event) {
+      event.stopPropagation()
+      const subcategory = categories.reduce((acc, category) => {
+        const subcategory = category.subcategories.find(subcategory => subcategory.id == id)
+        if (subcategory) {
+          acc = subcategory
+        }
+        return acc
+      }, {})
+      //replace add category with update category
+      const label = document.getElementById('subcategoryModalLabel');
+      label.innerText = 'Update SubCategory';
+      document.getElementById('subcategory-name').value = subcategory.name
+      document.getElementById('category-select').value = subcategory.category_id
+      document.getElementById('subcategory-id').value = subcategory.id
+      document.getElementById('submit').innerText = 'Update'
+      $('#subcategoryModal').modal('show');
+      isEditSubcategory = true;
+    }
+
+    function deleteCategory(id, event) {
+      event.stopPropagation();
+      const token = getCookie('adminToken')
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          const category_id = Number(id)
+          $.ajax({
+            url: `${url}/${category_id}`,
+            type: 'DELETE',
+            headers: {
+              'Authorization': `Bearer ${token}`
+            },
+            success: function (data) {
+              categories = categories.filter(category => category.id != category_id)
+              renderCategoryCard(categories)
+              Swal.fire({
+                icon: 'success',
+                title: 'Category deleted successfully',
+                showConfirmButton: false,
+                timer: 1500
+              })
+            },
+            error: function (error) {
+              console.log(error)
+              Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: error.responseJSON.message
+              })
+            }
+          })
+        }
+      });
+
+    }
+
+    function deleteSubCategory(id, event) {
+      event.stopPropagation();
+      const token = getCookie('adminToken')
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          const subcategory_id = Number(id)
+          $.ajax({
+            url: `${subactegoryUrl}/${subcategory_id}`,
+            type: 'DELETE',
+            headers: {
+              'Authorization': `Bearer ${token}`
+            },
+            success: function (data) {
+              categories = categories.map(category => {
+                category.subcategories = category.subcategories.filter(subcategory => subcategory.id != subcategory_id)
+                return category
+              })
+              renderCategoryCard(categories)
+              Swal.fire({
+                icon: 'success',
+                title: 'Sub Category deleted successfully',
+                showConfirmButton: false,
+                timer: 1500
+              })
+            },
+            error: function (error) {
+              console.log(error)
+              Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: error.responseJSON.message
+              })
+            }
+          })
+        }
+      });
+
+    }
+
+    //implement search functionality
+    function searchResult() {
+      let search = document.getElementById('search').value;
+      search = search.toLowerCase();
+      if (search == '') {
+        renderCategoryCard(categories)
+      } else {
+        const filteredCategory = categories.filter(item =>
+          item.name.toLowerCase().includes(search)
+        );
+        
+        renderCategoryCard(filteredCategory)
+      }
+    }
+
+    //make function for render category and subcategories
+    function renderCategoryCard(categories) {
+      const tbody = document.querySelector('.main-table tbody');
+      tbody.innerHTML = '';
+      categories.forEach((category, index) => {
+        const tr = document.createElement('tr');
+        tr.classList.add('category-row');
+        tr.dataset.id = category.id; // Store the category id in a data attribute
+        tr.dataset.subcategories = JSON.stringify(category.subcategories);
+        // Store subcategories in a data attribute
+        tr.innerHTML = `
+            <td>${index + 1}</td>
+            <td>${category.name}</td>
+            <td>
+              <div class="action">
+                
+                <img src="../../assets/images/admin/edit.svg" alt="edit icon" onclick="editCategory(${category.id},event)">
+                <img src="../../assets/images/admin/delete.svg" alt="delete icon" onclick="deleteCategory(${category.id},event)">
+              </div>
+            </td>
+            <td class="d-none">${category.id}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    $(document).on('click', '.category-row', function () {
+      const tr = $(this);
+      let subcategories = tr.data('subcategories');
+
+      console.log(subcategories)
+
+      const nextRow = tr.next('.sub-table-row');
+      // Toggle sub-table visibility
+      if (nextRow.length) {
+        nextRow.toggle();
+      } else {
+        // Create sub-table rows
+        let subTableRows = subcategories.map((subCategory, index) => `
+            <tr class="sub-category-row">
+                <td>${index + 1}</td>
+                <td class="pl-5">${subCategory.name}</td>
+                <td>
+                    <div class="sub-category-action">
+                      <img src="../../assets/images/admin/edit2.svg" alt="edit icon" onclick="editSubCategory(${subCategory.id},event)">
+                      <img src="../../assets/images/admin/delete2.svg" alt="delete icon" onclick="deleteSubCategory(${subCategory.id},event)">
+                    </div>
+                </td>
+                <td class="d-none">${subCategory.id}</td>
+            </tr>
+        `).join('');
+
+        tr.after(`
+            <tr class="sub-table-row">
+                <td colspan="4">
+                    <div class="m-3">
+                        <table class="table table-striped table-hover w-100">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Subcategory</th>
+                                    <th>Action</th>
+                                    <th class="d-none">ID</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${subTableRows}
+                            </tbody>
+                        </table>
+                    </div>
+                </td>
+            </tr>
+        `);
+      }
+    });
 
   </script>
 
