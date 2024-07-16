@@ -66,6 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     }
     $response = array('success' => true, 'categories' => $categories);
   } catch (PDOException $e) {
+      http_response_code(505);
     $response = array('success' => false, 'message' => "Error fetching categories: " . $e->getMessage());
     echo json_encode($response);
     exit();
@@ -102,6 +103,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
       $response = array('success' => true, 'message' => "Category added successfully" , "category" => $category);
     }
   } catch (PDOException $e) {
+       http_response_code(505);
     $response = array('success' => false, 'message' => "Something went wrong");
   }
 
@@ -120,6 +122,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $count = $stmt->fetchColumn();
 
     if ($count > 0) {
+        http_response_code(402);
       $response = array('success' => false, 'message' => "Category name '$categoryName' already exists.");
     } else {
       $stmt = $pdo->prepare('SELECT COUNT(*) FROM categories WHERE id = ?');
@@ -127,6 +130,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
       $count = $stmt->fetchColumn();
 
       if ($count == 0) {
+          http_response_code(402);
         $response = array('success' => false, 'message' => "Category not found");
         echo json_encode($response);
         exit();
@@ -141,6 +145,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
       $response = array('success' => true, 'message' => "Category updated successfully",'category' => $category);
     }
   } catch (PDOException $e) {
+       http_response_code(505);
     $response = array('success' => false, 'message' => "Something went wrong");
   }
   echo json_encode($response);
@@ -161,6 +166,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $count = $stmt->fetchColumn();
 
     if ($count == 0) {
+        http_response_code(402);
       $response = array('success' => false, 'message' => "Category not found");
       echo json_encode($response);
       exit();
@@ -184,6 +190,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     echo json_encode($response);
 
   } catch (PDOException $e) {
+       http_response_code(505);
     $response = array('success' => false, 'message' => "Something went wrong");
     echo json_encode($response);
     exit();

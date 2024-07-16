@@ -18,6 +18,13 @@
   <link rel="stylesheet" href="../css/index.css">
   <!--=== custom css ===-->
   <title>Plexus Orthotech - Admin pannel - career</title>
+  <script src="../js/index.js"></script>
+  <script>
+      // this script redirect to login page if not login 
+    document.addEventListener('DOMContentLoaded', function () {
+      checkCookieAndRedirect('adminToken', '../index.html');
+    });
+  </script>
 </head>
 
 <body>
@@ -38,7 +45,7 @@
         <div class="hc-navbar-menu">
           <ul>
             <li class="responsive-logo">
-              <a href="#">
+              <a href="../../index.html">
                 <img src="../../assets/images/logo.png" />
               </a>
             </li>
@@ -46,10 +53,10 @@
               <a href="./index.html">Product</a>
             </li>
             <li>
-              <a href="#">Category</a>
+              <a href="./category.html">Category</a>
             </li>
             <li>
-              <a href="./careers.html">Careers</a>
+              <a href="#">Careers</a>
             </li>
             <li>
               <a href="./video.html">Video</a>
@@ -74,20 +81,6 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td class="align-middle">1</td>
-            <td class="align-middle">busa utsav</td>
-            <td class="align-middle">9328942556</td>
-            <td class="align-middle">uh@gmail.com</td>
-            <td class="align-middle"><a href="../includes/uploads/resumes/hello_1719999056.pdf" alt="">hello.pdf</a>
-            <td class="align-middle">12/21/2002</td>
-            <td>
-              <div class="action d-flex align-middle justify-content-start gap-4">
-                <img src="../../assets/images/admin/edit.svg" alt="edit icon">
-                <img src="../../assets/images/admin/delete.svg" alt="delete icon">
-              </div>
-            </td>
-          </tr>
         </tbody>
       </table>
     </div>
@@ -96,9 +89,108 @@
   <script src="../../assets/js/jquery.min.js"></script>
   <script src="../../assets/js/bootstrap.min.js"></script>
   <script src="../../assets/js/swiper-bundle.min.js"></script>
-  <script src="../../assets/js/custom.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/11.0.5/swiper-bundle.min.js" crossorigin="anonymous"
-    referrerpolicy="no-referrer"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../../assets/js/custom.js"></script>
+  <script>
+    const url = '../includes/career.php'
+    let careers = [];
+    $.ajax({
+      url: url,
+      type: 'GET',
+      success: function (data) {
+        careers = data.careers;
+        renderCarrer(careers);
+      },
+      error: function (error) {
+        console.log(error);
+      }
+    });
+
+    // make renderCarrer function
+    function renderCarrer(carrers) {
+      const tbody = document.querySelector('.main-table tbody');
+      tbody.innerHTML = '';
+      carrers.forEach((carrer, index) => {
+        let filePath = carrer.resume_path;
+        let parts = filePath.split('/');
+        let fileName = parts[parts.length - 1];
+        let datetime = carrer.created_at;
+        let date = datetime.split(' ')[0];
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td class="align-middle">${index + 1}</td>
+          <td class="align-middle">${carrer.name}</td>
+          <td class="align-middle">${carrer.contact}</td>
+          <td class="align-middle">${carrer.email}</td>
+          <td class="align-middle"><a href="../includes/${carrer.resume_path}" target="_blank" alt="">${fileName}</a></td>
+          <td class="align-middle">${date}</td>
+          <td>
+            <div class="action d-flex align-middle justify-content-start gap-4">
+              <img src="../../assets/images/admin/delete.svg" onClick="deleteCarrer(${carrer.id})" alt="delete icon">
+            </div>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    // delete carrer
+    function deleteCarrer(id) {
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          const token = getCookie('adminToken')
+
+          // call delete api 
+          $.ajax({
+            url: `${url}/${id}`,
+            type: "DELETE",
+            headers: {
+              'Authorization': `Bearer ${token}`,
+              'Custom-Header': 'CustomValue'
+            },
+            success: function (response) {
+              careers = careers.filter(carrer => carrer.id != `${id}`)
+              renderCarrer(careers)
+              Swal.fire({
+                title: "Deleted!",
+                text: "Your file has been deleted.",
+                icon: "success"
+              });
+            },
+            error: function (error) {
+              if (error.status === 401) {
+              Swal.fire({
+                icon: 'error',
+                title: 'Unauthorized',
+                text: 'Your session has expired, please log in again.',
+                confirmButtonText: 'OK'
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  window.location.href = '../index.html'; // Redirect to the login page
+
+                }
+              });
+            } else {
+              Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: error.responseJSON.message
+              });
+            }
+            }
+          });
+        }
+      });
+    }
+  </script>
 
 </body>
 

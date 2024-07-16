@@ -55,6 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $response = array('success' => true, 'videos' => $videos);
     echo json_encode($response);
   } catch (PDOException $e) {
+    http_response_code(402);
     $response = array('success' => false, 'message' => "Something went wrong");
     echo json_encode($response);
     exit();

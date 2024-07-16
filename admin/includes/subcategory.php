@@ -61,6 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->execute([$categoryId]);
     $count = $stmt->fetchColumn();
     if ($count == 0) {
+        http_response_code(402);
       $response = array('success' => false, 'message' => "CategoryId is not valid");
       echo json_encode($response);
       exit();
@@ -72,6 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $count = $stmt->fetchColumn();
 
     if ($count > 0) {
+        http_response_code(402);
       $response = array('success' => false, 'message' => "Subcategory name must be unique within the same category.");
     } else {
 
@@ -88,6 +90,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $response = array('success' => true, 'message' => "Subcategory added successfully", 'subcategory' => $subcategory);
     }
   } catch (PDOException $e) {
+    http_response_code(505);
     $response = array('success' => false, 'message' => "Something went wrong");
   }
 
@@ -106,6 +109,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->execute([$categoryId]);
     $count = $stmt->fetchColumn();
     if ($count == 0) {
+        http_response_code(402);
       $response = array('success' => false, 'message' => "CategoryId is not valid");
       echo json_encode($response);
       exit();
@@ -117,6 +121,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $count = $stmt->fetchColumn();
 
     if ($count > 0) {
+        http_response_code(402);
       $response = array('success' => false, 'message' => "Subcategory name must be unique within the same category.");
     } else {
 
@@ -126,6 +131,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $count = $stmt->fetchColumn();
 
       if ($count == 0) {
+          http_response_code(402);
         $response = array('success' => false, 'message' => "SubCategory not found");
         echo json_encode($response);
         exit();
@@ -143,6 +149,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     }
   } catch (PDOException $e) {
+      http_response_code(505);
     $response = array('success' => false, 'message' => "Something went wrong");
   }
   echo json_encode($response);
@@ -163,6 +170,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $count = $stmt->fetchColumn();
 
     if ($count == 0) {
+        http_response_code(402);
       $response = array('success' => false, 'message' => "subCategory not found");
       echo json_encode($response);
       exit();
@@ -173,7 +181,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->execute([$subcategoryId]);
     $count = $stmt->fetchColumn();
     if ($count > 0) {
-      http_response_code(200);
+      http_response_code(505);
       $response = array('success' => false, 'message' => "Subcategory has products. Please delete the products first.");
       echo json_encode($response);
       exit();
@@ -186,6 +194,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     echo json_encode($response);
 
   } catch (PDOException $e) {
+      http_response_code(505);
     $response = array('success' => false, 'message' => "Something went wrong");
     echo json_encode($response);
     exit();

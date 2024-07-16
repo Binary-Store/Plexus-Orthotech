@@ -4,7 +4,7 @@ require_once 'db.php';
 
 // Fetch video links from the database
 try {
-    $stmt = $pdo->query('SELECT * FROM video_link ORDER BY id DESC');
+    $stmt = $pdo->query('SELECT * FROM video ORDER BY id DESC');
     $videoLinks = $stmt->fetchAll(PDO::FETCH_ASSOC);
     
     // Prepare response as JSON

@@ -19,9 +19,9 @@
   <title>Plexus Orthotech - Admin Panel - Video</title>
   <script src="../js/index.js"></script>
   <script>
-    //TODO : Add this script to all admin pages once login functionlity compleate
+      // this script redirect to login page if not login 
     document.addEventListener('DOMContentLoaded', function () {
-      checkCookieAndRedirect('adminToken', './login.html');
+      checkCookieAndRedirect('adminToken', '../index.html');
     });
   </script>
 </head>
@@ -44,7 +44,7 @@
         <div class="hc-navbar-menu">
           <ul>
             <li class="responsive-logo">
-              <a href="#">
+              <a href="../../index.html">
                 <img src="../../assets/images/logo.png" alt="logo">
               </a>
             </li>
@@ -52,13 +52,13 @@
               <a href="./index.html">Product</a>
             </li>
             <li>
-              <a href="#">Category</a>
+              <a href="./category.html">Category</a>
             </li>
             <li>
               <a href="./careers.html">Careers</a>
             </li>
             <li>
-              <a href="./video.html">Video</a>
+              <a href="#">Video</a>
             </li>
           </ul>
         </div>
@@ -107,12 +107,14 @@
   <!-- Scripts -->
   <script src="../../assets/js/jquery.min.js"></script>
   <script src="../../assets/js/bootstrap.min.js"></script>
+  <script src="../../assets/js/swiper-bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../../assets/js/custom.js"></script>
 
   <script>
     //add video form 
     const form = document.getElementById('add_video_form');
-    const url = 'http://localhost/Plexus-Orthotech/admin/includes/video.php'
+    const url = '../includes/video.php'
     let videos = []
 
     $('#videoModel').on('hidden.bs.modal', function (e) {
@@ -153,12 +155,25 @@
             $('#videoModel').modal('hide');
           },
           error: function (error) {
-            console.log(error)
-            Swal.fire({
-              icon: 'error',
-              title: 'Oops...',
-              text: error.responseJSON.message
-            })
+           if (error.status === 401) {
+              Swal.fire({
+                icon: 'error',
+                title: 'Unauthorized',
+                text: 'Your session has expired, please log in again.',
+                confirmButtonText: 'OK'
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  window.location.href = '../index.html'; // Redirect to the login page
+
+                }
+              });
+            } else {
+              Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: error.responseJSON.message
+              });
+            }
           }
         });
 
@@ -239,12 +254,25 @@
               });
             },
             error: function (error) {
-              console.log(error)
+              if (error.status === 401) {
+              Swal.fire({
+                icon: 'error',
+                title: 'Unauthorized',
+                text: 'Your session has expired, please log in again.',
+                confirmButtonText: 'OK'
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  window.location.href = '../index.html'; // Redirect to the login page
+
+                }
+              });
+            } else {
               Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
                 text: error.responseJSON.message
-              })
+              });
+            }
             }
           });
         }

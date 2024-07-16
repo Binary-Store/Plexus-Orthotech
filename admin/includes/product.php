@@ -58,6 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     echo json_encode($response);
 
   } catch (PDOException $e) {
+     http_response_code(505);
     $response = array('success' => false, 'message' => $e->getMessage());
     echo json_encode($response);
     exit();
@@ -67,6 +68,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
   $productName = $_POST['product_name'];
   $categoryId = $_POST['category_id'];
   $subcategoryId = $_POST['subcategory_id'] ?? null;
+  if (empty($subcategoryId)) {
+    $subcategoryId = null;
+}
+ 
   $imageName = null;
 
   if (isset($_FILES['product_image']) && $_FILES['product_image']['error'] == 0) {
@@ -159,6 +164,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     echo json_encode($response);
 
   } catch (PDOException $e) {
+     http_response_code(505);
     $response = array('success' => false, 'message' => $e->getMessage());
     echo json_encode($response);
     exit();

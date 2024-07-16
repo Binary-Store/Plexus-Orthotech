@@ -20,9 +20,9 @@
     <title>Plexus Orthotech - Admin pannel</title>
     <script src="../js/index.js"></script>
     <script>
-        //TODO : Add this script to all admin pages once login functionlity compleate
+        // this script redirect to login page if not login 
         document.addEventListener('DOMContentLoaded', function () {
-            checkCookieAndRedirect('adminToken', './login.html');
+            checkCookieAndRedirect('adminToken', '../index.html');
         });
     </script>
     <style>
@@ -50,7 +50,7 @@
                 <div class="hc-navbar-menu">
                     <ul>
                         <li class="responsive-logo">
-                            <a href="#">
+                            <a href="../../index.html">
                                 <img src="../../assets/images/logo.png" />
                             </a>
                         </li>
@@ -118,8 +118,7 @@
                                 <div class="mb-3 col-12">
                                     <label for="product-subcategory" class="form-label">Sub Category</label>
                                     <select class="form-select border" name="subcategory_id" id="subcategory_id">
-                                        <option selected disabled value="">Choose...</option>
-                                        <option>1</option>
+                                        <option selected value="">Choose...</option>
                                     </select>
                                     <div class="invalid-feedback">
                                         Please select a Sub Category
@@ -150,13 +149,15 @@
     <script src="../../assets/js/jquery.min.js"></script>
     <script src="../../assets/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../../assets/js/swiper-bundle.min.js"></script>
+    <script src="../../assets/js/custom.js"></script>
     <script>
-        const url = 'http://localhost/Plexus-Orthotech/admin/includes/product.php'
-        let productImagUrl = 'http://localhost/Plexus-Orthotech/admin/images'
+        const url = '../includes/product.php'
+        let productImagUrl = '../images/'
         let product = []
         let category = []
         let isEdit = false
-        const editUrl = 'http://localhost/Plexus-Orthotech/admin/includes/editProduct.php'
+        const editUrl = '../includes/editProduct.php'
 
         let form = document.getElementById('product-form')
 
@@ -209,17 +210,30 @@
                         }
                     },
                     error: function (error) {
-                        console.log(error)
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Error',
-                            text: error.responseJSON.message
-                        })
+                        if (error.status === 401) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Unauthorized',
+                                text: 'Your session has expired, please log in again.',
+                                confirmButtonText: 'OK'
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    window.location.href = '../index.html'; // Redirect to the login page
+
+                                }
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: error.responseJSON.message
+                            });
+                        }
                     }
-                })
+
+                });
             }
             else {
-                console.log("hit")
                 form.classList.add('was-validated')
                 event.preventDefault()
                 event.stopPropagation()
@@ -228,7 +242,7 @@
         )
 
         $.ajax({
-            url: 'http://localhost/Plexus-Orthotech/admin/includes/category.php',
+            url: '../includes/category.php',
             type: 'GET',
             success: function (data) {
                 category = data.categories
@@ -267,7 +281,7 @@
         function renderSubCategory(id) {
             let product_subcategory = document.getElementById('subcategory_id')
             // Clear previous subcategories
-            product_subcategory.innerHTML = '<option selected disabled value="">Choose...</option>'
+            product_subcategory.innerHTML = '<option selected value="">Choose...</option>'
             let catgoryIndex = category.findIndex(element => element.id == id)
             let subcategory = category[catgoryIndex].subcategories
             subcategory && subcategory.forEach(element => {
@@ -296,7 +310,7 @@
                 let productCard = document.createElement('div')
                 productCard.classList.add('product-card')
                 productCard.innerHTML = `
-                <img src="${productImagUrl}/${element.image}" alt="Product Image">
+                <img src="${productImagUrl}/${element.image}" lloading="lazy" alt="Product Image">
                 <h3>${element.name}</h3>
                 <p>Category:${element.category}</p>
                 <p>Subcategory: ${element.subcategory ? element.subcategory : '-'}</p>
@@ -336,12 +350,25 @@
                             })
                         },
                         error: function (error) {
-                            console.log(error)
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Error',
-                                text: error.responseJSON.message
-                            })
+                            if (error.status === 401) {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Unauthorized',
+                                    text: 'Your session has expired, please log in again.',
+                                    confirmButtonText: 'OK'
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        window.location.href = '../index.html'; // Redirect to the login page
+
+                                    }
+                                });
+                            } else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Oops...',
+                                    text: error.responseJSON.message
+                                });
+                            }
                         }
                     })
                 }

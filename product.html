@@ -108,6 +108,7 @@
           </ul>
         </div>
         <div class="product-content">
+          <div class="product-breadcrumb" id="product-breadcrumb">Products will be Available soon.</div>
           <div class="hc-service-row" id="product-list">
             <!-- Dynamic products will be appended here -->
           </div>
@@ -276,6 +277,7 @@
     $(document).ready(function () {
       var active_subcategory = '';
       var products;
+      var categories;
       function fetchProducts() {
         $.ajax({
           url: './admin/includes/fetch_data.php',
@@ -283,10 +285,13 @@
           dataType: 'json',
           success: function (response) {
             if (response.success) {
-              active_subcategory = response.data.categories[0].subcategories[0].id;
               products = response.data.products;
+              categories = response.data.categories;
               populateCategories(response.data.categories);
-              populateProducts(response.data.products, active_subcategory, "subcategory");
+              if(categories.length>0){
+              active_category = response.data.categories[0].id;
+              
+              populateProducts(response.data.products,response.data.categories, active_category, "category");}
             } else {
               console.error('Error fetching data:', response.error);
             }
@@ -300,6 +305,11 @@
       function populateCategories(categories) {
         const categoryList = $('#category-list');
         categoryList.empty();
+        
+        if (categories.length === 0) {
+          categoryList.hide();
+          return;
+        }
 
         categories.forEach(category => {
           const categoryItem = $('<li class="bold category-item" data-category-id="' + category.id + '"></li>').text(category.name);
@@ -329,9 +339,21 @@
       }
 
 
-      function populateProducts(products, populate_id, type) {
+      function populateProducts(products, categories, populate_id, type) {
         const productList = $('#product-list');
         productList.empty();
+        
+        if(type=="category"){
+          //find from categories
+          var category = categories.find(category => category.id == populate_id);
+          $('#product-breadcrumb').text(category.name);
+        }else{
+          //find from subcategories
+          var category = categories.find(category => category.subcategories.find(subcategory => subcategory.id == populate_id));
+          var subcategory = category.subcategories.find(subcategory => subcategory.id == populate_id);
+          $('#product-breadcrumb').text(category.name + ' > ' + subcategory.name);
+        }
+        
         products.forEach(product => {
           var ref_id = (type == "category") ? product.category_id : product.subcategory_id;
 
@@ -340,7 +362,7 @@
                   <div data-aos="zoom-in">
                       <div class="hc-service-card">
                           <div class="hc-sercardimg hc-servone">
-                              <img src="${'./admin/images/' + product.image}" class="hc-service_img" alt="${product.name}" />
+                              <img src="${'./admin/images/' + product.image}" loading="lazy" class="hc-service_img" alt="${product.name}" />
                           </div>
                       </div>
                   </div>`;
@@ -350,11 +372,11 @@
       }
 
       function categoryClick(category_id) {
-        populateProducts(products, category_id, "category");
+        populateProducts(products, categories, category_id, "category");
       }
 
       function subcategoryClick(subcategory_id) {
-        populateProducts(products, subcategory_id, "subcategory");
+        populateProducts(products, categories, subcategory_id, "subcategory");
       }
       fetchProducts();
 

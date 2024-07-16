@@ -54,6 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $response = array('success' => true, 'careers' => $careers);
     echo json_encode($response);
   } catch (PDOException $e) {
+      http_response_code(505);
     $response = array('success' => false, 'message' => "Something went wrong");
     echo json_encode($response);
     exit();
@@ -64,12 +65,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
   $careerId = end($urlParts);
 
   try {
+    // unlink resume file
+    $stmt = $pdo->prepare('SELECT resume_path FROM careers WHERE id = ?');
+    $stmt->execute([$careerId]);
+    $career = $stmt->fetch(PDO::FETCH_ASSOC);
+    $resume = $career['resume_path'];
+    if (!empty($resume)) {
+      unlink("./" . $resume);
+    }
+      
     $stmt = $pdo->prepare('DELETE FROM careers WHERE id = ?');
     $stmt->execute([$careerId]);
     $response = array('success' => true, 'message' => "Career deleted successfully");
     echo json_encode($response);
   } catch (PDOException $e) {
-    $response = array('success' => false, 'message' => "Something went wrong");
+      http_response_code(505);
+    $response = array('success' => false, 'message' => "something went wrong");
     echo json_encode($response);
     exit();
   }

@@ -9,7 +9,6 @@
   <!--=== custom css ===-->
   <link href="../../assets/fonts/metropolis.css" rel="stylesheet" />
   <link rel="stylesheet" href="../../assets/css/bootstrap.min.css" />
-  <link rel="stylesheet" href="../../assets/css/animate.min.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
     crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="shortcut icon" type="image/png" href="../../assets/images/favicon.png" />
@@ -20,9 +19,9 @@
   <title>Plexus Orthotech - Admin pannel - category</title>
   <script src="../js/index.js"></script>
   <script>
-    //TODO : Add this script to all admin pages once login functionlity compleate
+      // this script redirect to login page if not login 
     document.addEventListener('DOMContentLoaded', function () {
-      checkCookieAndRedirect('adminToken', './login.html');
+      checkCookieAndRedirect('adminToken', '../index.html');
     });
   </script>
 </head>
@@ -70,7 +69,8 @@
     <div class="d-block d-lg-flex justify-content-start gap-3 m-3">
       <div class="input-group input-grop-container mb-3">
         <input type="text" id="search" class="form-control" onchange="searchResult()">
-        <div class="input-group-append"><button class="btn btn-primary"><i class="fas fa-search" onclick="searchResult()"></i></button>
+        <div class="input-group-append"><button class="btn btn-primary"><i class="fas fa-search"
+              onclick="searchResult()"></i></button>
         </div>
       </div>
       <!-- Button trigger modal -->
@@ -81,7 +81,7 @@
         add Sub Category
       </button>
       <!-- Modal -->
-      <div class="modal fade" id="categoryModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal fade" id="categoryModal" tabindex="-1" aria-labelledby="categoryModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
             <div class="modal-header">
@@ -92,7 +92,7 @@
               <form class="needs-validation" id="category-form" novalidate>
                 <div class="mb-3 col-12">
                   <label for="category-name" class="form-label">Category Name</label>
-                  <input type="text" class="form-control" id="category-name" required>
+                  <input type="text" class="form-control border" id="category-name" required>
                   <div class="invalid-feedback">
                     Please enter a valid category name.
                   </div>
@@ -106,7 +106,7 @@
       </div>
 
       <!-- Modal -->
-      <div class="modal fade" id="subcategoryModal" tabindex="-1" aria-labelledby="subcategoryModal" aria-hidden="true">
+      <div class="modal fade" id="subcategoryModal" tabindex="-1" aria-labelledby="subcategoryModalLable" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
             <div class="modal-header">
@@ -117,7 +117,7 @@
               <form class="needs-validation" id="subcategory-form" novalidate>
                 <div class="mb-3 col-12">
                   <label for="category-select" class="form-label">Select Category</label>
-                  <select class="form-select" id="category-select" required>
+                  <select class="form-select border" id="category-select" required>
                     <option selected disabled value="">Select Category ...</option>
                   </select>
                   <div class="invalid-feedback">
@@ -126,14 +126,14 @@
                 </div>
                 <div class=" mb-3 col-12">
                   <label for="subcategory-name" class="form-label">SubCategory Name</label>
-                  <input type="text" class="form-control" id="subcategory-name" required>
+                  <input type="text" class="form-control border" id="subcategory-name" required>
                   <div class="invalid-feedback">
                     Please enter a valid subcategory name.
                   </div>
 
                   <input type="hidden" class="form-control" id="subcategory-id">
                 </div>
-                <button type="submit" id="submit" class="btn btn-primary">Add</button>
+                <button type="submit" id="submitSub" class="btn btn-primary">Add</button>
               </form>
             </div>
           </div>
@@ -161,12 +161,10 @@
   <script src="../../assets/js/bootstrap.min.js"></script>
   <script src="../../assets/js/swiper-bundle.min.js"></script>
   <script src="../../assets/js/custom.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/11.0.5/swiper-bundle.min.js" crossorigin="anonymous"
-    referrerpolicy="no-referrer"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script>
     const categoryForm = document.getElementById('category-form');
-    const url = 'http://localhost/Plexus-Orthotech/admin/includes/category.php'
+    const url = '../includes/category.php'
     let categories = []
     let isEditCategory = false;
     let isEditSubcategory = false;
@@ -176,6 +174,14 @@
       // reset form
       categoryForm.reset()
       document.getElementById('submit').innerText = 'Add'
+    })
+    
+    $('#subcategoryModal').on('hidden.bs.modal', function (e) {
+          subcategoryForm.classList.remove('was-validated')
+          // reset form
+          subcategoryForm.reset()
+          document.getElementById('submitSub').innerText = 'Add'
+          document.getElementById('category-select').disabled = false
     })
 
     categoryForm.addEventListener('submit', (e) => {
@@ -209,6 +215,7 @@
                 return category
               })
               renderCategoryCard(categories)
+              renderCategory(categories)
               Swal.fire({
                 icon: 'success',
                 title: 'Category Updated successfully',
@@ -221,6 +228,7 @@
             } else {
               categories = [response.category, ...categories]
               renderCategoryCard(categories)
+              renderCategory(categories)
               Swal.fire({
                 icon: 'success',
                 title: 'Category Added successfully',
@@ -232,12 +240,25 @@
             }
           },
           error: function (error) {
-            console.log(error)
-            Swal.fire({
-              icon: 'error',
-              title: 'Oops...',
-              text: error.responseJSON.message
-            })
+            if (error.status === 401) {
+              Swal.fire({
+                icon: 'error',
+                title: 'Unauthorized',
+                text: 'Your session has expired, please log in again.',
+                confirmButtonText: 'OK'
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  window.location.href = '../index.html'; // Redirect to the login page
+
+                }
+              });
+            } else {
+              Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: error.responseJSON.message
+              });
+            }
           }
         });
 
@@ -247,7 +268,7 @@
 
     //add subcategory
     const subcategoryForm = document.getElementById('subcategory-form');
-    const subactegoryUrl = 'http://localhost/Plexus-Orthotech/admin/includes/subcategory.php'
+    const subactegoryUrl = '../includes/subcategory.php'
     subcategoryForm.addEventListener('submit', (e) => {
       event.preventDefault()
       event.stopPropagation()
@@ -257,12 +278,6 @@
         const category_id = document.getElementById('category-select').value;
         const subcategory_name = document.getElementById('subcategory-name').value;
 
-        $('#subcategoryModal').on('hidden.bs.modal', function (e) {
-          categoryForm.classList.remove('was-validated')
-          // reset form
-          subcategoryForm.reset()
-          document.getElementById('submit').innerText = 'Add'
-        })
         //if isEditSubcategory then set subcategoryId else not
         let data;
         if (isEditSubcategory) {
@@ -300,6 +315,7 @@
                 return category
               })
               renderCategoryCard(categories)
+              document.getElementById('submitSub').innerText = 'Add'
               Swal.fire({
                 icon: 'success',
                 title: 'SubCategory Updated successfully',
@@ -312,7 +328,11 @@
             else {
               categories = categories.map(category => {
                 if (category.id === response.subcategory.category_id) {
+                if(category.subcategories){        
                   category.subcategories = [response.subcategory, ...category.subcategories]
+                }else{
+                    category.subcategories = [response.subcategory]
+                }
                 }
                 return category
               })
@@ -327,12 +347,25 @@
             }
           },
           error: function (error) {
-            console.log(error)
-            Swal.fire({
-              icon: 'error',
-              title: 'Oops...',
-              text: error.responseJSON.message
-            })
+            if (error.status === 401) {
+              Swal.fire({
+                icon: 'error',
+                title: 'Unauthorized',
+                text: 'Your session has expired, please log in again.',
+                confirmButtonText: 'OK'
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  window.location.href = '../index.html'; // Redirect to the login page
+
+                }
+              });
+            } else {
+              Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: error.responseJSON.message
+              });
+            }
           }
         });
 
@@ -355,6 +388,7 @@
 
     function renderCategory(categories) {
       const select = document.getElementById('category-select');
+      select.innerHTML = '<option selected disabled value="">Select Category ...</option>';
       categories.forEach(category => {
         const option = document.createElement('option');
         option.value = category.id;
@@ -393,8 +427,9 @@
       label.innerText = 'Update SubCategory';
       document.getElementById('subcategory-name').value = subcategory.name
       document.getElementById('category-select').value = subcategory.category_id
+      document.getElementById('category-select').disabled = true
       document.getElementById('subcategory-id').value = subcategory.id
-      document.getElementById('submit').innerText = 'Update'
+      document.getElementById('submitSub').innerText = 'Update'
       $('#subcategoryModal').modal('show');
       isEditSubcategory = true;
     }
@@ -430,12 +465,25 @@
               })
             },
             error: function (error) {
-              console.log(error)
+              if (error.status === 401) {
               Swal.fire({
                 icon: 'error',
-                title: 'Error',
+                title: 'Unauthorized',
+                text: 'Your session has expired, please log in again.',
+                confirmButtonText: 'OK'
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  window.location.href = '../index.html'; // Redirect to the login page
+
+                }
+              });
+            } else {
+              Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
                 text: error.responseJSON.message
-              })
+              });
+            }
             }
           })
         }
@@ -477,12 +525,25 @@
               })
             },
             error: function (error) {
-              console.log(error)
+              if (error.status === 401) {
               Swal.fire({
                 icon: 'error',
-                title: 'Error',
+                title: 'Unauthorized',
+                text: 'Your session has expired, please log in again.',
+                confirmButtonText: 'OK'
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  window.location.href = '../index.html'; // Redirect to the login page
+
+                }
+              });
+            } else {
+              Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
                 text: error.responseJSON.message
-              })
+              });
+            }
             }
           })
         }
@@ -500,7 +561,7 @@
         const filteredCategory = categories.filter(item =>
           item.name.toLowerCase().includes(search)
         );
-        
+
         renderCategoryCard(filteredCategory)
       }
     }
@@ -534,8 +595,7 @@
     $(document).on('click', '.category-row', function () {
       const tr = $(this);
       let subcategories = tr.data('subcategories');
-
-      console.log(subcategories)
+ 
 
       const nextRow = tr.next('.sub-table-row');
       // Toggle sub-table visibility

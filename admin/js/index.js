@@ -24,3 +24,11 @@ function checkCookieAndRedirect(cookieName, loginPageUrl) {
     window.location.href = loginPageUrl;
   }
 }
+
+// Function to check for a specific cookie and redirect if found
+function checkCookieAndRedirectIfFound(cookieName, homePageUrl) {
+  const cookieValue = getCookie(cookieName);
+  if (cookieValue) {
+    window.location.href = homePageUrl;
+  }
+}

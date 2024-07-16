@@ -4,7 +4,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login</title>
+  <title>Admin Login - plexus orthotech</title>
+   <script src="./js/index.js"></script>
+  <script>
+    // this script redirect to login page if not login 
+    document.addEventListener('DOMContentLoaded', function () {
+      checkCookieAndRedirectIfFound('adminToken', './html/index.html');
+    });
+  </script>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -101,8 +108,8 @@
       </div>
     </form>
   </div>
-  <script src="../../assets/js/jquery.min.js"></script>
-  <script src="../../assets/js/bootstrap.min.js"></script>
+  <script src="../assets/js/jquery.min.js"></script>
+  <script src="../assets/js/bootstrap.min.js"></script>
   <script>
     let errorElement = document.getElementById('login-error');
 
@@ -126,7 +133,7 @@
         data[key] = value;
       });
 
-      const url = 'http://localhost/Plexus-Orthotech/admin/includes/login.php'
+      const url = './includes/login.php'
 
       //send data to server using ajax
       $.ajax({
@@ -135,10 +142,10 @@
         data: JSON.stringify(data),
         success: function (response) {
           errorElement.innerHTML = '';
-
+            console.log(response);
           if (response.success) {
             setCookie('adminToken', response.token, 1);
-            window.location.href = 'http://localhost/Plexus-Orthotech/admin/html/index.html';
+            window.location.href = './html/index.html';
           } else {
             alert(response.message);
           }

@@ -52,6 +52,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $productName = $_POST['product_name'];
   $categoryId = $_POST['category_id'];
   $subcategoryId = $_POST['subcategory_id'] ?? null;
+  if (empty($subcategoryId)) {
+    $subcategoryId = null;
+}
   $productId = $_POST['product_id'];
   $imageName = null;
 
@@ -83,6 +86,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $imageName = $currentImageName;
   }
   try {
+       $stmt = $pdo->prepare('SELECT * FROM products WHERE name = ? AND category_id = ? AND subcategory_id IS NULL');
+    $stmt->execute([$productName, $categoryId]);
+    $product = $stmt->fetch(PDO::FETCH_ASSOC);
+    if ($product) {
+      http_response_code(402);
+      $response = array('success' => false, 'message' => 'Product name already exists in the category');
+      echo json_encode($response);
+      exit();
+    }
+    
     $stmt = $pdo->prepare('UPDATE products SET name = ?, image = ?, category_id = ?, subcategory_id = ? WHERE id = ?');
     $stmt->execute([$productName, $imageName, $categoryId, $subcategoryId, $productId]);
 

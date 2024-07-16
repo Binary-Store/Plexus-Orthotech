@@ -364,6 +364,7 @@ p {
     margin-top: 57px;
     transition: all 0.3s ease;
     box-shadow: 15px 20px 60px rgba(42, 167, 255, 0.20);
+    border:transparent;
 }
 
 .hc-bnrbtn:hover {
@@ -832,6 +833,7 @@ p {
     align-items: center;
     transition: all 0.3s ease;
     box-shadow: 15px 20px 60px 0px rgba(42, 167, 255, 0.20);
+    border:transparent;
 }
 
 .hc-about-btn:hover {
@@ -2375,6 +2377,9 @@ span.searchBtn {
 }
 
 @media(max-width:767px) {
+    .custom-margin-4rem{
+        margin-top: 4rem !important;
+    }
     .pc-container{
         padding-top: 100px !important;
     }
@@ -2512,6 +2517,9 @@ span.searchBtn {
 }
 
 @media(max-width:540px) {
+    :root{
+        font-size: 10px;     
+    }
     .CareerForm{
         width: 100% !important;
     }
@@ -2743,6 +2751,12 @@ span.searchBtn {
     background-color: white;
 	box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
     
+}
+.product-breadcrumb{
+    font-size: 1.5rem;
+    color: var(--hc-hiver-blue);
+    padding-bottom: 20px;
+    padding-left: 10px;
 }
 .fs-8{
     font-size: 0.8rem;
