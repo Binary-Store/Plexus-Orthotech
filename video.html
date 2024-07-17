@@ -64,28 +64,35 @@
         </div>
         <div class="hc-navbar-menu">
           <ul>
-            <li class="responsive-logo" data-aos="fade-down">
+            <li class="responsive-logo">
               <a href="./index.html">
                 <img src="assets/images/logo.png" />
               </a>
             </li>
-            <li data-aos="fade-down" data-aos-delay="200">
-              <a href="./index.html">Home</a>
+            <li class="active">
+              <a href="./index.html" class="nav_bar_list">Home</a>
             </li>
-            <li data-aos="fade-down" data-aos-delay="400">
-              <a href="./about.html">About Us</a>
+            <li>
+              <a href="./about.html" class="nav_bar_list">About Us</a>
             </li>
-            <li data-aos="fade-down" data-aos-delay="600">
-              <a href="./product.html">Product</a>
+            <li class="prdocut_nav ">
+              <a href="./product.html" class="nav_bar_list">Product</a>
+              <div class="mega-menu-container">
+                <div class="mega-menu">
+                  <div class="mega-menu-row" id="mega_menu_row">
+
+                  </div>
+                </div>
+              </div>
             </li>
-            <li class="active" data-aos="fade-down" data-aos-delay="800">
-              <a href="#">Video</a>
+            <li>
+              <a href="#" class="nav_bar_list">Video</a>
             </li>
-            <li data-aos="fade-down" data-aos-delay="1000">
-              <a href="./contact.html">Contact Us</a>
+            <li>
+              <a href="./contact.html" class="nav_bar_list">Contact Us</a>
             </li>
-            <li data-aos="fade-down" data-aos-delay="1000">
-              <a href="./career.html">Career</a>
+            <li>
+              <a href="./career.html" class="nav_bar_list">Career</a>
             </li>
           </ul>
         </div>
@@ -94,7 +101,7 @@
   </div>
 
   <!-- video section start -->
-  <div class="hc-faq-wrapper hc-sections mt-5 mt-md-2 mt-lg-0">
+  <div class="hc-faq-wrapper hc-sections ">
     <div class="container">
       <div class="hc-news-top">
         <h6 class="hc-news-subhead">Our Video</h6>
@@ -309,6 +316,8 @@
     }
   </script>
   <script src="assets/js/jquery.min.js"></script>
+  <!-- product.js use for hover product in navbar -->
+  <script src="./assets/js/product.js"></script>
   <script src="assets/js/bootstrap.min.js"></script>
   <script src="assets/js/swiper-bundle.min.js"></script>
   <script src="assets/js/custom.js"></script>

@@ -64,28 +64,35 @@
         </div>
         <div class="hc-navbar-menu">
           <ul>
-            <li class="responsive-logo" data-aos="fade-down">
+            <li class="responsive-logo">
               <a href="./index.html">
                 <img src="assets/images/logo.png" />
               </a>
             </li>
-            <li data-aos="fade-down" data-aos-delay="200">
-              <a href="./index.html">Home</a>
+            <li class="active">
+              <a href="./index.html" class="nav_bar_list">Home</a>
             </li>
-            <li data-aos="fade-down" data-aos-delay="400">
-              <a href="./about.html">About Us</a>
+            <li>
+              <a href="./about.html" class="nav_bar_list">About Us</a>
             </li>
-            <li data-aos="fade-down" data-aos-delay="600">
-              <a href="./product.html">Product</a>
+            <li class="prdocut_nav ">
+              <a href="./product.html" class="nav_bar_list">Product</a>
+              <div class="mega-menu-container">
+                <div class="mega-menu">
+                  <div class="mega-menu-row" id="mega_menu_row">
+
+                  </div>
+                </div>
+              </div>
             </li>
-            <li data-aos="fade-down" data-aos-delay="800">
-              <a href="./video.html">Video</a>
+            <li>
+              <a href="./video.html" class="nav_bar_list">Video</a>
             </li>
-            <li class="active" data-aos="fade-down" data-aos-delay="1000">
-              <a href="#">Contact Us</a>
+            <li>
+              <a href="#" class="nav_bar_list">Contact Us</a>
             </li>
-            <li data-aos="fade-down" data-aos-delay="1000">
-              <a href="./career.html">Career</a>
+            <li>
+              <a href="./career.html" class="nav_bar_list">Career</a>
             </li>
           </ul>
         </div>
@@ -94,7 +101,7 @@
   </div>
 
   <!-- contact us section start -->
-  <div class="hc-appointment-wrapper hc-sections mt-5 mt-md-2 mt-lg-0" id="contact">
+  <div class="hc-appointment-wrapper hc-sections" id="contact">
     <div class="container">
       <div class="hc-appointment-row">
         <div class="hc-appointmnet-text">
@@ -102,13 +109,23 @@
             <h2 class="about-us-heading" data-aos="fade-down">Contact Us</h2>
             <h4 class=" hc-about-head" data-aos="fade-down">Reach Out to Our Team</h4>
             <p class="hc-paragraph" data-aos="faade-up">
-               We value your interest in Plexus Orthotech and are here to assist you with any inquiries or support you may need. Whether you have questions about our products, services, or any other aspect of our company, our dedicated team is ready to provide you with the information you seek. We believe in maintaining open communication with our clients and partners, ensuring that your experience with us is as smooth and satisfactory as possible.
+              We value your interest in Plexus Orthotech and are here to assist you with any inquiries or support you
+              may need. Whether you have questions about our products, services, or any other aspect of our company, our
+              dedicated team is ready to provide you with the information you seek. We believe in maintaining open
+              communication with our clients and partners, ensuring that your experience with us is as smooth and
+              satisfactory as possible.
             </p>
             <p class="hc-paragraph hc-appoint-firstpara" data-aos="faade-up">Get latest news in your inbox.
-              Our team at Plexus Orthotech is committed to delivering exceptional customer service. When you reach out to us, you can expect a prompt and helpful response. We understand the importance of addressing your concerns and providing you with the solutions you need. Your feedback is invaluable to us, and we strive to continuously improve our services based on your suggestions and experiences.</p>
+              Our team at Plexus Orthotech is committed to delivering exceptional customer service. When you reach out
+              to us, you can expect a prompt and helpful response. We understand the importance of addressing your
+              concerns and providing you with the solutions you need. Your feedback is invaluable to us, and we strive
+              to continuously improve our services based on your suggestions and experiences.</p>
             <p class="hc-paragraph hc-appint-secondpara" data-aos="faade-up"> Consectetur adipiscing elitadipiscing
-              Please feel free to contact us through any of the methods listed below. Our customer service representatives are available during regular business hours to assist you. Whether you prefer to reach us by phone, email, or through our online contact form, we are here to help. Thank you for choosing Plexus Orthotech – we look forward to hearing from you and assisting with your needs.
-              </p>
+              Please feel free to contact us through any of the methods listed below. Our customer service
+              representatives are available during regular business hours to assist you. Whether you prefer to reach us
+              by phone, email, or through our online contact form, we are here to help. Thank you for choosing Plexus
+              Orthotech – we look forward to hearing from you and assisting with your needs.
+            </p>
           </div>
         </div>
         <div class="hc-appointment-img" data-aos="faade-up">
@@ -309,6 +326,8 @@
     });
   </script>
   <script src="assets/js/jquery.min.js"></script>
+  <!-- product.js use for product hover in navbar -->
+  <script src="./assets/js/product.js"></script>
   <script src="assets/js/bootstrap.min.js"></script>
   <script src="assets/js/swiper-bundle.min.js"></script>
   <script src="assets/js/custom.js"></script>

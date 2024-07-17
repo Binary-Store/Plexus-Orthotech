@@ -29,7 +29,7 @@ body {
 *:after {
     box-sizing: border-box;
     -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
+    -moz-box-sizing: border-box;    
 }
 
 a,
@@ -127,7 +127,7 @@ p {
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
-    padding: 100px 0px;
+    padding: 110px 0px;
 }
 
 .hc-container {
@@ -273,7 +273,7 @@ p {
     transition: all 0.3s;
 }
 
-.hc-navbar-menu ul li a:after {
+.hc-navbar-menu ul li .nav_bar_list:after {
     position: absolute;
     margin: 0 auto;
     left: 0;
@@ -287,7 +287,7 @@ p {
     opacity: 0;
 }
 
-.hc-navbar-menu ul li a:hover:after {
+.hc-navbar-menu ul li .nav_bar_list:hover:after {
     opacity: 1;
     color: var(--hc-hiver-blue);
 }
@@ -296,11 +296,11 @@ p {
     opacity: 0;
 }
 
-.hc-navbar-menu ul li a:hover:after {
+.hc-navbar-menu ul li .nav_bar_list:hover:after {
     opacity: 1;
 }
 
-.hc-navbar-menu ul li a:hover {
+.hc-navbar-menu ul li .nav_bar_list:hover {
     color: var(--hc-hiver-blue);
 }
 
@@ -2253,10 +2253,10 @@ span.searchBtn {
         color: var(--hc-white-color);
         justify-content: left;
     }
-    .hc-navbar-menu ul li a:after {
+    .hc-navbar-menu ul li .nav_bar_list:after {
         display: none;
     }
-    .hc-navbar-menu ul li a:before {
+    .hc-navbar-menu ul li .nav_bar_list:before {
         display: none;
     }
     .hc-toggle-btn span {
@@ -2375,6 +2375,20 @@ span.searchBtn {
         text-align: center;
     }
 }
+@media(max-width:768px){
+    .hero_section_left > img{
+        width:150px !important;
+    }
+    .hero_section_left > h2{
+        font-size: 3rem !important;
+    }
+    .hero_section_left > p{
+        font-size: 1rem !important;
+    }
+    .hero_section_left > .hc-abbtn{
+        display: none;
+    }
+}
 
 @media(max-width:767px) {
     .custom-margin-4rem{
@@ -2393,7 +2407,7 @@ span.searchBtn {
         width: 100% !important;
     }
     .hc-sections {
-        padding: 50px 0;
+        padding: 100px 0;
     }
     .hc-brand-logo a img{
         max-width: 180px;
@@ -2727,6 +2741,18 @@ span.searchBtn {
 }
 
 @media(max-width:350px) {
+    .hero_section_left > img{
+        width:100px !important;
+    }
+    .hero_section_left > h2{
+        font-size: 2.5rem !important;
+    }
+    .hero_section_left > p{
+        display: none;
+    }
+    .hero_section_left > .hc-abbtn{
+        display: none;
+    }
     .hc-team-wrapper .hc-top-heading .swiper-button-prev {
         top: 550px;
     }
@@ -2836,3 +2862,88 @@ input[type="file"]::-webkit-file-upload-button {
 .input-grop-container{
     width: 25%;
 }
+
+.hero_section_left > img{
+    width: 200px;
+}
+.hero_section_left > h2{
+    font-size: 4rem;
+}
+.hero_section_left > p{
+    font-size: 1.5rem;
+    font-weight: normal;
+}
+
+/* Mega menu styles */
+/* .mega-menu-container{
+    display:none;
+    position: absolute;
+    cursor: pointer;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 60%;
+    width: 90%;
+    margin:auto;
+    background-color: transparent;
+}
+.mega-menu {
+    margin-top:2.7rem;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
+    padding: 20px;
+    z-index: 1000;
+    border-radius: 10px;
+}
+
+.mega-menu-row {
+    display: flex;
+    justify-content: space-around;
+    align-items: start;
+}
+
+.mega-menu-column {
+    flex: 1;
+    padding: 10px;
+}
+.category_link{
+    color: var(--hc-face-color) !important;
+    font-weight: bolder !important;
+}
+
+.mega-menu-column h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+.mega-menu-column ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.mega-menu-column ul li {
+    margin-bottom: 10px;
+}
+
+.mega-menu-column ul li a {
+    color: #333;
+    text-decoration: none;
+}
+
+.mega-menu-column ul li a:hover {
+    text-decoration: underline;
+} */
+
+/* Show the mega menu on hover */
+/* .hc-navbar-menu .prdocut_nav:hover .mega-menu-container {
+    display: block;
+}
+
+@media screen and (max-width: 990px) {
+    .mega-menu-row{
+        flex-direction: column;
+        color:white;
+    }
+}
+ */
+

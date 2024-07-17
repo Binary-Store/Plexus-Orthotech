@@ -93,7 +93,7 @@
   </div>
 
   <!-- product section start -->
-  <div class="hc-faq-wrapper hc-sections mt-5 mt-md-2 mt-lg-0">
+  <div class="hc-faq-wrapper hc-sections ">
     <div class="container">
       <div class="hc-news-top">
         <h6 class="hc-news-subhead" data-aos="fade-down">Our Product</h6>
@@ -269,6 +269,25 @@
   <script src="assets/js/jquery.min.js"></script>
 
   <script>
+    function getUrlParams() {
+      const params = {};
+      const queryString = window.location.search.slice(1);
+      const pairs = queryString.split("&");
+
+      for (const pair of pairs) {
+        if (pair) {
+          const [key, value] = pair.split("=");
+          params[decodeURIComponent(key)] = decodeURIComponent(value || "");
+        }
+      }
+
+      return params;
+    }
+
+    // Example usage
+    const params = getUrlParams();
+    console.log(params);
+
     AOS.init({
       offset: 170,
       duration: 1000,
@@ -288,10 +307,11 @@
               products = response.data.products;
               categories = response.data.categories;
               populateCategories(response.data.categories);
-              if(categories.length>0){
-              active_category = response.data.categories[0].id;
-              
-              populateProducts(response.data.products,response.data.categories, active_category, "category");}
+              if (categories.length > 0) {
+                active_category = response.data.categories[0].id;
+
+                populateProducts(response.data.products, response.data.categories, active_category, "category");
+              }
             } else {
               console.error('Error fetching data:', response.error);
             }
@@ -305,7 +325,7 @@
       function populateCategories(categories) {
         const categoryList = $('#category-list');
         categoryList.empty();
-        
+
         if (categories.length === 0) {
           categoryList.hide();
           return;
@@ -342,18 +362,18 @@
       function populateProducts(products, categories, populate_id, type) {
         const productList = $('#product-list');
         productList.empty();
-        
-        if(type=="category"){
+
+        if (type == "category") {
           //find from categories
           var category = categories.find(category => category.id == populate_id);
           $('#product-breadcrumb').text(category.name);
-        }else{
+        } else {
           //find from subcategories
           var category = categories.find(category => category.subcategories.find(subcategory => subcategory.id == populate_id));
           var subcategory = category.subcategories.find(subcategory => subcategory.id == populate_id);
           $('#product-breadcrumb').text(category.name + ' > ' + subcategory.name);
         }
-        
+
         products.forEach(product => {
           var ref_id = (type == "category") ? product.category_id : product.subcategory_id;
 

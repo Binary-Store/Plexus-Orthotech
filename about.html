@@ -63,28 +63,35 @@
         </div>
         <div class="hc-navbar-menu">
           <ul>
-            <li class="responsive-logo" data-aos="fade-down">
+            <li class="responsive-logo">
               <a href="./index.html">
                 <img src="assets/images/logo.png" />
               </a>
             </li>
-            <li data-aos="fade-down" data-aos-delay="200">
-              <a href="./index.html">Home</a>
+            <li class="active">
+              <a href="./index.html" class="nav_bar_list">Home</a>
             </li>
-            <li class="active" data-aos="fade-down" data-aos-delay="400">
-              <a href="#">About Us</a>
+            <li>
+              <a href="#" class="nav_bar_list">About Us</a>
             </li>
-            <li data-aos="fade-down" data-aos-delay="600">
-              <a href="./product.html">Product</a>
+            <li class="prdocut_nav ">
+              <a href="./product.html" class="nav_bar_list">Product</a>
+              <div class="mega-menu-container">
+                <div class="mega-menu">
+                  <div class="mega-menu-row" id="mega_menu_row">
+
+                  </div>
+                </div>
+              </div>
             </li>
-            <li data-aos="fade-down" data-aos-delay="800">
-              <a href="./video.html">Video</a>
+            <li>
+              <a href="./video.html" class="nav_bar_list">Video</a>
             </li>
-            <li data-aos="fade-down" data-aos-delay="1000">
-              <a href="./contact.html">Contact Us</a>
+            <li>
+              <a href="./contact.html" class="nav_bar_list">Contact Us</a>
             </li>
-            <li data-aos="fade-down" data-aos-delay="1000">
-              <a href="./career.html">Career</a>
+            <li>
+              <a href="./career.html" class="nav_bar_list">Career</a>
             </li>
           </ul>
         </div>
@@ -97,7 +104,7 @@
     <div class="container">
       <div class="hc-about-mainrow">
         <div class="hc-about-img" data-aos="faade-up">
-          <img src="assets/images/about_1.png" class="hc-aboutmain_img" alt="depimg" />
+          <img src="assets/images/about.webp" class="hc-aboutmain_img" alt="depimg" />
         </div>
         <div class="hc-about-maintext">
           <div class="hc-about-top">
@@ -107,9 +114,7 @@
               Orthotech Pvt. Ltd. , a leader in orthocare products. We specialize in manufacturing innovative orthopedic
               solutions designed to enhance mobility, alleviate pain, and improve quality of life. With a commitment to
               quality. Backed by cutting-edge research and a passionate team, we strive to set new standards in
-              orthopedic care. Whether you're recovering from an injury or seeking comfort in daily activities, Plexus
-              Orthotech Pvt. Ltd. is here to support your journey to better health and mobility. Discover our commitment
-              to excellence and customer care today.
+              orthopedic care.
             </p>
             <ul class="hc-text-ul">
               <li class="hc-text-li" data-aos="fade-down">
@@ -117,13 +122,6 @@
                   <img src="assets/images/listright.png" class="hc-listicon_img" alt="aboutlist" />
                 </div>
                 <p class="hc-paragraph"><b>Innovative Solutions </b>: Pioneering orthopedic products for modern needs.
-                </p>
-              </li>
-              <li class="hc-text-li" data-aos="fade-down">
-                <div class="hc-listimg-circle">
-                  <img src="assets/images/listright.png" class="hc-listicon_img" alt="aboutlist" />
-                </div>
-                <p class="hc-paragraph"> <b>Enhanced Mobility</b>: Supporting active lifestyles with precision designs.
                 </p>
               </li>
               <li class="hc-text-li" data-aos="fade-down">
@@ -352,6 +350,8 @@
     });
   </script>
   <script src="assets/js/jquery.min.js"></script>
+  <!-- product.js use for product hover in navbar -->
+  <script src="./assets/js/product.js"></script>
   <script src="assets/js/bootstrap.min.js"></script>
   <script src="assets/js/swiper-bundle.min.js"></script>
   <script src="assets/js/custom.js"></script>

@@ -64,28 +64,35 @@
         </div>
         <div class="hc-navbar-menu">
           <ul>
-            <li class="responsive-logo" data-aos="fade-down">
+            <li class="responsive-logo">
               <a href="./index.html">
                 <img src="assets/images/logo.png" />
               </a>
             </li>
-            <li data-aos="fade-down" data-aos-delay="200">
-              <a href="./index.html">Home</a>
+            <li class="active">
+              <a href="./index.html" class="nav_bar_list">Home</a>
             </li>
-            <li data-aos="fade-down" data-aos-delay="400">
-              <a href="./about.html">About Us</a>
+            <li>
+              <a href="./about.html" class="nav_bar_list">About Us</a>
             </li>
-            <li data-aos="fade-down" data-aos-delay="600">
-              <a href="./product.html">Product</a>
+            <li class="prdocut_nav ">
+              <a href="./product.html" class="nav_bar_list">Product</a>
+              <div class="mega-menu-container">
+                <div class="mega-menu">
+                  <div class="mega-menu-row" id="mega_menu_row">
+
+                  </div>
+                </div>
+              </div>
             </li>
-            <li data-aos="fade-down" data-aos-delay="800">
-              <a href="./video.html">Video</a>
+            <li>
+              <a href="./video.html" class="nav_bar_list">Video</a>
             </li>
-            <li data-aos="fade-down" data-aos-delay="1000">
-              <a href="./contact.html">Contact Us</a>
+            <li>
+              <a href="./contact.html" class="nav_bar_list">Contact Us</a>
             </li>
-            <li class="active" data-aos="fade-down" data-aos-delay="1000">
-              <a href="#">Career</a>
+            <li>
+              <a href="#" class="nav_bar_list">Career</a>
             </li>
           </ul>
         </div>
@@ -109,7 +116,7 @@
             Get the latest news from Plexus Orthotech in your inbox.
             Stay updated with our innovations and advancements.
             Sign up now for exclusive insights and updates.
-            </p>
+          </p>
         </div>
         <div class="hc-rightbaner CareerForm-container">
           <form class="CareerForm" id="appointmentform" enctype="multipart/form-data">
@@ -360,6 +367,8 @@
   </script>
   <script src="assets/js/bootstrap.min.js"></script>
   <script src="assets/js/swiper-bundle.min.js"></script>
+  <!-- product.js use for product hover in navabar -->
+  <script src="./assets/js/product.js"></script>
   <script src="assets/js/custom.js"></script>
   <script src="assets/js/form.js"></script>
 
