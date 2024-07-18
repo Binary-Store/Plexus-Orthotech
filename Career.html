@@ -52,7 +52,7 @@
   <div class="hc-header-wrapper hc-sections">
     <div class="hc-container">
       <div class="hc-navbar-wrapper">
-        <div class="hc-brand-logo" data-aos="faade-up" data-aos-delay="200">
+        <div class="hc-brand-logo">
           <a href="./index.html">
             <img src="assets/images/logo.png" class="hc-logo" alt="logo" />
           </a>
@@ -69,7 +69,7 @@
                 <img src="assets/images/logo.png" />
               </a>
             </li>
-            <li class="active">
+            <li>
               <a href="./index.html" class="nav_bar_list">Home</a>
             </li>
             <li>
@@ -86,12 +86,18 @@
               </div>
             </li>
             <li>
+              <a href="./brochures.html" class="nav_bar_list">Brochures</a>
+            </li>
+            <li>
               <a href="./video.html" class="nav_bar_list">Video</a>
+            </li>
+            <li>
+              <a href="./channelPartner.html" class="nav_bar_list">Channel Partner</a>
             </li>
             <li>
               <a href="./contact.html" class="nav_bar_list">Contact Us</a>
             </li>
-            <li>
+            <li class="active">
               <a href="#" class="nav_bar_list">Career</a>
             </li>
           </ul>
@@ -100,44 +106,8 @@
     </div>
   </div>
 
-  <!-- Career section start -->
-  <div class="hc-mainbnr hc-sections" id="home" style="background-image: url('assets/images/bg.png');">
-    <div class="hc-container">
-      <div class="hc-bannerrightleft">
-        <div class="hc-headingsection">
-          <img src="./assets/images/logo.png" data-aos="zoom-in" class="mb-4 hero-logo" height="150px"
-            alt="plexus logo">
-          <h1 class="hc-bannerheading" data-aos="faade-up">Join Our Team and Grow</h1>
-          <div class="hctextbg" style="background-image: url('assets/images/textbg2.png');" data-aos="faade-up"
-            data-aos-delay="400">
-            <h1 class="hc-bannerheading">Your Career Here</h1>
-          </div>
-          <p class="hc-paragraph" data-aos="faade-up" data-aos-delay="700">
-            Get the latest news from Plexus Orthotech in your inbox.
-            Stay updated with our innovations and advancements.
-            Sign up now for exclusive insights and updates.
-          </p>
-        </div>
-        <div class="hc-rightbaner CareerForm-container">
-          <form class="CareerForm" id="appointmentform" enctype="multipart/form-data">
-            <h4 class="hc-appointment-head">Career Form</h4>
-            <p class="hc-paragraph">Get details in your inbox right now</p>
-            <div class="hc-appointinput">
-              <input type="text" placeholder="Full Name" id="name" name="name" required />
-              <input type="tel" pattern="[0-9]{10}" placeholder="Phone" id="phone" name="contact" required />
-              <input type="email" placeholder="Email" id="email" name="email" required />
-              <input type="file" id="resume" name="resume" accept=".pdf" required />
-            </div>
-            <button type="submit" class="hc-about-btn hc-formbtn">Submit</button>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- Career section end -->
-
   <!-- our core value section start -->
-  <div class="hc-appointment-wrapper hc-sections" id="contact">
+  <div class="hc-appointment-wrapper hc-sections " style="padding-bottom: 0px !important;" id="contact">
     <div class="container">
       <div class="hc-appointment-row">
         <div class="hc-appointmnet-text">
@@ -171,6 +141,69 @@
     </div>
   </div>
   <!-- our core value section end -->
+
+  <!-- Career section start -->
+  <div class="hc-mainbnr hc-sections " style="padding-top: 20px !important;" id="home">
+    <div class="container career_container_left_right">
+      <div class="career_left mb-4">
+        <h2 class="fw-bolder mb-2" style="color: #12304B;">Current Opening</h2>
+        <div class="p-3 rounded-start-0 ps-4 w-100 mb-2 d-flex justify-content-start gap-3"
+          style="background-color: #a3caf318;border-radius: 20px;">
+          <img src="./assets/images/target.png" width="50px" alt="right arrow">
+          <div>
+            <h5>position hello </h5>
+            <p style="color: grey;">rajkot gujrat india</p>
+          </div>
+        </div>
+        <div class="p-3 rounded-start-0 ps-4 w-100 mb-2 d-flex justify-content-start gap-3"
+          style="background-color: #a3caf318;border-radius: 20px;">
+          <img src="./assets/images/target.png" width="50px" alt="right arrow">
+          <div>
+            <h5>position hello </h5>
+            <p style="color: grey;">rajkot gujrat india</p>
+          </div>
+        </div>
+        <div class="p-3 rounded-start-0 ps-4 w-100 mb-2 d-flex justify-content-start gap-3"
+          style="background-color: #a3caf318;border-radius: 20px;">
+          <img src="./assets/images/target.png" width="50px" alt="right arrow">
+          <div>
+            <h5>position hello </h5>
+            <p style="color: grey;">rajkot gujrat india</p>
+          </div>
+        </div>
+      </div>
+      <div class="hc-rightbaner CareerForm-container career_right">
+        <form class="CareerForm w-100" id="appointmentform" onsubmit="sendCareer(event)" enctype="multipart/form-data">
+          <h3 class="hc-appointment-head fw-bold">Join Our Team</h3>
+          <p class="hc-paragraph">Get details in your inbox right now</p>
+          <div class="hc-appointinput">
+            <input type="text" placeholder="Full Name" id="name" name="name" required />
+            <input type="tel" pattern="[0-9]{10}" placeholder="Phone" id="phone" name="contact" required />
+            <input type="email" placeholder="Email" id="email" name="email" required />
+            <input type="text" placeholder="Country" id="country" name="country" required>
+            <input type="text" placeholder="State" id="state" name="state" required>
+            <input type="text" placeholder="City" id="city" name="city" required>
+            <!-- drop down -->
+            <select name="position" id="position">
+              <option value="">Select Position</option>
+              <option value="position1">Position 1</option>
+            </select>
+            <input type="file" id="pdf" name="pdf" accept=".pdf" required />
+          </div>
+          <div id="submittingforcareer" style="display: none;">
+            Submitting form.....
+          </div>
+          <div id="notificationforcareer" style="display: none;">
+            Message sent Successfully
+          </div>
+          <button type="submit" class="hc-about-btn hc-formbtn">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- Career section end -->
+
+
 
 
   <!-- footer section start -->
@@ -326,43 +359,44 @@
     });
   </script>
   <script src="assets/js/jquery.min.js"></script>
+  <script src="./assets/js/form.js"></script>
 
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       const form = document.getElementById('appointmentform');
 
-      form.addEventListener('submit', function (event) {
-        event.preventDefault(); // Prevent default form submission
+      //   form.addEventListener('submit', function (event) {
+      //     event.preventDefault(); // Prevent default form submission
 
-        // Fetch form data
-        const formData = new FormData(form);
+      //     // Fetch form data
+      //     const formData = new FormData(form);
 
-        // Perform client-side validation (optional)
-        const name = formData.get('name');
-        const email = formData.get('email');
-        const contact = formData.get('contact');
-        const resume = formData.get('resume');
+      //     // Perform client-side validation (optional)
+      //     const name = formData.get('name');
+      //     const email = formData.get('email');
+      //     const contact = formData.get('contact');
+      //     const resume = formData.get('resume');
 
-        if (!name || !email || !contact || !resume) {
-          alert('Please fill in all required fields.');
-          return;
-        }
+      //     if (!name || !email || !contact || !resume) {
+      //       alert('Please fill in all required fields.');
+      //       return;
+      //     }
 
-        // Perform AJAX submission
-        const xhr = new XMLHttpRequest();
-        xhr.open('POST', './admin/includes/careers_submit.php');
-        xhr.onreadystatechange = function () {
-          if (xhr.readyState === XMLHttpRequest.DONE) {
-            if (xhr.status === 200) {
-              alert(xhr.responseText); // Display server response
-              form.reset(); // Reset form after successful submission
-            } else {
-              alert('Error submitting form. Please try again later.'); // Handle server errors
-            }
-          }
-        };
-        xhr.send(formData);
-      });
+      //     // Perform AJAX submission
+      //     const xhr = new XMLHttpRequest();
+      //     xhr.open('POST', './admin/includes/careers_submit.php');
+      //     xhr.onreadystatechange = function () {
+      //       if (xhr.readyState === XMLHttpRequest.DONE) {
+      //         if (xhr.status === 200) {
+      //           alert(xhr.responseText); // Display server response
+      //           form.reset(); // Reset form after successful submission
+      //         } else {
+      //           alert('Error submitting form. Please try again later.'); // Handle server errors
+      //         }
+      //       }
+      //     };
+      //     xhr.send(formData);
+      //   });
     });
   </script>
   <script src="assets/js/bootstrap.min.js"></script>

@@ -85,6 +85,9 @@ p {
     margin: 0px;
     word-break: break-word;
 }
+.text-primary-blue{
+    color: var(--hc-hiver-blue) !important;
+}
 
 ::-webkit-scrollbar {
     width: 6px;
@@ -223,7 +226,7 @@ p {
 
 .hc-navbar-menu ul li {
     display: inline-block;
-    margin-right: 50px;
+    margin-right: 20px;
 }
 
 .hc-brand-logo a img {
@@ -287,7 +290,8 @@ p {
     opacity: 0;
 }
 
-.hc-navbar-menu ul li .nav_bar_list:hover:after {
+.hc-navbar-menu ul li .nav_bar_list:hover:after,
+.hc-navbar-menu ul .active .nav_bar_list:after {
     opacity: 1;
     color: var(--hc-hiver-blue);
 }
@@ -781,6 +785,7 @@ p {
     display: flex;
     flex-direction: column;
     text-align: left;
+    margin-bottom: 7rem !important;
 }
 
 .hc-about-top h6 {
@@ -950,8 +955,8 @@ p {
 }
 
 .hc-appointmnetform {
-    width: 336px;
-    height: 468px;
+    width: 400px;
+    height: fit-content;
     background-color: var(--hc-white-color);
     box-shadow: 13px 14px 40px rgba(39, 98, 131, 0.15);
     padding: 28px 28px 20px 28px;
@@ -970,7 +975,7 @@ p {
 }
 
 .hc-appoindropdown .nice-select {
-    width: 280px;
+    width:100%;
     height: 50px;
     background-color: rgba(220, 231, 242, 0.95);
     border-radius: 10px;
@@ -981,8 +986,9 @@ p {
 }
 
 .hc-appointinput input,
+.hc-appointinput select,
 .hc-appointinput textarea  {
-    width: 280px;
+    width:100%;
     height: 50px;
     background-color: rgba(245, 250, 255, 0.95);
     border: none;
@@ -1297,6 +1303,7 @@ p {
     margin-right: -20px;
     padding-top: 15px;
 }
+
 
 .hc-news-wrapper .swiper-pagination-bullet-active {
     width: 24px !important;
@@ -2169,12 +2176,6 @@ span.searchBtn {
     }
 }
 
-@media(max-width:1080px) {
-    .hc-navbar-menu ul li {
-        margin-right: 30px;
-    }
-
-}
 
 @media(max-width:991px) and (min-width:768px) {
     .hc-service-row {
@@ -2191,8 +2192,20 @@ span.searchBtn {
 }
 
 @media(max-width:991px) {
+    .hc-about-top{
+        margin-bottom: 2rem !important;
+    }
     .hc-header-wrapper {
         padding: 20px 0;
+    }
+    .career_left{
+        width:100% !important;
+    }
+    .career_right{
+        width: 100% !important;
+    }
+    .career_container_left_right{
+        display: block !important;
     }
     .hc-newsfirst {
         display: none
@@ -2848,7 +2861,7 @@ input[type="file"]::-webkit-file-upload-button {
   }
 .CareerForm{
     width: 336px;
-    height: 468px;
+    height: fit-content;
     background-color: var(--hc-white-color);
     box-shadow: 13px 14px 40px rgba(39, 98, 131, 0.15);
     padding: 28px 28px 20px 28px;
@@ -2858,6 +2871,7 @@ input[type="file"]::-webkit-file-upload-button {
     .hero-logo{
         height: 100px !important;
     } 
+
 }
 .input-grop-container{
     width: 25%;
@@ -2875,7 +2889,7 @@ input[type="file"]::-webkit-file-upload-button {
 }
 
 /* Mega menu styles */
-/* .mega-menu-container{
+.mega-menu-container{
     display:none;
     position: absolute;
     cursor: pointer;
@@ -2885,6 +2899,18 @@ input[type="file"]::-webkit-file-upload-button {
     width: 90%;
     margin:auto;
     background-color: transparent;
+}
+.career_left{
+    width: 40%;
+}
+.career_right{
+    width: 50%;
+}
+.career_container_left_right{
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    gap: 20px;
 }
 .mega-menu {
     margin-top:2.7rem;
@@ -2932,11 +2958,16 @@ input[type="file"]::-webkit-file-upload-button {
 
 .mega-menu-column ul li a:hover {
     text-decoration: underline;
-} */
+}
 
 /* Show the mega menu on hover */
-/* .hc-navbar-menu .prdocut_nav:hover .mega-menu-container {
+.hc-navbar-menu .prdocut_nav:hover .mega-menu-container {
     display: block;
+}
+
+.active > a{
+    color: var(--hc-hiver-blue) !important;
+    font-weight: 600 !important;
 }
 
 @media screen and (max-width: 990px) {
@@ -2945,5 +2976,5 @@ input[type="file"]::-webkit-file-upload-button {
         color:white;
     }
 }
- */
+
 
