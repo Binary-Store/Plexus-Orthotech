@@ -2496,6 +2496,7 @@ span.searchBtn {
     }
     .hc-appoindropdown .nice-select,
     .hc-appointinput input,
+    .hc-appointinput select,
     .hc-appointinput textarea {
         width: 100%;
     }

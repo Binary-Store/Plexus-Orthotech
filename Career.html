@@ -76,15 +76,15 @@
               <a href="./about.html" class="nav_bar_list">About Us</a>
             </li>
             <li class="prdocut_nav">
-              <a href="#" class="nav_bar_list" id="product-link">Product <span id="product-link-arrow">v</span></a>   
+              <a href="#" class="nav_bar_list" id="product-link">Product <span id="product-link-arrow">v</span></a>
               <div class="mega-menu-container" id="product-menu">
-                  <div class="mega-menu">
-                      <div class="mega-menu-row" id="mega_menu_row">
+                <div class="mega-menu">
+                  <div class="mega-menu-row" id="mega_menu_row">
 
-                      </div>
                   </div>
+                </div>
               </div>
-          </li>
+            </li>
             <li>
               <a href="./brochures.html" class="nav_bar_list">Brochures</a>
             </li>
@@ -146,31 +146,7 @@
   <div class="hc-mainbnr hc-sections " style="padding-top: 20px !important;" id="home">
     <div class="container career_container_left_right">
       <div class="career_left mb-4">
-        <h2 class="fw-bolder mb-2" style="color: #12304B;">Current Opening</h2>
-        <div class="p-3 rounded-start-0 ps-4 w-100 mb-2 d-flex justify-content-start gap-3"
-          style="background-color: #a3caf318;border-radius: 20px;">
-          <img src="./assets/images/target.png" width="50px" alt="right arrow">
-          <div>
-            <h5>position hello </h5>
-            <p style="color: grey;">rajkot gujrat india</p>
-          </div>
-        </div>
-        <div class="p-3 rounded-start-0 ps-4 w-100 mb-2 d-flex justify-content-start gap-3"
-          style="background-color: #a3caf318;border-radius: 20px;">
-          <img src="./assets/images/target.png" width="50px" alt="right arrow">
-          <div>
-            <h5>position hello </h5>
-            <p style="color: grey;">rajkot gujrat india</p>
-          </div>
-        </div>
-        <div class="p-3 rounded-start-0 ps-4 w-100 mb-2 d-flex justify-content-start gap-3"
-          style="background-color: #a3caf318;border-radius: 20px;">
-          <img src="./assets/images/target.png" width="50px" alt="right arrow">
-          <div>
-            <h5>position hello </h5>
-            <p style="color: grey;">rajkot gujrat india</p>
-          </div>
-        </div>
+
       </div>
       <div class="hc-rightbaner CareerForm-container career_right">
         <form class="CareerForm w-100" id="appointmentform" onsubmit="sendCareer(event)" enctype="multipart/form-data">
@@ -399,6 +375,7 @@
       //   });
     });
   </script>
+
   <script src="assets/js/bootstrap.min.js"></script>
   <script src="assets/js/swiper-bundle.min.js"></script>
   <!-- product.js use for product hover in navabar -->
@@ -409,6 +386,36 @@
   <script src="assets/js/jquery.nice-select.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/11.0.5/swiper-bundle.min.js" crossorigin="anonymous"
     referrerpolicy="no-referrer"></script>
+  <script>
+    // get appi call using $ajx
+    $(document).ready(function () {
+      $.ajax({
+        url: './admin/includes/career.php',
+        type: 'GET',
+        success: function (data) {
+          let html = '<h2 class="fw-bolder mb-2" style="color: #12304B;">Current Opening</h2>';
+          data.careers.forEach((item) => {
+            html += `
+            <div class="p-3 rounded-start-0 ps-4 w-100 mb-2 d-flex justify-content-start gap-3"
+          style="background-color: #a3caf318;border-radius: 20px; align-items: center;">
+          <img src="./assets/images/target.png" width="30px" height="30px" alt="right arrow">
+          <div>
+            <h5>${item.name}</h5>
+            <p style="color: grey;">${item.address}</p>
+          </div>
+        </div>
+            `;
+          });
+          $('.career_left').html(html);
+
+          $("#position").html('<option value="">Select Position</option>' + data.careers.map((item) => {
+            return `<option value="${item.name}">${item.name}</option>`;
+          }));
+        }
+      });
+    });
+
+  </script>
 </body>
 
 </html>

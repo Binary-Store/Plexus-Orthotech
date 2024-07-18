@@ -1,6 +1,8 @@
 <?php
 
-include ('smtp/PHPMailerAutoload.php');
+require 'vendor/autoload.php'; // Make sure you have the correct path
+
+use PHPMailer\PHPMailer\PHPMailer;
 
 $data = json_decode(file_get_contents("php://input"), true);
 

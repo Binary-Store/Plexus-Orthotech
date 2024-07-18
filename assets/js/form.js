@@ -73,7 +73,7 @@ function sendCareer(event) {
     const form = document.getElementById('appointmentform');
     const formData = new FormData(form);
 
-    fetch('send_mail.php', {
+    fetch('./career.php', {
         method: 'POST',
         body: formData
     })
@@ -81,11 +81,46 @@ function sendCareer(event) {
         .then(result => {
             document.getElementById('submittingforcareer').style.display = 'none';
             document.getElementById('notificationforcareer').style.display = 'block';
-            console.log(result);
+            // reset form 
+            form.reset();
         })
         .catch(error => {
             console.error('Error:', error);
         });
 
     document.getElementById('submittingforcareer').style.display = 'block';
+}
+
+function sendChannelPartnerData(event) {
+    event.preventDefault();
+    document.getElementById('notificationforemail').style.display = 'none';
+    document.getElementById('submittingforrmail').style.display = 'none';
+
+    const formData = {
+        name: document.forms["channelPartnerForm"]["name"].value,
+        number: document.forms["channelPartnerForm"]["number"].value,
+        email: document.forms["channelPartnerForm"]["email"].value,
+        city: document.forms["channelPartnerForm"]["city"].value,
+        country: document.forms["channelPartnerForm"]["country"].value,
+        state: document.forms["channelPartnerForm"]["state"].value,
+        subject: "Channel Partner Request",
+    }
+
+    document.getElementById('submittingforrmail').style.display = 'block';
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "submit.php", true);
+    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+
+            document.forms["channelPartnerForm"].reset();
+            document.getElementById('submittingforrmail').style.display = 'none';
+            document.getElementById('notificationforemail').style.display = 'block';
+            setTimeout(function () {
+                document.getElementById('notificationforemail').style.display = 'none';
+            }, 3000);
+        }
+    };
+    xhr.send(JSON.stringify(formData));
 }

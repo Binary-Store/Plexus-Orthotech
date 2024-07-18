@@ -20,7 +20,7 @@
   <title>Plexus Orthotech - Admin pannel - career</title>
   <script src="../js/index.js"></script>
   <script>
-      // this script redirect to login page if not login 
+    // this script redirect to login page if not login 
     document.addEventListener('DOMContentLoaded', function () {
       checkCookieAndRedirect('adminToken', '../index.html');
     });
@@ -67,16 +67,48 @@
     </div>
   </div>
   <div class="hc-department-wrapper hc-sections pc-container">
+    <button class="btn btn-primary ms-4 mb-3" data-bs-toggle="modal" data-bs-target="#openingPositionModel">
+      add Opening Position
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="openingPositionModel" tabindex="-1" aria-labelledby="openingPositionModelLabel"
+      aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="openingPositionModelLabel">Add Opening Position</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form class="needs-validation" id="openingPosition-form" novalidate>
+              <div class=" mb-3 col-12">
+                <label for="position_name" class="form-label">Position Name</label>
+                <input type="text" class="form-control border" id="position_name" required>
+                <div class="invalid-feedback">
+                  Please enter a valid position name.
+                </div>
+              </div>
+              <div class=" mb-3 col-12">
+                <label for="position_address" class="form-label">Position Name</label>
+                <input type="text" class="form-control border" id="position_address" required>
+                <div class="invalid-feedback">
+                  Please enter a valid address name.
+                </div>
+              </div>
+              <button type="submit" id="submitPosition" class="btn btn-primary">Add</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="table-responsive m-4">
       <table class="table table-hover main-table">
         <thead>
           <tr>
             <th>No</th>
-            <th>Name</th>
-            <th>Number</th>
-            <th>Email</th>
-            <th>Resume</th>
-            <th>Date</th>
+            <th>Position Name</th>
+            <th>Address</th>
             <th>Action</th>
           </tr>
         </thead>
@@ -90,10 +122,11 @@
   <script src="../../assets/js/bootstrap.min.js"></script>
   <script src="../../assets/js/swiper-bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="../../assets/js/custom.js"></script>
+  <script src="../../assets/js/custom.js"></script>
   <script>
     const url = '../includes/career.php'
     let careers = [];
+    let positionId = -1;
     $.ajax({
       url: url,
       type: 'GET',
@@ -105,28 +138,109 @@
         console.log(error);
       }
     });
+    // when form submit that time ajax call
+    $('#openingPosition-form').submit(function (e) {
+      e.preventDefault();
+      // also check validation
+      if (!this.checkValidity()) {
+        e.stopPropagation();
+        this.classList.add('was-validated');
+      } else {
+
+        const token = getCookie('adminToken')
+        const position_name = $('#position_name').val();
+        const position_address = $('#position_address').val();
+        const subcategory_id = $('#position-id').val();
+        const data = {
+          position_name,
+          position_address
+        }
+        $.ajax({
+          url: positionId === -1 ? url : `${url}/${positionId}`,
+          type: positionId === -1 ? 'POST' : 'PUT',
+          data: JSON.stringify(data),
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Custom-Header': 'CustomValue'
+          },
+          success: function (response) {
+            if (positionId !== -1) {
+              // finde index
+              const index = careers.findIndex(carrer => carrer.id == `${positionId}`);
+              careers[index] = response.career;
+
+            } else {
+              careers.push(response.career);
+            }
+            renderCarrer(careers);
+            $('#position_name').val('');
+            $('#position_address').val('');
+            $('#position-id').val('');
+            $('#openingPositionModel').modal('hide');
+            Swal.fire({
+              icon: 'success',
+              title: 'Success',
+              text: positionId === -1 ? 'Position added successfully' : 'Position updated successfully'
+            })
+            positionId = -1;
+          },
+          error: function (error) {
+            if (error.status === 401) {
+              Swal.fire({
+                icon: 'error',
+                title: 'Unauthorized',
+                text: 'Your session has expired, please log in again.',
+                confirmButtonText: 'OK'
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  window.location.href = '../index.html'; // Redirect to the login page
+                }
+              });
+            } else {
+              console.log(error);
+              Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: error.responseJSON.message
+              });
+            }
+          }
+        });
+      }
+    });
+
+    function editPosition(id, event) {
+      const carrer = careers.find(carrer => carrer.id == id);
+      $('#position_name').val(carrer.name);
+      $('#position_address').val(carrer.address);
+      $('#openingPositionModel').modal('show');
+      positionId = Number(id);
+      event.stopPropagation();
+    }
+
+    // when user click close btn of model that time form should reset
+    $('#openingPositionModel').on('hidden.bs.modal', function (e) {
+      $('#openingPosition-form').removeClass('was-validated');
+      $('#position_name').val('');
+      $('#position_address').val('');
+      $('#position-id').val('');
+      positionId = -1;
+    });
 
     // make renderCarrer function
     function renderCarrer(carrers) {
       const tbody = document.querySelector('.main-table tbody');
       tbody.innerHTML = '';
       carrers.forEach((carrer, index) => {
-        let filePath = carrer.resume_path;
-        let parts = filePath.split('/');
-        let fileName = parts[parts.length - 1];
-        let datetime = carrer.created_at;
-        let date = datetime.split(' ')[0];
         const tr = document.createElement('tr');
         tr.innerHTML = `
           <td class="align-middle">${index + 1}</td>
           <td class="align-middle">${carrer.name}</td>
-          <td class="align-middle">${carrer.contact}</td>
-          <td class="align-middle">${carrer.email}</td>
-          <td class="align-middle"><a href="../includes/${carrer.resume_path}" target="_blank" alt="">${fileName}</a></td>
-          <td class="align-middle">${date}</td>
+          <td class="align-middle">${carrer.address}</td>
           <td>
             <div class="action d-flex align-middle justify-content-start gap-4">
-              <img src="../../assets/images/admin/delete.svg" onClick="deleteCarrer(${carrer.id})" alt="delete icon">
+              <img src="../../assets/images/admin/edit.svg" alt="edit icon" onclick="editPosition(${carrer.id},event)">
+              <img src="../../assets/images/admin/delete.svg" onClick="deletePosition(${carrer.id})" alt="delete icon">
             </div>
           </td>
         `;
@@ -135,7 +249,7 @@
     }
 
     // delete carrer
-    function deleteCarrer(id) {
+    function deletePosition(id) {
       Swal.fire({
         title: "Are you sure?",
         text: "You won't be able to revert this!",
@@ -167,24 +281,24 @@
             },
             error: function (error) {
               if (error.status === 401) {
-              Swal.fire({
-                icon: 'error',
-                title: 'Unauthorized',
-                text: 'Your session has expired, please log in again.',
-                confirmButtonText: 'OK'
-              }).then((result) => {
-                if (result.isConfirmed) {
-                  window.location.href = '../index.html'; // Redirect to the login page
+                Swal.fire({
+                  icon: 'error',
+                  title: 'Unauthorized',
+                  text: 'Your session has expired, please log in again.',
+                  confirmButtonText: 'OK'
+                }).then((result) => {
+                  if (result.isConfirmed) {
+                    window.location.href = '../index.html'; // Redirect to the login page
 
-                }
-              });
-            } else {
-              Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: error.responseJSON.message
-              });
-            }
+                  }
+                });
+              } else {
+                Swal.fire({
+                  icon: 'error',
+                  title: 'Oops...',
+                  text: error.responseJSON.message
+                });
+              }
             }
           });
         }

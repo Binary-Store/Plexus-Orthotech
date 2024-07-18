@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Brochure - Plexus Orthotech</title>
+  <title>Channel Partner - Plexus Orthotech</title>
 
   <link href="assets/fonts/metropolis.css" rel="stylesheet" />
   <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
@@ -122,13 +122,35 @@
               express your interest in joining us, please fill out the form below or email us at <span
                 class="fw-bolder text-primary-blue">
                 Info@plexusorthotech.com</span>
-              <span class="fw-bolder">Your privacy is important to us.</span> we promise never to spam you. Rest easy
+              <span class="fw-bolder"> Your privacy is important to us.<span class="text-danger fw-bold">*</span></span>
+              we
+              promise never to spam
+              you. Rest easy
               and reach out today!
             </p>
           </div>
+          <form class="CareerForm w-100" id="channelPartnerForm" onsubmit="sendChannelPartnerData(event)">
+            <h4 class="hc-appointment-head">Channel Partner</h4>
+            <div class="hc-appointinput mb-2">
+              <input type="text" placeholder="Full Name" id="name" name="name" required />
+              <input type="tel" placeholder="Phone" id="phone" name="number" pattern="[0-9]{10}" required />
+              <input type="email" placeholder="Email" id="email" name="email" required />
+              <input type="text" placeholder="Country" id="country" name="country" required />
+              <input type="text" placeholder="State" id="state" name="state" required />
+              <input type="text" placeholder="City" id="city" name="city" required />
+            </div>
+            <div id="submittingforrmail" style="display: none;">
+              Submitting form.....
+            </div>
+            <div id="notificationforemail" style="display: none;">
+              Message sent Successfully
+            </div>
+            <button type="submit" class="hc-about-btn hc-formbtn">Send Message</button>
+          </form>
         </div>
         <div class="hc-appointment-img" data-aos="faade-up">
           <div class="hc-appoinimg">
+            <img src="assets/images/appointment.png" class="hc-appointment_img mb-5" alt="appointmentimg" />
             <img src="assets/images/appointment.png" class="hc-appointment_img" alt="appointmentimg" />
           </div>
         </div>
