@@ -25,7 +25,7 @@ function renderCategory(categoryData) {
   categoryData.forEach((category) => {
     html += `<div class="mega-menu-column">
                               <h3 class="category_heading">`
-    html += `<a href="./product.html?category=${category.name}&subcategory=" class="category_link">${category.name}</a></h3><ul>`;
+    html += `<a href="./product.html?category=${category.name}&subcategory=" class="category_link">${category.name} </a> <span>v</span> </h3><ul>`;
     category.subcategories.forEach((subcategory, index) => {
       if (index < 7) html += `<li><a href="./product.html?category=${category.name}&subcategory=${subcategory.name}" class="subcategory_link">${subcategory.name}</a></li>`;
       if (index == 7) html += `<li><a href="./product.html?category=${category.name}&subcategory=" class="subcategory_link">View More</a></li>`;
@@ -36,3 +36,4 @@ function renderCategory(categoryData) {
   mega_menu_row.innerHTML = html;
 
 }
+

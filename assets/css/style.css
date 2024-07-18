@@ -2245,7 +2245,13 @@ span.searchBtn {
         padding: 0px 20px 20px;
         z-index: 9;
         overflow: auto;
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  
     }
+    .hc-navbar-menu ul::-webkit-scrollbar {
+        display: none;
+    }
+    
     .hc-navbar-menu ul li {
         display: block;
         border-bottom: 1px solid #484444;
@@ -2889,31 +2895,35 @@ input[type="file"]::-webkit-file-upload-button {
 }
 
 /* Mega menu styles */
-.mega-menu-container{
-    display:none;
+.mega-menu-container {
+    display: none;
     position: absolute;
     cursor: pointer;
     left: 50%;
     transform: translateX(-50%);
     top: 60%;
     width: 90%;
-    margin:auto;
+    margin: auto;
     background-color: transparent;
 }
-.career_left{
+
+.career_left {
     width: 40%;
 }
-.career_right{
+
+.career_right {
     width: 50%;
 }
-.career_container_left_right{
+
+.career_container_left_right {
     display: flex;
     justify-content: space-between;
     align-items: start;
     gap: 20px;
 }
+
 .mega-menu {
-    margin-top:2.7rem;
+    margin-top: 2.7rem;
     background-color: white;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
     padding: 20px;
@@ -2931,7 +2941,8 @@ input[type="file"]::-webkit-file-upload-button {
     flex: 1;
     padding: 10px;
 }
-.category_link{
+
+.category_link {
     color: var(--hc-face-color) !important;
     font-weight: bolder !important;
 }
@@ -2940,6 +2951,10 @@ input[type="file"]::-webkit-file-upload-button {
     margin-top: 0;
     margin-bottom: 10px;
     font-size: 16px;
+}
+
+.mega-menu-column h3 span{
+    display: none;
 }
 
 .mega-menu-column ul {
@@ -2960,21 +2975,104 @@ input[type="file"]::-webkit-file-upload-button {
     text-decoration: underline;
 }
 
-/* Show the mega menu on hover */
-.hc-navbar-menu .prdocut_nav:hover .mega-menu-container {
-    display: block;
+.nav_bar_list span{
+    display: none;
+    color: white;
+    float: right;
 }
 
-.active > a{
+/* Show the mega menu on hover for larger screens */
+@media screen and (min-width: 991px) {
+    .hc-navbar-menu .prdocut_nav:hover .mega-menu-container {
+        display: block;
+    }
+}
+
+.active > a {
     color: var(--hc-hiver-blue) !important;
     font-weight: 600 !important;
 }
 
 @media screen and (max-width: 990px) {
-    .mega-menu-row{
+    .nav_bar_list span{
+        display: block !important;
+        margin-right: 10px;
+    }
+
+    .nav_bar_list span.active{
+        transform: rotate(180deg);
+    }
+    .mega-menu{
+        background-color: black !important;
+        margin-top: 0px !important;
+        padding: 0px !important;
+    }
+    .mega-menu-row {
         flex-direction: column;
-        color:white;
+        color: white;
+    }
+
+    .mega-menu-container{
+        left: 0% !important;
+        transform: translate(0%) !important;
+        position: relative !important;
+        width: 100% !important;
+
+    }
+    .mega-menu-container a{
+        color: white !important;
+        padding: 5px !important;
+    }
+
+    .mega-menu-container ul {
+        position: relative !important;
+        top: 0px;
+        left: 0 !important;
+        width: fit-content !important;
+        height: fit-content !important;
+        
+        box-shadow: 1.5px 3.99px 27px 0px rgb(0 0 0 / 10%);
+        transition: all 0.3s ease-in-out;
+        padding: 0px 20px 20px;
+        z-index: 9;
+        overflow: auto;
+    }
+
+    .mega-menu-column{
+        width: 100% !important;
+        padding: 5px !important;
+    }
+    .mega-menu-column h3{
+        margin-bottom: 5px !important;
+        font-weight: 100 !important;
+    }
+
+    .mega-menu-column h3 span{
+        display: block !important;
+    }
+
+    .mega-menu-column ul{
+        display: none !important;
+    }
+
+    .category_heading{
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+
+    .mega-menu-column .open span{
+        display: block !important;
+        transform: rotate(180deg);
+    }
+
+    .mega-menu-column ul.active{
+        display: block !important;
+    }
+    
+    .mega-menu-container.active {
+        display: block;
     }
 }
-
-
