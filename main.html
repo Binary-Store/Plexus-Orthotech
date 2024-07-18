@@ -906,32 +906,6 @@
             loop: true,
         });
     </script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            var productLink = document.getElementById('product-link');
-            var productMenu = document.getElementById('product-menu');
-            
-            productLink.addEventListener('click', function (e) {
-                e.preventDefault();
-                if (window.innerWidth <= 990) {
-                    document.getElementById('product-link-arrow').classList.toggle('active')
-                    productMenu.classList.toggle('active');
-                }
-            });
-
-            var categoryHeadings = document.querySelectorAll('.mega-menu-column h3');
-            categoryHeadings.forEach(function (heading) {
-                heading.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    this.classList.toggle("open");
-                    var ul = this.nextElementSibling;
-                    if (ul && ul.tagName === 'UL') {
-                        ul.classList.toggle('active');
-                    }
-                });
-            });
-        });
-        </script>
         
     <!--=== Optional JavaScript ===-->
 </body>
