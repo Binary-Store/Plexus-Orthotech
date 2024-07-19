@@ -19,7 +19,7 @@
   <title>Plexus Orthotech - Admin Panel - Video</title>
   <script src="../js/index.js"></script>
   <script>
-      // this script redirect to login page if not login 
+    // this script redirect to login page if not login 
     document.addEventListener('DOMContentLoaded', function () {
       checkCookieAndRedirect('adminToken', '../index.html');
     });
@@ -48,7 +48,7 @@
                 <img src="../../assets/images/logo.png" alt="logo">
               </a>
             </li>
-            <li class="active">
+            <li>
               <a href="./index.html">Product</a>
             </li>
             <li>
@@ -57,7 +57,7 @@
             <li>
               <a href="./careers.html">Careers</a>
             </li>
-            <li>
+            <li class="active">
               <a href="#">Video</a>
             </li>
           </ul>
@@ -109,7 +109,7 @@
   <script src="../../assets/js/bootstrap.min.js"></script>
   <script src="../../assets/js/swiper-bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="../../assets/js/custom.js"></script>
+  <script src="../../assets/js/custom.js"></script>
 
   <script>
     //add video form 
@@ -155,7 +155,7 @@
             $('#videoModel').modal('hide');
           },
           error: function (error) {
-           if (error.status === 401) {
+            if (error.status === 401) {
               Swal.fire({
                 icon: 'error',
                 title: 'Unauthorized',
@@ -255,24 +255,24 @@
             },
             error: function (error) {
               if (error.status === 401) {
-              Swal.fire({
-                icon: 'error',
-                title: 'Unauthorized',
-                text: 'Your session has expired, please log in again.',
-                confirmButtonText: 'OK'
-              }).then((result) => {
-                if (result.isConfirmed) {
-                  window.location.href = '../index.html'; // Redirect to the login page
+                Swal.fire({
+                  icon: 'error',
+                  title: 'Unauthorized',
+                  text: 'Your session has expired, please log in again.',
+                  confirmButtonText: 'OK'
+                }).then((result) => {
+                  if (result.isConfirmed) {
+                    window.location.href = '../index.html'; // Redirect to the login page
 
-                }
-              });
-            } else {
-              Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: error.responseJSON.message
-              });
-            }
+                  }
+                });
+              } else {
+                Swal.fire({
+                  icon: 'error',
+                  title: 'Oops...',
+                  text: error.responseJSON.message
+                });
+              }
             }
           });
         }

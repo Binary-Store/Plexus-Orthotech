@@ -19,7 +19,7 @@
   <title>Plexus Orthotech - Admin pannel - category</title>
   <script src="../js/index.js"></script>
   <script>
-      // this script redirect to login page if not login 
+    // this script redirect to login page if not login 
     document.addEventListener('DOMContentLoaded', function () {
       checkCookieAndRedirect('adminToken', '../index.html');
     });
@@ -48,10 +48,10 @@
                 <img src="../../assets/images/logo.png" />
               </a>
             </li>
-            <li class="active">
+            <li>
               <a href="./index.html">Product</a>
             </li>
-            <li>
+            <li class="active">
               <a href="#">Category</a>
             </li>
             <li>
@@ -106,7 +106,8 @@
       </div>
 
       <!-- Modal -->
-      <div class="modal fade" id="subcategoryModal" tabindex="-1" aria-labelledby="subcategoryModalLable" aria-hidden="true">
+      <div class="modal fade" id="subcategoryModal" tabindex="-1" aria-labelledby="subcategoryModalLable"
+        aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
             <div class="modal-header">
@@ -175,13 +176,13 @@
       categoryForm.reset()
       document.getElementById('submit').innerText = 'Add'
     })
-    
+
     $('#subcategoryModal').on('hidden.bs.modal', function (e) {
-          subcategoryForm.classList.remove('was-validated')
-          // reset form
-          subcategoryForm.reset()
-          document.getElementById('submitSub').innerText = 'Add'
-          document.getElementById('category-select').disabled = false
+      subcategoryForm.classList.remove('was-validated')
+      // reset form
+      subcategoryForm.reset()
+      document.getElementById('submitSub').innerText = 'Add'
+      document.getElementById('category-select').disabled = false
     })
 
     categoryForm.addEventListener('submit', (e) => {
@@ -328,11 +329,11 @@
             else {
               categories = categories.map(category => {
                 if (category.id === response.subcategory.category_id) {
-                if(category.subcategories){        
-                  category.subcategories = [response.subcategory, ...category.subcategories]
-                }else{
+                  if (category.subcategories) {
+                    category.subcategories = [response.subcategory, ...category.subcategories]
+                  } else {
                     category.subcategories = [response.subcategory]
-                }
+                  }
                 }
                 return category
               })
@@ -466,24 +467,24 @@
             },
             error: function (error) {
               if (error.status === 401) {
-              Swal.fire({
-                icon: 'error',
-                title: 'Unauthorized',
-                text: 'Your session has expired, please log in again.',
-                confirmButtonText: 'OK'
-              }).then((result) => {
-                if (result.isConfirmed) {
-                  window.location.href = '../index.html'; // Redirect to the login page
+                Swal.fire({
+                  icon: 'error',
+                  title: 'Unauthorized',
+                  text: 'Your session has expired, please log in again.',
+                  confirmButtonText: 'OK'
+                }).then((result) => {
+                  if (result.isConfirmed) {
+                    window.location.href = '../index.html'; // Redirect to the login page
 
-                }
-              });
-            } else {
-              Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: error.responseJSON.message
-              });
-            }
+                  }
+                });
+              } else {
+                Swal.fire({
+                  icon: 'error',
+                  title: 'Oops...',
+                  text: error.responseJSON.message
+                });
+              }
             }
           })
         }
@@ -526,24 +527,24 @@
             },
             error: function (error) {
               if (error.status === 401) {
-              Swal.fire({
-                icon: 'error',
-                title: 'Unauthorized',
-                text: 'Your session has expired, please log in again.',
-                confirmButtonText: 'OK'
-              }).then((result) => {
-                if (result.isConfirmed) {
-                  window.location.href = '../index.html'; // Redirect to the login page
+                Swal.fire({
+                  icon: 'error',
+                  title: 'Unauthorized',
+                  text: 'Your session has expired, please log in again.',
+                  confirmButtonText: 'OK'
+                }).then((result) => {
+                  if (result.isConfirmed) {
+                    window.location.href = '../index.html'; // Redirect to the login page
 
-                }
-              });
-            } else {
-              Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: error.responseJSON.message
-              });
-            }
+                  }
+                });
+              } else {
+                Swal.fire({
+                  icon: 'error',
+                  title: 'Oops...',
+                  text: error.responseJSON.message
+                });
+              }
             }
           })
         }
@@ -595,7 +596,7 @@
     $(document).on('click', '.category-row', function () {
       const tr = $(this);
       let subcategories = tr.data('subcategories');
- 
+
 
       const nextRow = tr.next('.sub-table-row');
       // Toggle sub-table visibility

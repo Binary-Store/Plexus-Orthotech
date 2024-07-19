@@ -75,15 +75,15 @@
               <a href="./about.html">About Us</a>
             </li>
             <li class="prdocut_nav">
-              <a href="#" class="nav_bar_list" id="product-link">Product <span id="product-link-arrow">v</span></a>   
+              <a href="#" class="nav_bar_list" id="product-link">Product <span id="product-link-arrow">v</span></a>
               <div class="mega-menu-container" id="product-menu">
-                  <div class="mega-menu">
-                      <div class="mega-menu-row" id="mega_menu_row">
+                <div class="mega-menu">
+                  <div class="mega-menu-row" id="mega_menu_row">
 
-                      </div>
                   </div>
+                </div>
               </div>
-          </li>
+            </li>
             <li data-aos="fade-down" data-aos-delay="700">
               <a href="./brochures.html" class="nav_bar_list">Brochures</a>
             </li>
@@ -125,6 +125,15 @@
           <div class="product-breadcrumb" id="product-breadcrumb">Products will be Available soon.</div>
           <div class="hc-service-row" id="product-list">
             <!-- Dynamic products will be appended here -->
+            <div data-aos="zoom-in">
+              <div class="hc-service-card">
+                <div class="hc-sercardimg hc-servone">
+                  <img src='./admin/images/66992f3e7b548-product1.jpeg' loading="lazy" class="hc-service_img"
+                    alt="${product.name}" />
+                </div>
+                <h4>hello worldhello worldhello worldhello world</h4>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -320,12 +329,16 @@
             if (response.success) {
               products = response.data.products;
               categories = response.data.categories;
-              populateCategories(response.data.categories);
-              if (categories.length > 0) {
-                active_category = response.data.categories[0].id;
+              // populateCategories(response.data.categories);
+              // if (categories.length > 0) {
+              //   active_category = response.data.categories[0].id;
 
-                populateProducts(response.data.products, response.data.categories, active_category, "category");
-              }
+              //   populateProducts(response.data.products, response.data.categories, active_category, "category");
+              // }
+              console.log(products)
+              console.log(categories)
+              getData();
+
             } else {
               console.error('Error fetching data:', response.error);
             }
@@ -336,74 +349,88 @@
         });
       }
 
-      function populateCategories(categories) {
-        const categoryList = $('#category-list');
-        categoryList.empty();
-
-        if (categories.length === 0) {
-          categoryList.hide();
-          return;
-        }
-
-        categories.forEach(category => {
-          const categoryItem = $('<li class="bold category-item" data-category-id="' + category.id + '"></li>').text(category.name);
-          const subcategoryList = $('<ul></ul>');
-
-          // Ensure subcategories is an array
-          const subcategories = Array.isArray(category.subcategories) ? category.subcategories : [category.subcategories];
-
-          subcategories.forEach(subcategory => {
-            const subcategoryItem = $('<li class="fs-8 subcategory-item" data-subcategory-id="' + subcategory.id + '"></li>').text(subcategory.name);
-            subcategoryList.append(subcategoryItem);
-          });
-
-          categoryList.append(categoryItem);
-          categoryList.append(subcategoryList);
-        });
-
-        $('.category-item').on('click', function () {
-          const categoryId = $(this).data('category-id');
-          categoryClick(categoryId);
-        });
-
-        $('.subcategory-item').on('click', function () {
-          const subcategoryId = $(this).data('subcategory-id');
-          subcategoryClick(subcategoryId);
-        });
+      function getData() {
+        console.log("hit")
+        const subcategories = getFirstSubcategory(params.category_id);
+        console.log(subcategories)
       }
 
+      // function populateCategories(categories) {
+      //   const categoryList = $('#category-list');
+      //   categoryList.empty();
 
-      function populateProducts(products, categories, populate_id, type) {
-        const productList = $('#product-list');
-        productList.empty();
+      //   if (categories.length === 0) {
+      //     categoryList.hide();
+      //     return;
+      //   }
 
-        if (type == "category") {
-          //find from categories
-          var category = categories.find(category => category.id == populate_id);
-          $('#product-breadcrumb').text(category.name);
-        } else {
-          //find from subcategories
-          var category = categories.find(category => category.subcategories.find(subcategory => subcategory.id == populate_id));
-          var subcategory = category.subcategories.find(subcategory => subcategory.id == populate_id);
-          $('#product-breadcrumb').text(category.name + ' > ' + subcategory.name);
-        }
+      //   categories.forEach(category => {
+      //     const categoryItem = $('<li class="bold category-item" data-category-id="' + category.id + '"></li>').text(category.name);
+      //     const subcategoryList = $('<ul></ul>');
 
-        products.forEach(product => {
-          var ref_id = (type == "category") ? product.category_id : product.subcategory_id;
+      //     // Ensure subcategories is an array
+      //     const subcategories = Array.isArray(category.subcategories) ? category.subcategories : [category.subcategories];
 
-          if (ref_id == populate_id) {
-            const productCard = `
-                  <div data-aos="zoom-in">
-                      <div class="hc-service-card">
-                          <div class="hc-sercardimg hc-servone">
-                              <img src="${'./admin/images/' + product.image}" loading="lazy" class="hc-service_img" alt="${product.name}" />
-                          </div>
-                      </div>
-                  </div>`;
-            productList.append(productCard);
-          }
-        });
+      //     subcategories.forEach(subcategory => {
+      //       const subcategoryItem = $('<li class="fs-8 subcategory-item" data-subcategory-id="' + subcategory.id + '"></li>').text(subcategory.name);
+      //       subcategoryList.append(subcategoryItem);
+      //     });
+
+      //     categoryList.append(categoryItem);
+      //     categoryList.append(subcategoryList);
+      //   });
+
+      //   $('.category-item').on('click', function () {
+      //     const categoryId = $(this).data('category-id');
+      //     categoryClick(categoryId);
+      //   });
+
+      //   $('.subcategory-item').on('click', function () {
+      //     const subcategoryId = $(this).data('subcategory-id');
+      //     subcategoryClick(subcategoryId);
+      //   });
+      // }
+
+
+      // function populateProducts(products, categories, populate_id, type) {
+      //   const productList = $('#product-list');
+      //   productList.empty();
+
+      //   if (type == "category") {
+      //     //find from categories
+      //     var category = categories.find(category => category.id == populate_id);
+      //     $('#product-breadcrumb').text(category.name);
+      //   } else {
+      //     //find from subcategories
+      //     var category = categories.find(category => category.subcategories.find(subcategory => subcategory.id == populate_id));
+      //     var subcategory = category.subcategories.find(subcategory => subcategory.id == populate_id);
+      //     $('#product-breadcrumb').text(category.name + ' > ' + subcategory.name);
+      //   }
+
+      //   products.forEach(product => {
+      //     var ref_id = (type == "category") ? product.category_id : product.subcategory_id;
+
+      //     if (ref_id == populate_id) {
+      //       const productCard = `
+      //             <div data-aos="zoom-in">
+      //                 <div class="hc-service-card">
+      //                     <div class="hc-sercardimg hc-servone p-2">
+      //                         <img src="${'./admin/images/' + product.image}" loading="lazy" class="hc-service_img" alt="${product.name}" />
+      //                     </div>
+      //                     <h4>hello world</h4>
+      //                 </div>
+      //             </div>`;
+      //       productList.append(productCard);
+      //     }
+      //   });
+      // }
+
+      //create function which return first subcategory from category which i pass 
+      function getFirstSubcategory(category_id) {
+        const category = categories.find(category => category.id == category_id);
+        return category.subcategories[0];
       }
+
 
       function categoryClick(category_id) {
         populateProducts(products, categories, category_id, "category");
