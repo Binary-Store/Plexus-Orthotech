@@ -142,32 +142,33 @@
             sessions. Get latest news in your inbox.</p>
           <div class="hc-newsletrinput hc-newsfirst">
             <form id="myForm2" onsubmit="sendEmail(event)">
-              <input type="email" placeholder="Your Email Here." name="email" id="lname" class="hc-input" />
+              <input type="email" placeholder="Your Email Here." name="email" id="lname" class="hc-input" required />
               <div class="hc-nesbtn">
-                <button type="submit" class="hc-bnrbtn">Subscribe
-                  <img src="assets/images/rightarrow.png" class="hc-rightarrow" alt="rightarrow" />
+                <button type="submit" class="hc-bnrbtn d-flex justify-content-center">
+                  <span class="subscribeBtnText">Subscribe</span>
+                  <img src="assets/images/rightarrow.png" class="hc-rightarrow arrow" alt="rightarrow" />
+                  <span class="loading-spinner loadingSpinner" style="display: none;"></span>
                 </button>
-              </div>
-              <div id="submittingforrmail" style="display: none; color: white;">
-                Subscribing....
-              </div>
-              <div id="notificationforemail" style="display: none; color: white">
-                Subscribe Successfully
               </div>
             </form>
           </div>
         </div>
-        <div class="hc-newsletrimg">
-          <img src="assets/images/newsletter.png" class="hc-newsleter_img" alt="newsleter" />
-          <div class="hc-newsletrinput hc-newssecond">
-            <input type="email" placeholder="Your Email Here..." id="newsemail" class="hc-input" />
-            <div class="hc-nesbtn">
-              <a href="javascript:;" class="hc-bnrbtn">Subscribe
-                <img src="assets/images/rightarrow.png" class="hc-rightarrow" alt="rightarrow" />
-              </a>
+        <form id="myForm3" onsubmit="sendEmail(event)">
+          <div class="hc-newsletrimg">
+            <img src="assets/images/newsletter.png" class="hc-newsleter_img" alt="newsleter" />
+            <div class="hc-newsletrinput hc-newssecond">
+              <input type="email" placeholder="Your Email Here..." name="email" id="newsemail" class="hc-input"
+                required />
+              <div class="hc-nesbtn">
+                <button type="submit" class="hc-bnrbtn d-flex justify-content-center"><span
+                    class="subscribeBtnText">Subscribe</span>
+                  <img src="assets/images/rightarrow.png" class="hc-rightarrow arrow" alt="rightarrow" />
+                  <span class="loading-spinner loadingSpinner" style="display: none;"></span>
+                </button>
+              </div>
             </div>
           </div>
-        </div>
+        </form>
       </div>
       <div class="hc-footer-row">
         <div class="hc-footer-rowin" data-aos="faade-up">
@@ -217,7 +218,7 @@
                 <a href="./about.html">About Us</a>
               </li>
               <li>
-                <a href="./product.html">Product</a>
+                <a href="./try.html?category_id=-1&subcategory_id=-1">Product</a>
               </li>
               <li>
                 <a href="./video.html">video</a>

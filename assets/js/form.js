@@ -39,33 +39,38 @@ function sendData(event) {
 //funcation for the email subscribe
 
 function sendEmail(event) {
-    document.getElementById('notificationforemail').style.display = 'none';
-    document.getElementById('submittingforrmail').style.display = 'none';
-
     event.preventDefault();
 
-    var formData = {
-        email: document.forms["myForm2"]["email"].value
-    };
+    // Identify the form that triggered the event
+    const form = event.target;
+    const emailField = form.querySelector('[name="email"]');
+    const subscribeBtnText = form.querySelector('.subscribeBtnText');
+    const loadingSpinner = form.querySelector('.loadingSpinner');
+    const arrow = form.querySelector('.arrow');
 
-    document.getElementById('submittingforrmail').style.display = 'block';
+    // Hide button text and arrow, show loading spinner
+    subscribeBtnText.style.display = 'none';
+    loadingSpinner.style.display = 'inline-block';
+    arrow.style.display = 'none';
+
+    var formData = {
+        email: emailField.value
+    };
 
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "submit.php", true);
     xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4 && xhr.status == 200) {
-
-            document.forms["myForm2"].reset();
-            document.getElementById('submittingforrmail').style.display = 'none';
-            document.getElementById('notificationforemail').style.display = 'block';
-            setTimeout(function () {
-                document.getElementById('notificationforemail').style.display = 'none';
-            }, 3000);
+            form.reset();
+            subscribeBtnText.style.display = 'inline';
+            loadingSpinner.style.display = 'none';
+            arrow.style.display = 'inline';
         }
     };
     xhr.send(JSON.stringify(formData));
 }
+
 
 function sendCareer(event) {
     event.preventDefault();

@@ -124,7 +124,8 @@
                                 <p>Transforming lives with advanced spine implants for pain-free mobility and improved
                                     quality of life.</p>
                                 <div class="hc-abbtn">
-                                    <a href="./product.html" class="hc-about-btn">Show More</a>
+                                    <a href="./try.html?category_id=-1&subcategory_id=-1" class="hc-about-btn">Show
+                                        More</a>
                                 </div>
                             </div>
                             <div class="w-50">
@@ -139,7 +140,8 @@
                                 <h2>Orthopedic <br> <span class="fw-bolder">Implants</span></h2>
                                 <p>Enhancing mobility and quality of life with cutting-edge orthopedic implants.</p>
                                 <div class="hc-abbtn">
-                                    <a href="./product.html" class="hc-about-btn">Show More</a>
+                                    <a href="./try.html?category_id=-1&subcategory_id=-1" class="hc-about-btn">Show
+                                        More</a>
                                 </div>
                             </div>
                             <div class="w-50">
@@ -155,7 +157,8 @@
                                 <p>Caranio specializes in advanced maxillofacial implants, providing innovative
                                     solutions for facial reconstruction and enhancement.</p>
                                 <div class="hc-abbtn">
-                                    <a href="./product.html" class="hc-about-btn">Show More</a>
+                                    <a href="./try.html?category_id=-1&subcategory_id=-1" class="hc-about-btn">Show
+                                        More</a>
                                 </div>
                             </div>
                             <div class="w-50">
@@ -171,7 +174,8 @@
                                 <p>Arthroscopy implants offer minimally invasive solutions for joint repair and
                                     restoration, ensuring quicker recovery and improved mobility.</p>
                                 <div class="hc-abbtn">
-                                    <a href="./product.html" class="hc-about-btn">Show More</a>
+                                    <a href="./try.html?category_id=-1&subcategory_id=-1" class="hc-about-btn">Show
+                                        More</a>
                                 </div>
                             </div>
                             <div class="w-50">
@@ -690,33 +694,36 @@
                         sessions. Get latest news in your inbox.</p>
                     <div class="hc-newsletrinput hc-newsfirst">
                         <form id="myForm2" onsubmit="sendEmail(event)">
-                            <input type="email" placeholder="Your Email Here." name="email" id="lname"
-                                class="hc-input" />
+                            <input type="email" placeholder="Your Email Here." name="email" id="lname" class="hc-input"
+                                required />
                             <div class="hc-nesbtn">
-                                <button type="submit" class="hc-bnrbtn">Subscribe
-                                    <img src="assets/images/rightarrow.png" class="hc-rightarrow" alt="rightarrow" />
+                                <button type="submit" class="hc-bnrbtn d-flex justify-content-center">
+                                    <span class="subscribeBtnText">Subscribe</span>
+                                    <img src="assets/images/rightarrow.png" class="hc-rightarrow arrow"
+                                        alt="rightarrow" />
+                                    <span class="loading-spinner loadingSpinner" style="display: none;"></span>
                                 </button>
-                            </div>
-                            <div id="submittingforrmail" style="display: none; color: white;">
-                                Subscribing....
-                            </div>
-                            <div id="notificationforemail" style="display: none; color: white">
-                                Subscribe Successfully
                             </div>
                         </form>
                     </div>
                 </div>
-                <div class="hc-newsletrimg">
-                    <img src="assets/images/newsletter.png" class="hc-newsleter_img" alt="newsleter" />
-                    <div class="hc-newsletrinput hc-newssecond">
-                        <input type="email" placeholder="Your Email Here..." id="newsemail" class="hc-input" />
-                        <div class="hc-nesbtn">
-                            <a href="javascript:;" class="hc-bnrbtn">Subscribe
-                                <img src="assets/images/rightarrow.png" class="hc-rightarrow" alt="rightarrow" />
-                            </a>
+                <form id="myForm3" onsubmit="sendEmail(event)">
+                    <div class="hc-newsletrimg">
+                        <img src="assets/images/newsletter.png" class="hc-newsleter_img" alt="newsleter" />
+                        <div class="hc-newsletrinput hc-newssecond">
+                            <input type="email" placeholder="Your Email Here..." name="email" id="newsemail"
+                                class="hc-input" required />
+                            <div class="hc-nesbtn">
+                                <button type="submit" class="hc-bnrbtn d-flex justify-content-center"><span
+                                        class="subscribeBtnText">Subscribe</span>
+                                    <img src="assets/images/rightarrow.png" class="hc-rightarrow arrow"
+                                        alt="rightarrow" />
+                                    <span class="loading-spinner loadingSpinner" style="display: none;"></span>
+                                </button>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </form>
             </div>
             <div class="hc-footer-row">
                 <div class="hc-footer-rowin" data-aos="faade-up">
@@ -769,7 +776,7 @@
                                 <a href="./about.html">About Us</a>
                             </li>
                             <li>
-                                <a href="./product.html">Product</a>
+                                <a href="./try.html?category_id=-1&subcategory_id=-1">Product</a>
                             </li>
                             <li>
                                 <a href="./video.html">video</a>
@@ -831,6 +838,7 @@
     <!-- footer section end -->
     <!--=== Optional JavaScript ===-->
     <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/form.js"></script>
     <!-- product.js use for product hover in navbar -->
     <script src="./assets/js/product.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
@@ -874,7 +882,7 @@
 
                 products.forEach((product, index) => {
                     const productCard = `
-                        <a href="./product.html" data-aos="zoom-in">
+                        <a href="./try.html?category_id=-1&subcategory_id=-1" data-aos="zoom-in">
                             <div class="hc-service-card">
                                 <div class="hc-sercardimg hc-serv${index + 1}">
                                     <img src="${'./admin/images/' + product.image}" class="hc-service_img" alt="${product.name}" />
@@ -894,7 +902,7 @@
     <script src="assets/js/bootstrap.min.js"></script>
     <script src="assets/js/swiper-bundle.min.js"></script>
     <script src="assets/js/custom.js"></script>
-    <script src="assets/js/form.js"></script>
+
 
     <script src="assets/js/jquery.nice-select.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/11.0.5/swiper-bundle.min.js" crossorigin="anonymous"
