@@ -383,7 +383,7 @@
         });
       }
 
-      function createBreadCume(category, subcategory) {
+      function createBreadCume(category, subcategory, category_id, subcategory_id) {
         // Clear previous breadcrumb content
         bredcrum.innerHTML = '';
 
@@ -421,7 +421,7 @@
         span2.style.cursor = 'pointer'; // Change cursor on hover
         span2.onclick = function () {
           params.subcategory_id = -1;
-          params.category_id = category.id; // Example action: Set category_id and reset subcategory_id
+          params.category_id = category_id; // Example action: Set category_id and reset subcategory_id
           filterData(params); // Call filterData function with updated params
         };
         bredcrum.appendChild(span2); // Append span to breadcrumb
@@ -449,14 +449,14 @@
         if (params.category_id != -1 && params.subcategory_id != -1) {
           const filteredCategories = categories.filter(category => category.id == params.category_id);
           const filteredSubcategories = filteredCategories[0].subcategories.filter(subcategory => subcategory.id == params.subcategory_id);
-          createBreadCume(filteredCategories[0].name, filteredSubcategories[0].name);
+          createBreadCume(filteredCategories[0].name, filteredSubcategories[0].name, filteredCategories[0].id, filteredSubcategories[0].id);
           const tempProduct = getFilterProduct(params.category_id, params.subcategory_id, products);
           populateProducts(tempProduct);
           console.log("%c full filter apply", "color:red");
         }
         if (params.category_id != -1 && params.subcategory_id == -1) {
           const filteredCategories = categories.filter(category => category.id == params.category_id);
-          createBreadCume(filteredCategories[0].name);
+          createBreadCume(filteredCategories[0].name, null, filteredCategories[0].id, -1);
           // we have to get all the product related to this category_id
           const tempProduct = products.filter(product => product.category_id == params.category_id);
           // now i need to get one unique prodcut from ther subcategory 
