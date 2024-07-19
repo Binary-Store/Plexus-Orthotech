@@ -75,7 +75,7 @@
               <a href="./about.html">About Us</a>
             </li>
             <li class="prdocut_nav">
-              <a href="#" class="nav_bar_list" id="product-link">Product <span id="product-link-arrow">v</span></a>
+              <a href="#" class="nav_bar_list" id="product-link">Product <span id="product-link-arrow"><img src="./assets/images/down.png" width="20px"/></span></a>
               <div class="mega-menu-container" id="product-menu">
                 <div class="mega-menu">
                   <div class="mega-menu-row" id="mega_menu_row">
@@ -447,7 +447,7 @@
         categoryData.forEach((category) => {
           html += `<div class="mega-menu-column">
               <h3 class="category_heading">
-                <a href="javascript:void(0);" class="category_link clickable-link" data-category_id='${category.id}' data-subcategory_id='-1'>${category.name}</a> <span>v</span>
+                <a href="javascript:void(0);" class="category_link clickable-link" data-category_id='${category.id}' data-subcategory_id='-1'>${category.name}</a> <span><img src="./assets/images/down.png" width="15px"/></span>
               </h3>
               <ul>`;
 
@@ -524,20 +524,21 @@
           document.getElementById('product-link-arrow').classList.toggle('active')
           productMenu.classList.toggle('active');
         }
-      });
-
-
-      var categoryHeadings = document.querySelectorAll('.mega-menu-column h3');
-      categoryHeadings.forEach(function (heading) {
-        heading.addEventListener('click', function (e) {
-          e.preventDefault();
-          this.classList.toggle("open");
-          var ul = this.nextElementSibling;
-          if (ul && ul.tagName === 'UL') {
-            ul.classList.toggle('active');
-          }
+        var categoryHeadings = document.querySelectorAll('.mega-menu-column h3');
+        categoryHeadings.forEach(function (heading) {
+          heading.addEventListener('click', function (e) {
+            e.preventDefault();
+            this.classList.toggle("open");
+            var ul = this.nextElementSibling;
+            if (ul && ul.tagName === 'UL') {
+              ul.classList.toggle('active');
+            }
+          });
         });
       });
+
+
+      
     });
   </script>
 

@@ -2251,7 +2251,7 @@ span.searchBtn {
     .hc-navbar-menu ul::-webkit-scrollbar {
         display: none;
     }
-    
+
     .hc-navbar-menu ul li {
         display: block;
         border-bottom: 1px solid #484444;
@@ -2269,6 +2269,7 @@ span.searchBtn {
     .hc-navbar-menu ul li a {
         display: block;
         padding: 15px 0;
+        font-size: 18px;
         color: var(--hc-white-color);
         justify-content: left;
     }
@@ -3022,19 +3023,19 @@ input[type="file"]::-webkit-file-upload-button {
     }
     .mega-menu-container a{
         color: white !important;
-        padding: 5px !important;
+        padding: 3px !important;
     }
 
     .mega-menu-container ul {
         position: relative !important;
         top: 0px;
         left: 0 !important;
-        width: fit-content !important;
+        width: 100% !important;
         height: fit-content !important;
         
         box-shadow: 1.5px 3.99px 27px 0px rgb(0 0 0 / 10%);
         transition: all 0.3s ease-in-out;
-        padding: 0px 20px 20px;
+        padding: 0px 20px 0px 20px;
         z-index: 9;
         overflow: auto;
     }
@@ -3042,6 +3043,10 @@ input[type="file"]::-webkit-file-upload-button {
     .mega-menu-column{
         width: 100% !important;
         padding: 5px !important;
+    }
+
+    .mega-menu-column ul li a{
+        font-size: 15px !important;
     }
     .mega-menu-column h3{
         margin-bottom: 5px !important;
@@ -3075,5 +3080,9 @@ input[type="file"]::-webkit-file-upload-button {
     
     .mega-menu-container.active {
         display: block;
+    }
+
+    .category_link{
+        font-size: 16px !important;
     }
 }
