@@ -398,21 +398,21 @@
       // Function to filter and display data based on URL parameters
       function filterData(params) {
         if (params.category_id && params.subcategory_id != -1) {
-          const filteredCategories = categories.filter(category => category.id === params.category_id);
-          const filteredSubcategories = filteredCategories[0].subcategories.filter(subcategory => subcategory.id === params.subcategory_id);
+          const filteredCategories = categories.filter(category => category.id == params.category_id);
+          const filteredSubcategories = filteredCategories[0].subcategories.filter(subcategory => subcategory.id == params.subcategory_id);
           createBreadCume(filteredCategories[0].name, filteredSubcategories[0].name);
           const tempProduct = getFilterProduct(params.category_id, params.subcategory_id, products);
           populateProducts(tempProduct);
         }
         if (params.category_id && params.subcategory_id == -1) {
-          const filteredCategories = categories.filter(category => category.id === params.category_id);
+          const filteredCategories = categories.filter(category => category.id == params.category_id);
           createBreadCume(filteredCategories[0].name);
           // we have to get all the product related to this category_id
-          const tempProduct = products.filter(product => product.category_id === params.category_id);
+          const tempProduct = products.filter(product => product.category_id == params.category_id);
           // now i need to get one unique prodcut from ther subcategory 
           const uniqueProductArray = [];
           filteredCategories[0].subcategories.forEach(subcategory => {
-            const tempProduct = products.filter(product => product.subcategory_id === subcategory.id);
+            const tempProduct = products.filter(product => product.subcategory_id == subcategory.id);
             if (tempProduct.length <= 0) {
               uniqueProductArray.push({ name: subcategory.name, image: "notFound.png", id: subcategory.id })
             }
@@ -517,7 +517,7 @@
     document.addEventListener('DOMContentLoaded', function () {
       var productLink = document.getElementById('product-link');
       var productMenu = document.getElementById('product-menu');
-
+      console.log("hello1")
       productLink.addEventListener('click', function (e) {
         e.preventDefault();
         if (window.innerWidth <= 990) {
@@ -525,6 +525,7 @@
           productMenu.classList.toggle('active');
         }
       });
+
 
       var categoryHeadings = document.querySelectorAll('.mega-menu-column h3');
       categoryHeadings.forEach(function (heading) {

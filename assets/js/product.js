@@ -48,7 +48,6 @@ document.addEventListener('DOMContentLoaded', function () {
       productMenu.classList.toggle('active');
     }
   });
-
   var categoryHeadings = document.querySelectorAll('.mega-menu-column h3');
   categoryHeadings.forEach(function (heading) {
     heading.addEventListener('click', function (e) {
