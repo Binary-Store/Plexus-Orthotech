@@ -41,6 +41,17 @@ document.addEventListener('DOMContentLoaded', function () {
   var productLink = document.getElementById('product-link');
   var productMenu = document.getElementById('product-menu');
 
+  const prdocut_nav = document.getElementsByClassName('prdocut_nav')[0];
+  const product_menu = document.getElementById('product-menu');
+  prdocut_nav.addEventListener('mouseover', function () {
+    if (window.innerWidth > 991) {
+      product_menu.classList.add('show_mega_menu');
+    }
+  });
+  product_menu.addEventListener('mouseleave', function () {
+    product_menu.classList.remove('show_mega_menu');
+  });
+
   productLink.addEventListener('click', function (e) {
     e.preventDefault();
     if (window.innerWidth <= 990) {
@@ -60,7 +71,7 @@ document.addEventListener('DOMContentLoaded', function () {
       });
     });
   });
-  
+
 });
 
 

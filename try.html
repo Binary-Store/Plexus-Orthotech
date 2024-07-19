@@ -74,8 +74,9 @@
             <li data-aos="fade-down" data-aos-delay="400">
               <a href="./about.html">About Us</a>
             </li>
-            <li class="prdocut_nav">
-              <a href="#" class="nav_bar_list" id="product-link">Product <span id="product-link-arrow"><img src="./assets/images/down.png" width="20px"/></span></a>
+            <li class="prdocut_nav active">
+              <a href="#" class="nav_bar_list" id="product-link">Product <span id="product-link-arrow"><img
+                    src="./assets/images/down.png" width="20px" /></span></a>
               <div class="mega-menu-container" id="product-menu">
                 <div class="mega-menu">
                   <div class="mega-menu-row" id="mega_menu_row">
@@ -465,16 +466,35 @@
 
         mega_menu_row.innerHTML = html;
         // Add event listener for the clickable links
+        const prdocut_nav = document.getElementsByClassName('prdocut_nav')[0];
+        const product_menu = document.getElementById('product-menu');
+        prdocut_nav.addEventListener('mouseover', function () {
+          if (window.innerWidth > 991) {
+            product_menu.classList.add('show_mega_menu');
+          }
+        });
+        // if mouse leave from the product menu then remove the show_mega_menu class
+        product_menu.addEventListener('mouseleave', function () {
+          product_menu.classList.remove('show_mega_menu');
+        });
+
         mega_menu_row.querySelectorAll('.clickable-link').forEach(link => {
           link.addEventListener('click', function () {
 
-            document.getElementById('product-menu').style.display = 'none';
+            product_menu.classList.remove('show_mega_menu');
             const category_id = this.getAttribute('data-category_id');
             const subcategory_id = this.getAttribute('data-subcategory_id');
             params.category_id = `${category_id}`;
             params.subcategory_id = `${subcategory_id}`;
-            console.log(params, "this is from render category")
-            filterData(params);
+            if (window.innerWidth <= 991) {
+              if (subcategory_id != -1) {
+                $("body").toggleClass("menu-open");
+                filterData(params);
+              }
+            } else {
+              filterData(params);
+            }
+
           });
         });
       }
@@ -538,7 +558,7 @@
       });
 
 
-      
+
     });
   </script>
 
