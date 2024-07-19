@@ -344,31 +344,43 @@
 
 
 
-      function populateClickebalProduct(products) {
+      function populateClickebalProduct(products, isCategory = false) {
         const productList = $('#product-list');
         productList.empty();
-        if (products.length != 0) {
+
+        if (products.length !== 0) {
           product_breadcrumb.addClass('d-none');
         }
+
+        const fragment = $(document.createDocumentFragment());
+
         products.forEach(product => {
           const productItem = `
             <div data-aos="zoom-in" class="clickable-product" data-id="${product.id}">
-              <div class="hc-service-card">
-                <div class="hc-sercardimg hc-servone">
-                  <img src='./admin/images/${product.image}' loading="lazy" class="hc-service_img" alt="${product.name}" />
+                <div class="hc-service-card">
+                    <div class="hc-sercardimg hc-servone">
+                        <img src='./admin/images/${product.image}' loading="lazy" class="hc-service_img" alt="${product.name}" />
+                    </div>
+                    <h4>${product.name}</h4>
                 </div>
-                <h4>${product.name}</h4>
-              </div>
             </div>`;
-          productList.append(productItem);
-
+          fragment.append(productItem);
         });
-        productList.on('click', '.clickable-product', function () {
+
+        productList.append(fragment);
+
+        // Use event delegation to handle clicks on dynamically added elements
+        productList.off('click').on('click', '.clickable-product', function () {
           const id = $(this).data('id');
-          params.subcategory_id = `${id}`;
+          if (isCategory) {
+            params.category_id = `${id}`;
+          } else {
+            console.log("subcategory id", id, "hit");
+            params.subcategory_id = `${id}`;
+          }
+          console.log(params);
           filterData(params);
         });
-
       }
 
       function createBreadCume(category, subcategory) {
@@ -398,14 +410,16 @@
 
       // Function to filter and display data based on URL parameters
       function filterData(params) {
-        if (params.category_id && params.subcategory_id != -1) {
+        console.log(params, "filter params")
+        if (params.category_id != -1 && params.subcategory_id != -1) {
           const filteredCategories = categories.filter(category => category.id == params.category_id);
           const filteredSubcategories = filteredCategories[0].subcategories.filter(subcategory => subcategory.id == params.subcategory_id);
           createBreadCume(filteredCategories[0].name, filteredSubcategories[0].name);
           const tempProduct = getFilterProduct(params.category_id, params.subcategory_id, products);
           populateProducts(tempProduct);
+          console.log("%c full filter apply", "color:red");
         }
-        if (params.category_id && params.subcategory_id == -1) {
+        if (params.category_id != -1 && params.subcategory_id == -1) {
           const filteredCategories = categories.filter(category => category.id == params.category_id);
           createBreadCume(filteredCategories[0].name);
           // we have to get all the product related to this category_id
@@ -426,6 +440,25 @@
             }
           });
           populateClickebalProduct(uniqueProductArray);
+          console.log("%c half filter apply", "color:red");
+        }
+        if (params.category_id == -1 && params.subcategory_id == -1) {
+          const uniqueProduct = [];
+          categories.forEach(category => {
+            const tempProduct = products.filter(product => product.category_id == category.id);
+            if (tempProduct.length <= 0) {
+              uniqueProduct.push({ name: category.name, image: "notFound.png", id: category.id })
+            }
+            else {
+              uniqueProduct.push({
+                name: category.name,
+                image: tempProduct[0].image,
+                id: category.id
+              });
+            }
+          });
+          populateClickebalProduct(uniqueProduct, true);
+          console.log("%c no filter apply", "color:red");
         }
       }
 
