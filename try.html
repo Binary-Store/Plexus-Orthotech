@@ -384,27 +384,62 @@
       }
 
       function createBreadCume(category, subcategory) {
-        // Create span tag
-        const span = document.createElement('span');
-        span.onclick = function () {
-          params.subcategory_id = -1;
-          filterData(params);
-        }
-        span.innerText = category;
-        span.style.cursor = 'pointer';
-
         // Clear previous breadcrumb content
         bredcrum.innerHTML = '';
 
-        // Append span to breadcrumb
-        bredcrum.appendChild(span);
+        if (category === -1 && subcategory === -1) {
+          const span1 = document.createElement('span');
+          span1.innerText = "Product"; // Set inner text to "Product"
+          span1.style.cursor = 'pointer'; // Change cursor on hover
+          span1.onclick = function () {
+            params.subcategory_id = -1;
+            params.category_id = -1; // Example action: Reset category_id and subcategory_id
+            filterData(params); // Call filterData function with updated params
+          };
+          bredcrum.appendChild(span1);
+          return;
+        }
+
+        // Create span tag for "Product"
+        const span1 = document.createElement('span');
+        span1.innerText = "Product"; // Set inner text to "Product"
+        span1.style.cursor = 'pointer'; // Change cursor on hover
+        span1.onclick = function () {
+          params.subcategory_id = -1;
+          params.category_id = -1; // Example action: Reset category_id and subcategory_id
+          filterData(params); // Call filterData function with updated params
+        };
+        bredcrum.appendChild(span1); // Append span to breadcrumb
+
+        // Add separator
+        const separator1 = document.createTextNode(' > ');
+        bredcrum.appendChild(separator1);
+
+        // Create span tag for category
+        const span2 = document.createElement('span');
+        span2.innerText = category; // Set inner text to category
+        span2.style.cursor = 'pointer'; // Change cursor on hover
+        span2.onclick = function () {
+          params.subcategory_id = -1;
+          params.category_id = category.id; // Example action: Set category_id and reset subcategory_id
+          filterData(params); // Call filterData function with updated params
+        };
+        bredcrum.appendChild(span2); // Append span to breadcrumb
 
         // Add subcategory if it exists
         if (subcategory) {
-          const subcategoryText = document.createTextNode(` > ${subcategory}`);
-          bredcrum.appendChild(subcategoryText);
-        }
+          const separator2 = document.createTextNode(' > ');
+          bredcrum.appendChild(separator2);
 
+          const span3 = document.createElement('span');
+          span3.innerText = subcategory; // Set inner text to subcategory
+          span3.style.cursor = 'pointer'; // Change cursor on hover
+          span3.onclick = function () {
+            params.subcategory_id = subcategory.id; // Example action: Set subcategory_id
+            filterData(params); // Call filterData function with updated params
+          };
+          bredcrum.appendChild(span3); // Append span to breadcrumb
+        }
       }
 
 
@@ -458,7 +493,7 @@
             }
           });
           populateClickebalProduct(uniqueProduct, true);
-          console.log("%c no filter apply", "color:red");
+          createBreadCume(-1, -1);
         }
       }
 
@@ -523,6 +558,8 @@
               if (subcategory_id != -1) {
                 $("body").toggleClass("menu-open");
                 filterData(params);
+                document.getElementById('product-link-arrow').classList.toggle('active')
+                product_menu.classList.toggle('active');
               }
             } else {
               filterData(params);
@@ -567,27 +604,37 @@
     });
   </script>
   <script>
+    var customToggle = 0;
     document.addEventListener('DOMContentLoaded', function () {
       var productLink = document.getElementById('product-link');
       var productMenu = document.getElementById('product-menu');
-      console.log("hello1")
+
       productLink.addEventListener('click', function (e) {
         e.preventDefault();
         if (window.innerWidth <= 990) {
           document.getElementById('product-link-arrow').classList.toggle('active')
           productMenu.classList.toggle('active');
         }
-        var categoryHeadings = document.querySelectorAll('.mega-menu-column h3');
-        categoryHeadings.forEach(function (heading) {
-          heading.addEventListener('click', function (e) {
-            e.preventDefault();
-            this.classList.toggle("open");
-            var ul = this.nextElementSibling;
-            if (ul && ul.tagName === 'UL') {
-              ul.classList.toggle('active');
-            }
+
+        if (customToggle == 0) {
+
+          customToggle = 1;
+          var categoryHeadings = document.querySelectorAll('.mega-menu-column h3');
+          console.log(categoryHeadings);
+          categoryHeadings.forEach(function (heading) {
+            heading.addEventListener('click', function (e) {
+              e.preventDefault();
+              console.log("hello2")
+              this.classList.toggle("open");
+              var ul = this.nextElementSibling;
+              console.log(ul);
+              if (ul && ul.tagName === 'UL') {
+                console.log("hello3")
+                ul.classList.toggle('active');
+              }
+            });
           });
-        });
+        }
       });
 
 

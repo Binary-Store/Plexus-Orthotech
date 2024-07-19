@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin Login - plexus orthotech</title>
-   <script src="./js/index.js"></script>
+  <script src="./js/index.js"></script>
   <script>
     // this script redirect to login page if not login 
     document.addEventListener('DOMContentLoaded', function () {
@@ -142,7 +142,7 @@
         data: JSON.stringify(data),
         success: function (response) {
           errorElement.innerHTML = '';
-            console.log(response);
+          console.log(response);
           if (response.success) {
             setCookie('adminToken', response.token, 1);
             window.location.href = './html/index.html';
