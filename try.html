@@ -431,7 +431,7 @@
 
       function getFilterProduct(category_id, subcategory_id, product) {
         // put filter on product array 
-        return product.filter(product => product.category_id === category_id && product.subcategory_id === subcategory_id);
+        return product.filter(product => product.category_id == category_id && product.subcategory_id == subcategory_id);
       }
 
       function changeCategoryOrSubCategory(category_id, subcategory_id) {
