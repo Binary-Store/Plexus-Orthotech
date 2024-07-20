@@ -102,6 +102,7 @@
             </li>
 
           </ul>
+          <div class="overlay"></div>
         </div>
       </div>
     </div>
@@ -289,6 +290,11 @@
 
   <script>
     $(document).ready(function () {
+      $(".overlay").click(function () {
+        $("body").toggleClass("menu-open");
+        $(this).removeClass("is-visible");
+      })
+
       let active_subcategory = '';
       let products;
       let categories;

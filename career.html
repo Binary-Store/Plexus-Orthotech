@@ -102,6 +102,7 @@
               <a href="#" class="nav_bar_list">Career</a>
             </li>
           </ul>
+          <div class="overlay"></div>
         </div>
       </div>
     </div>
@@ -339,44 +340,6 @@
   <script src="assets/js/jquery.min.js"></script>
   <script src="./assets/js/form.js"></script>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      const form = document.getElementById('appointmentform');
-
-      //   form.addEventListener('submit', function (event) {
-      //     event.preventDefault(); // Prevent default form submission
-
-      //     // Fetch form data
-      //     const formData = new FormData(form);
-
-      //     // Perform client-side validation (optional)
-      //     const name = formData.get('name');
-      //     const email = formData.get('email');
-      //     const contact = formData.get('contact');
-      //     const resume = formData.get('resume');
-
-      //     if (!name || !email || !contact || !resume) {
-      //       alert('Please fill in all required fields.');
-      //       return;
-      //     }
-
-      //     // Perform AJAX submission
-      //     const xhr = new XMLHttpRequest();
-      //     xhr.open('POST', './admin/includes/careers_submit.php');
-      //     xhr.onreadystatechange = function () {
-      //       if (xhr.readyState === XMLHttpRequest.DONE) {
-      //         if (xhr.status === 200) {
-      //           alert(xhr.responseText); // Display server response
-      //           form.reset(); // Reset form after successful submission
-      //         } else {
-      //           alert('Error submitting form. Please try again later.'); // Handle server errors
-      //         }
-      //       }
-      //     };
-      //     xhr.send(formData);
-      //   });
-    });
-  </script>
 
   <script src="assets/js/bootstrap.min.js"></script>
   <script src="assets/js/swiper-bundle.min.js"></script>
@@ -391,6 +354,10 @@
   <script>
     // get appi call using $ajx
     $(document).ready(function () {
+      $(".overlay").click(function () {
+        $("body").toggleClass("menu-open");
+        $(this).removeClass("is-visible");
+      })
       $.ajax({
         url: './admin/includes/career.php',
         type: 'GET',

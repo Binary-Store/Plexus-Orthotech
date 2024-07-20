@@ -102,6 +102,7 @@
             </li>
 
           </ul>
+          <div class="overlay"></div>
         </div>
       </div>
     </div>
@@ -310,6 +311,10 @@
     });
 
     $(document).ready(function () {
+      $(".overlay").click(function () {
+        $("body").toggleClass("menu-open");
+        $(this).removeClass("is-visible");
+      });
       var active_subcategory = '';
       var products;
       var categories;

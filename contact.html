@@ -102,6 +102,7 @@
               <a href="./career.html" class="nav_bar_list">Career</a>
             </li>
           </ul>
+          <div class="overlay"></div>
         </div>
       </div>
     </div>
@@ -341,6 +342,12 @@
     });
   </script>
   <script src="assets/js/jquery.min.js"></script>
+  <script>
+    $(".overlay").click(function () {
+      $("body").toggleClass("menu-open");
+      $(this).removeClass("is-visible");
+    })
+  </script>
   <!-- product.js use for product hover in navbar -->
   <script src="./assets/js/product.js"></script>
   <script src="assets/js/bootstrap.min.js"></script>

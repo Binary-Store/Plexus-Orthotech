@@ -1,12 +1,12 @@
 
 
-(function($) {
+(function ($) {
     "use strict";
     var HealthCare = {
         initialised: false,
         version: 1.0,
         mobile: false,
-        init: function() {
+        init: function () {
             if (!this.initialised) {
                 this.initialised = true;
             } else {
@@ -22,7 +22,7 @@
 
 
         // testimonial slider
-        am_testimonial_slider: function() {
+        am_testimonial_slider: function () {
             var swiper = new Swiper(".hc-news", {
                 slidesPerView: 2,
                 spaceBetween: 30,
@@ -63,7 +63,7 @@
         },
         // testimonial slider
         // partner slider
-        am_partner_slider: function() {
+        am_partner_slider: function () {
             var swiper = new Swiper(".hc-depcard", {
                 slidesPerView: 4,
                 spaceBetween: 20,
@@ -112,7 +112,7 @@
         },
         // partner slider
         // team slider
-        am_team_slider: function() {
+        am_team_slider: function () {
             var swiper = new Swiper(".hc-team-row", {
                 slidesPerView: 4,
                 spaceBetween: 20,
@@ -162,7 +162,7 @@
         },
         // team slider
         // feedback slider
-        am_feedback_slider: function() {
+        am_feedback_slider: function () {
             var swiper = new Swiper(".hc-testimonial", {
                 slidesPerView: 2,
                 spaceBetween: 50,
@@ -212,24 +212,25 @@
         },
         // feedbackslider
         // toggle menu
-        toggle_menu: function() {
-            $(".hc-toggle-btn").on("click", function() {
+        toggle_menu: function () {
+            $(".hc-toggle-btn").on("click", function () {
                 $("body").toggleClass("menu-open");
+                $(".overlay").toggleClass("is-visible");
             });
         },
         // toggle menu
         // search btn
-        search_btn: function() {
-            $(".searchBtn").on("click", function() {
+        search_btn: function () {
+            $(".searchBtn").on("click", function () {
                 $(".searchBox").addClass("show");
             });
-            $(".closeBtn").on("click", function() {
+            $(".closeBtn").on("click", function () {
                 $(".searchBox").removeClass("show");
             });
-            $(".searchBox").on("click", function() {
+            $(".searchBox").on("click", function () {
                 $(".searchBox").removeClass("show");
             });
-            $(".search-bar-inner").on("click", function() {
+            $(".search-bar-inner").on("click", function () {
                 event.stopPropagation();
             });
         },
