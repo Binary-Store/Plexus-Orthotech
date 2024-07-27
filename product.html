@@ -74,7 +74,7 @@
             <li data-aos="fade-down" data-aos-delay="400">
               <a href="./about.html">About Us</a>
             </li>
-            <li class="prdocut_nav">
+            <li class="prdocut_nav active">
               <a href="#" class="nav_bar_list" id="product-link">Product <span id="product-link-arrow"><img
                     src="./assets/images/down.png" width="20px" /></span></a>
               <div class="mega-menu-container" id="product-menu">
@@ -116,17 +116,20 @@
         <h4 class="hc-news-heading" data-aos="fade-down">The Product We Offer</h4>
         <p class="hc-paragraph" data-aos="zoom-in" data-aos-delay="400">Discover our high-quality products designed to
           meet your every need.</p>
+        <h6 class="mt-4" id="bredcrum"></h6>
       </div>
       <div class="product-container">
-        <div class="product-sidebar" data-aos="fade-up" data-aos-delay="400">
+        <!-- <div class="product-sidebar" data-aos="fade-up" data-aos-delay="400">
           <ul id="category-list">
-            <!-- Dynamic categories and subcategories will be appended here -->
+            Dynamic categories and subcategories will be appended here
           </ul>
-        </div>
+        </div> -->
         <div class="product-content">
-          <div class="product-breadcrumb" id="product-breadcrumb">Products will be Available soon.</div>
+          <div class="product-breadcrumb text-center d-none" id="product-breadcrumb">Products will be Available soon.
+          </div>
           <div class="hc-service-row" id="product-list">
             <!-- Dynamic products will be appended here -->
+
           </div>
         </div>
       </div>
@@ -185,7 +188,7 @@
                 <a href="./about.html">About Us</a>
               </li>
               <li>
-                <a href="./try.html?category_id=-1&subcategory_id=-1">Product</a>
+                <a href="./product.html?category_id=-1&subcategory_id=-1">Product</a>
               </li>
               <li>
                 <a href="./video.html">video</a>
@@ -208,19 +211,19 @@
               <li class="hc-list">
                 <a href="javascript:;">Mon-Tue</a>
                 <div class="hc-listtext">
-                  <a href="javascript:;" class="hc-time">08:00 AM - 05:00 PM</a>
+                  <a href="javascript:;" class="hc-time">09:00 AM - 06:00 PM</a>
                 </div>
               </li>
               <li class="hc-list">
                 <a href="javascript:;">Wed-Thu</a>
                 <div class="hc-listtext">
-                  <a href="javascript:;" class="hc-time">08:00 AM - 05:00 PM</a>
+                  <a href="javascript:;" class="hc-time">09:00 AM - 06:00 PM</a>
                 </div>
               </li>
               <li class="hc-list">
                 <a href="javascript:;">Fri-Sat</a>
                 <div class="hc-listtext">
-                  <a href="javascript:;" class="hc-time">08:00 AM - 05:00 PM</a>
+                  <a href="javascript:;" class="hc-time">09:00 AM - 06:00 PM</a>
                 </div>
               </li>
               <li class="hc-list">
@@ -252,38 +255,294 @@
   <script src="assets/js/jquery.min.js"></script>
 
   <script>
-    function getUrlParams() {
-      const params = {};
-      const queryString = window.location.search.slice(1);
-      const pairs = queryString.split("&");
-
-      for (const pair of pairs) {
-        if (pair) {
-          const [key, value] = pair.split("=");
-          params[decodeURIComponent(key)] = decodeURIComponent(value || "");
-        }
-      }
-
-      return params;
-    }
-
-    // Example usage
-    const params = getUrlParams();
-    console.log(params);
-
-    AOS.init({
-      offset: 170,
-      duration: 1000,
-    });
-
     $(document).ready(function () {
       $(".overlay").click(function () {
         $("body").toggleClass("menu-open");
         $(this).removeClass("is-visible");
-      });
-      var active_subcategory = '';
-      var products;
-      var categories;
+      })
+
+      let active_subcategory = '';
+      let products;
+      let categories;
+      const bredcrum = document.getElementById('bredcrum');
+      const product_breadcrumb = $('#product-breadcrumb');
+      let params = '';
+
+      // Function to get URL parameters
+      function getUrlParams() {
+        const params = {};
+        const queryString = window.location.search.slice(1);
+        const pairs = queryString.split("&");
+
+        for (const pair of pairs) {
+          if (pair) {
+            const [key, value] = pair.split("=");
+            params[decodeURIComponent(key)] = decodeURIComponent(value || "");
+          }
+        }
+        return params;
+      }
+
+      // Function to populate categories
+      function populateCategories(categories) {
+        const categoryList = $('#category-list');
+        categoryList.empty();
+        categories.forEach(category => {
+          const categoryItem = `<li>${category.name}</li>`;
+          categoryList.append(categoryItem);
+        });
+      }
+
+      // Function to populate products
+      function populateProducts(products) {
+        const productList = $('#product-list');
+        productList.empty();
+        if (products.length === 0) {
+          product_breadcrumb.removeClass('d-none');
+          return;
+        }
+        products.forEach(product => {
+          const productItem = `
+            <div data-aos="zoom-in">
+              <div class="hc-service-card">
+                <div class="hc-sercardimg hc-servone">
+                  <img src='./admin/images/${product.image}' loading="lazy" class="hc-service_img" alt="${product.name}" />
+                </div>
+                <h4>${product.name}</h4>
+              </div>
+            </div>`;
+          productList.append(productItem);
+        });
+      }
+
+
+
+      function populateClickebalProduct(products, isCategory = false) {
+        const productList = $('#product-list');
+        productList.empty();
+
+        if (products.length !== 0) {
+          product_breadcrumb.addClass('d-none');
+        }
+
+        const fragment = $(document.createDocumentFragment());
+
+        products.forEach(product => {
+          const productItem = `
+            <div data-aos="zoom-in" class="clickable-product" data-id="${product.id}">
+                <div class="hc-service-card">
+                    <div class="hc-sercardimg hc-servone">
+                        <img src='./admin/images/${product.image}' loading="lazy" class="hc-service_img" alt="${product.name}" />
+                    </div>
+                    <h4>${product.name}</h4>
+                </div>
+            </div>`;
+          fragment.append(productItem);
+        });
+
+        productList.append(fragment);
+
+        // Use event delegation to handle clicks on dynamically added elements
+        productList.off('click').on('click', '.clickable-product', function () {
+          const id = $(this).data('id');
+          if (isCategory) {
+            params.category_id = `${id}`;
+          } else {
+            console.log("subcategory id", id, "hit");
+            params.subcategory_id = `${id}`;
+          }
+          console.log(params);
+          filterData(params);
+        });
+      }
+
+      function createBreadCume(category, subcategory, category_id, subcategory_id) {
+        // Clear previous breadcrumb content
+        bredcrum.innerHTML = '';
+
+        if (category === -1 && subcategory === -1) {
+          const span1 = document.createElement('span');
+          span1.innerText = "Product"; // Set inner text to "Product"
+          span1.style.cursor = 'pointer'; // Change cursor on hover
+          span1.onclick = function () {
+            params.subcategory_id = -1;
+            params.category_id = -1; // Example action: Reset category_id and subcategory_id
+            filterData(params); // Call filterData function with updated params
+          };
+          bredcrum.appendChild(span1);
+          return;
+        }
+
+        // Create span tag for "Product"
+        const span1 = document.createElement('span');
+        span1.innerText = "Product"; // Set inner text to "Product"
+        span1.style.cursor = 'pointer'; // Change cursor on hover
+        span1.onclick = function () {
+          params.subcategory_id = -1;
+          params.category_id = -1; // Example action: Reset category_id and subcategory_id
+          filterData(params); // Call filterData function with updated params
+        };
+        bredcrum.appendChild(span1); // Append span to breadcrumb
+
+        // Add separator
+        const separator1 = document.createTextNode(' > ');
+        bredcrum.appendChild(separator1);
+
+        // Create span tag for category
+        const span2 = document.createElement('span');
+        span2.innerText = category; // Set inner text to category
+        span2.style.cursor = 'pointer'; // Change cursor on hover
+        span2.onclick = function () {
+          params.subcategory_id = -1;
+          params.category_id = category_id; // Example action: Set category_id and reset subcategory_id
+          filterData(params); // Call filterData function with updated params
+        };
+        bredcrum.appendChild(span2); // Append span to breadcrumb
+
+        // Add subcategory if it exists
+        if (subcategory) {
+          const separator2 = document.createTextNode(' > ');
+          bredcrum.appendChild(separator2);
+
+          const span3 = document.createElement('span');
+          span3.innerText = subcategory; // Set inner text to subcategory
+          span3.style.cursor = 'pointer'; // Change cursor on hover
+          span3.onclick = function () {
+            params.subcategory_id = subcategory.id; // Example action: Set subcategory_id
+            filterData(params); // Call filterData function with updated params
+          };
+          bredcrum.appendChild(span3); // Append span to breadcrumb
+        }
+      }
+
+
+      // Function to filter and display data based on URL parameters
+      function filterData(params) {
+        console.log(params, "filter params")
+        if (params.category_id != -1 && params.subcategory_id != -1) {
+          const filteredCategories = categories.filter(category => category.id == params.category_id);
+          const filteredSubcategories = filteredCategories[0].subcategories.filter(subcategory => subcategory.id == params.subcategory_id);
+          createBreadCume(filteredCategories[0].name, filteredSubcategories[0].name, filteredCategories[0].id, filteredSubcategories[0].id);
+          const tempProduct = getFilterProduct(params.category_id, params.subcategory_id, products);
+          populateProducts(tempProduct);
+          console.log("%c full filter apply", "color:red");
+        }
+        if (params.category_id != -1 && params.subcategory_id == -1) {
+          const filteredCategories = categories.filter(category => category.id == params.category_id);
+          createBreadCume(filteredCategories[0].name, null, filteredCategories[0].id, -1);
+          // we have to get all the product related to this category_id
+          const tempProduct = products.filter(product => product.category_id == params.category_id);
+          // now i need to get one unique prodcut from ther subcategory 
+          const uniqueProductArray = [];
+          filteredCategories[0].subcategories.forEach(subcategory => {
+            const tempProduct = products.filter(product => product.subcategory_id == subcategory.id);
+            if (tempProduct.length <= 0) {
+              uniqueProductArray.push({ name: subcategory.name, image: "notFound.png", id: subcategory.id })
+            }
+            else {
+              uniqueProductArray.push({
+                name: subcategory.name,
+                image: tempProduct[0].image,
+                id: subcategory.id
+              });
+            }
+          });
+          populateClickebalProduct(uniqueProductArray);
+          console.log("%c half filter apply", "color:red");
+        }
+        if (params.category_id == -1 && params.subcategory_id == -1) {
+          const uniqueProduct = [];
+          categories.forEach(category => {
+            const tempProduct = products.filter(product => product.category_id == category.id);
+            if (tempProduct.length <= 0) {
+              uniqueProduct.push({ name: category.name, image: "notFound.png", id: category.id })
+            }
+            else {
+              uniqueProduct.push({
+                name: category.name,
+                image: tempProduct[0].image,
+                id: category.id
+              });
+            }
+          });
+          populateClickebalProduct(uniqueProduct, true);
+          createBreadCume(-1, -1);
+        }
+      }
+
+
+      function getFilterProduct(category_id, subcategory_id, product) {
+        // put filter on product array 
+        return product.filter(product => product.category_id == category_id && product.subcategory_id == subcategory_id);
+      }
+
+      function changeCategoryOrSubCategory(category_id, subcategory_id) {
+        params.category_id = category_id;
+        params.subcategory_id = subcategory_id;
+        filterData(params);
+      }
+
+      function renderCategory(categoryData) {
+        const mega_menu_row = document.getElementById('mega_menu_row');
+        let html = '';
+
+        categoryData.forEach((category) => {
+          html += `<div class="mega-menu-column">
+              <h3 class="category_heading">
+                <a href="javascript:void(0);" class="category_link clickable-link" data-category_id='${category.id}' data-subcategory_id='-1'>${category.name}</a> <span><img src="./assets/images/down.png" width="15px"/></span>
+              </h3>
+              <ul>`;
+
+          category.subcategories.forEach((subcategory, index) => {
+            if (index < 7) {
+              html += `<li><a href="javascript:void(0);" class="subcategory_link clickable-link" data-category_id='${category.id}' data-subcategory_id='${subcategory.id}'>${subcategory.name}</a></li>`;
+            }
+            if (index === 7) {
+              html += `<li><a href="javascript:void(0);" class="subcategory_link clickable-link" data-category_id='${category.id}' data-subcategory_id='-1'>View More</a></li>`;
+            }
+          });
+
+          html += `</ul></div>`;
+        });
+
+        mega_menu_row.innerHTML = html;
+        // Add event listener for the clickable links
+        const prdocut_nav = document.getElementsByClassName('prdocut_nav')[0];
+        const product_menu = document.getElementById('product-menu');
+        prdocut_nav.addEventListener('mouseover', function () {
+          if (window.innerWidth > 991) {
+            product_menu.classList.add('show_mega_menu');
+          }
+        });
+        // if mouse leave from the product menu then remove the show_mega_menu class
+        product_menu.addEventListener('mouseleave', function () {
+          product_menu.classList.remove('show_mega_menu');
+        });
+
+        mega_menu_row.querySelectorAll('.clickable-link').forEach(link => {
+          link.addEventListener('click', function () {
+
+            product_menu.classList.remove('show_mega_menu');
+            const category_id = this.getAttribute('data-category_id');
+            const subcategory_id = this.getAttribute('data-subcategory_id');
+            params.category_id = `${category_id}`;
+            params.subcategory_id = `${subcategory_id}`;
+            if (window.innerWidth <= 991) {
+              if (subcategory_id != -1) {
+                $("body").toggleClass("menu-open");
+                filterData(params);
+                document.getElementById('product-link-arrow').classList.toggle('active')
+                product_menu.classList.toggle('active');
+              }
+            } else {
+              filterData(params);
+            }
+
+          });
+        });
+      }
+
+      // Function to fetch products and categories
       function fetchProducts() {
         $.ajax({
           url: './admin/includes/fetch_data.php',
@@ -293,12 +552,9 @@
             if (response.success) {
               products = response.data.products;
               categories = response.data.categories;
-              populateCategories(response.data.categories);
-              if (categories.length > 0) {
-                active_category = response.data.categories[0].id;
-
-                populateProducts(response.data.products, response.data.categories, active_category, "category");
-              }
+              params = getUrlParams();
+              renderCategory(categories);
+              filterData(params);
             } else {
               console.error('Error fetching data:', response.error);
             }
@@ -309,87 +565,56 @@
         });
       }
 
-      function populateCategories(categories) {
-        const categoryList = $('#category-list');
-        categoryList.empty();
-
-        if (categories.length === 0) {
-          categoryList.hide();
-          return;
-        }
-
-        categories.forEach(category => {
-          const categoryItem = $('<li class="bold category-item" data-category-id="' + category.id + '"></li>').text(category.name);
-          const subcategoryList = $('<ul></ul>');
-
-          // Ensure subcategories is an array
-          const subcategories = Array.isArray(category.subcategories) ? category.subcategories : [category.subcategories];
-
-          subcategories.forEach(subcategory => {
-            const subcategoryItem = $('<li class="fs-8 subcategory-item" data-subcategory-id="' + subcategory.id + '"></li>').text(subcategory.name);
-            subcategoryList.append(subcategoryItem);
-          });
-
-          categoryList.append(categoryItem);
-          categoryList.append(subcategoryList);
-        });
-
-        $('.category-item').on('click', function () {
-          const categoryId = $(this).data('category-id');
-          categoryClick(categoryId);
-        });
-
-        $('.subcategory-item').on('click', function () {
-          const subcategoryId = $(this).data('subcategory-id');
-          subcategoryClick(subcategoryId);
-        });
-      }
+      // Initialize AOS
+      AOS.init({
+        offset: 170,
+        duration: 1000,
+      });
 
 
-      function populateProducts(products, categories, populate_id, type) {
-        const productList = $('#product-list');
-        productList.empty();
-
-        if (type == "category") {
-          //find from categories
-          var category = categories.find(category => category.id == populate_id);
-          $('#product-breadcrumb').text(category.name);
-        } else {
-          //find from subcategories
-          var category = categories.find(category => category.subcategories.find(subcategory => subcategory.id == populate_id));
-          var subcategory = category.subcategories.find(subcategory => subcategory.id == populate_id);
-          $('#product-breadcrumb').text(category.name + ' > ' + subcategory.name);
-        }
-
-        products.forEach(product => {
-          var ref_id = (type == "category") ? product.category_id : product.subcategory_id;
-
-          if (ref_id == populate_id) {
-            const productCard = `
-                  <div data-aos="zoom-in">
-                      <div class="hc-service-card">
-                          <div class="hc-sercardimg hc-servone">
-                              <img src="${'./admin/images/' + product.image}" loading="lazy" class="hc-service_img" alt="${product.name}" />
-                          </div>
-                      </div>
-                  </div>`;
-            productList.append(productCard);
-          }
-        });
-      }
-
-      function categoryClick(category_id) {
-        populateProducts(products, categories, category_id, "category");
-      }
-
-      function subcategoryClick(subcategory_id) {
-        populateProducts(products, categories, subcategory_id, "subcategory");
-      }
+      // Fetch products on page load
       fetchProducts();
+    });
+  </script>
+  <script>
+    var customToggle = 0;
+    document.addEventListener('DOMContentLoaded', function () {
+      var productLink = document.getElementById('product-link');
+      var productMenu = document.getElementById('product-menu');
+
+      productLink.addEventListener('click', function (e) {
+        e.preventDefault();
+        if (window.innerWidth <= 990) {
+          document.getElementById('product-link-arrow').classList.toggle('active')
+          productMenu.classList.toggle('active');
+        }
+
+        if (customToggle == 0) {
+
+          customToggle = 1;
+          var categoryHeadings = document.querySelectorAll('.mega-menu-column h3');
+          console.log(categoryHeadings);
+          categoryHeadings.forEach(function (heading) {
+            heading.addEventListener('click', function (e) {
+              e.preventDefault();
+              console.log("hello2")
+              this.classList.toggle("open");
+              var ul = this.nextElementSibling;
+              console.log(ul);
+              if (ul && ul.tagName === 'UL') {
+                console.log("hello3")
+                ul.classList.toggle('active');
+              }
+            });
+          });
+        }
+      });
+
+
 
     });
-
   </script>
+
   <script src="assets/js/bootstrap.min.js"></script>
   <script src="assets/js/swiper-bundle.min.js"></script>
   <script src="assets/js/custom.js"></script>

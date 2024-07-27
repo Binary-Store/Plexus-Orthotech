@@ -25,10 +25,10 @@ function renderCategory(categoryData) {
   categoryData.forEach((category) => {
     html += `<div class="mega-menu-column">
                               <h3 class="category_heading">`
-    html += `<a href="./try.html?category_id=${category.id}&subcategory_id=-1" class="category_link">${category.name} </a> <span><img src="./assets/images/down.png" width="15px"/></span> </h3><ul>`;
+    html += `<a href="./product.html?category_id=${category.id}&subcategory_id=-1" class="category_link">${category.name} </a> <span><img src="./assets/images/down.png" width="15px"/></span> </h3><ul>`;
     category.subcategories.forEach((subcategory, index) => {
-      if (index < 7) html += `<li><a href="./try.html?category_id=${category.id}&subcategory_id=${subcategory.id}" class="subcategory_link">${subcategory.name}</a></li>`;
-      if (index == 7) html += `<li><a href="./try.html?category_id=${category.id}&subcategory_id=-1" class="subcategory_link">View More</a></li>`;
+      if (index < 7) html += `<li><a href="./product.html?category_id=${category.id}&subcategory_id=${subcategory.id}" class="subcategory_link">${subcategory.name}</a></li>`;
+      if (index == 7) html += `<li><a href="./product.html?category_id=${category.id}&subcategory_id=-1" class="subcategory_link">View More</a></li>`;
     });
     html += `</ul>`;
     html += `</div>`;
