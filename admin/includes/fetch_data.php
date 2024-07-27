@@ -55,7 +55,7 @@ try {
     // }
 
     // fetch all categories
-    $stmt = $pdo->query('SELECT * FROM categories ORDER BY ORDER BY id ASC');
+    $stmt = $pdo->query('SELECT * FROM categories ORDER BY id ASC');
     $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
     $stmt = $pdo->query('SELECT * FROM subcategories ORDER BY id ASC');
     $subcategories = $stmt->fetchAll(PDO::FETCH_ASSOC);
