@@ -55,9 +55,9 @@ try {
     // }
 
     // fetch all categories
-    $stmt = $pdo->query('SELECT * FROM categories ORDER BY name DESC');
+    $stmt = $pdo->query('SELECT * FROM categories ORDER BY ORDER BY id ASC');
     $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    $stmt = $pdo->query('SELECT * FROM subcategories ORDER BY name ASC');
+    $stmt = $pdo->query('SELECT * FROM subcategories ORDER BY id ASC');
     $subcategories = $stmt->fetchAll(PDO::FETCH_ASSOC);
     //create subcategories array and add to category objects array
     foreach ($categories as $key => $category) {
