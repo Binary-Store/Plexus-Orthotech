@@ -51,9 +51,9 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
   try {
-    $stmt = $pdo->query('SELECT * FROM categories ORDER BY name DESC');
+    $stmt = $pdo->query('SELECT * FROM categories ORDER BY id ASC');
     $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    $stmt = $pdo->query('SELECT * FROM subcategories ORDER BY name ASC');
+    $stmt = $pdo->query('SELECT * FROM subcategories ORDER BY id ASC');
     $subcategories = $stmt->fetchAll(PDO::FETCH_ASSOC);
     //create subcategories array and add to category objects array
     foreach ($categories as $key => $category) {
@@ -66,7 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     }
     $response = array('success' => true, 'categories' => $categories);
   } catch (PDOException $e) {
-      http_response_code(505);
+    http_response_code(505);
     $response = array('success' => false, 'message' => "Error fetching categories: " . $e->getMessage());
     echo json_encode($response);
     exit();
@@ -99,11 +99,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
       $stmt = $pdo->prepare('SELECT * FROM categories WHERE id = ?');
       $stmt->execute([$categoryId]);
       $category = $stmt->fetch(PDO::FETCH_ASSOC);
-      
-      $response = array('success' => true, 'message' => "Category added successfully" , "category" => $category);
+
+      $response = array('success' => true, 'message' => "Category added successfully", "category" => $category);
     }
   } catch (PDOException $e) {
-       http_response_code(505);
+    http_response_code(505);
     $response = array('success' => false, 'message' => "Something went wrong");
   }
 
@@ -122,7 +122,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $count = $stmt->fetchColumn();
 
     if ($count > 0) {
-        http_response_code(402);
+      http_response_code(402);
       $response = array('success' => false, 'message' => "Category name '$categoryName' already exists.");
     } else {
       $stmt = $pdo->prepare('SELECT COUNT(*) FROM categories WHERE id = ?');
@@ -130,7 +130,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
       $count = $stmt->fetchColumn();
 
       if ($count == 0) {
-          http_response_code(402);
+        http_response_code(402);
         $response = array('success' => false, 'message' => "Category not found");
         echo json_encode($response);
         exit();
@@ -142,10 +142,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
       $stmt = $pdo->prepare('SELECT * FROM categories WHERE id = ?');
       $stmt->execute([$categoryId]);
       $category = $stmt->fetch(PDO::FETCH_ASSOC);
-      $response = array('success' => true, 'message' => "Category updated successfully",'category' => $category);
+      $response = array('success' => true, 'message' => "Category updated successfully", 'category' => $category);
     }
   } catch (PDOException $e) {
-       http_response_code(505);
+    http_response_code(505);
     $response = array('success' => false, 'message' => "Something went wrong");
   }
   echo json_encode($response);
@@ -166,7 +166,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $count = $stmt->fetchColumn();
 
     if ($count == 0) {
-        http_response_code(402);
+      http_response_code(402);
       $response = array('success' => false, 'message' => "Category not found");
       echo json_encode($response);
       exit();
@@ -190,7 +190,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     echo json_encode($response);
 
   } catch (PDOException $e) {
-       http_response_code(505);
+    http_response_code(505);
     $response = array('success' => false, 'message' => "Something went wrong");
     echo json_encode($response);
     exit();

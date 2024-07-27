@@ -267,6 +267,7 @@
       const bredcrum = document.getElementById('bredcrum');
       const product_breadcrumb = $('#product-breadcrumb');
       let params = '';
+      const categoryImgUrl = ["orthopedic implants.jfif", "Craniomaxillofacial Implants.png", "Spine Implants.png", "External Fixator.jpg", "Arthroscopic Implants.png", "Hip Prosthesis.png", "MAxillofacial Instruments.png"]
 
       // Function to get URL parameters
       function getUrlParams() {
@@ -332,9 +333,9 @@
             <div data-aos="zoom-in" class="clickable-product" data-id="${product.id}">
                 <div class="hc-service-card">
                     <div class="hc-sercardimg hc-servone">
-                        <img src='./admin/images/${product.image}' loading="lazy" class="hc-service_img" alt="${product.name}" />
+                        <img src='${product.image}' loading="lazy" class="hc-service_img" alt="${product.name}" />
                     </div>
-                    <h4>${product.name}</h4>
+                    <h4 class="mt-2">${product.name}</h4>
                 </div>
             </div>`;
           fragment.append(productItem);
@@ -437,12 +438,12 @@
           filteredCategories[0].subcategories.forEach(subcategory => {
             const tempProduct = products.filter(product => product.subcategory_id == subcategory.id);
             if (tempProduct.length <= 0) {
-              uniqueProductArray.push({ name: subcategory.name, image: "notFound.png", id: subcategory.id })
+              uniqueProductArray.push({ name: subcategory.name, image: "./admin/images/notFound.png", id: subcategory.id })
             }
             else {
               uniqueProductArray.push({
                 name: subcategory.name,
-                image: tempProduct[0].image,
+                image: `./admin/images/${tempProduct[0].image}`,
                 id: subcategory.id
               });
             }
@@ -452,18 +453,12 @@
         }
         if (params.category_id == -1 && params.subcategory_id == -1) {
           const uniqueProduct = [];
-          categories.forEach(category => {
-            const tempProduct = products.filter(product => product.category_id == category.id);
-            if (tempProduct.length <= 0) {
-              uniqueProduct.push({ name: category.name, image: "notFound.png", id: category.id })
-            }
-            else {
-              uniqueProduct.push({
-                name: category.name,
-                image: tempProduct[0].image,
-                id: category.id
-              });
-            }
+          categories.forEach((category, index) => {
+            uniqueProduct.push({
+              name: category.name,
+              image: categoryImgUrl[index] ? `./assets/images/category/${categoryImgUrl[index]}` : "./admin/images/notFound.png",
+              id: category.id
+            })
           });
           populateClickebalProduct(uniqueProduct, true);
           createBreadCume(-1, -1);
