@@ -267,7 +267,7 @@
       const bredcrum = document.getElementById('bredcrum');
       const product_breadcrumb = $('#product-breadcrumb');
       let params = '';
-      const categoryImgUrl = ["orthopedic implants.jfif", "Craniomaxillofacial Implants.png", "Spine Implants.png", "External Fixator.jpg", "Arthroscopic Implants.png", "Hip Prosthesis.png", "MAxillofacial Instruments.png"]
+      const categoryImgUrl = ["orthopedic implants.png", "Craniomaxillofacial Implants.png", "Spine Implants.png", "Arthroscopic Implants.png", "External Fixator.png", "Hip Prosthesis.png", "MAxillofacial Instruments.png"]
 
       // Function to get URL parameters
       function getUrlParams() {
@@ -333,7 +333,7 @@
             <div data-aos="zoom-in" class="clickable-product" data-id="${product.id}">
                 <div class="hc-service-card">
                     <div class="hc-sercardimg hc-servone">
-                        <img src='${product.image}' loading="lazy" class="hc-service_img" alt="${product.name}" />
+                        <img src='${product.image}' loading="lazy" class="hc-service_img rounded" alt="${product.name}" />
                     </div>
                     <h4 class="mt-2">${product.name}</h4>
                 </div>
@@ -456,7 +456,7 @@
           categories.forEach((category, index) => {
             uniqueProduct.push({
               name: category.name,
-              image: categoryImgUrl[index] ? `./assets/images/category/${categoryImgUrl[index]}` : "./admin/images/notFound.png",
+              image: categoryImgUrl[index] ? `./assets/images/category/try/${categoryImgUrl[index]}` : "./admin/images/notFound.png",
               id: category.id
             })
           });
