@@ -51,10 +51,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
   $productName = $_POST['product_name'];
   $categoryId = $_POST['category_id'];
+  $ctId = $_POST['ct_id'];
+  $description = $_POST['description'];
   $subcategoryId = $_POST['subcategory_id'] ?? null;
   if (empty($subcategoryId)) {
     $subcategoryId = null;
-}
+  }
   $productId = $_POST['product_id'];
   $imageName = null;
 
@@ -86,7 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $imageName = $currentImageName;
   }
   try {
-       $stmt = $pdo->prepare('SELECT * FROM products WHERE name = ? AND category_id = ? AND subcategory_id IS NULL');
+    $stmt = $pdo->prepare('SELECT * FROM products WHERE name = ? AND category_id = ? AND subcategory_id IS NULL');
     $stmt->execute([$productName, $categoryId]);
     $product = $stmt->fetch(PDO::FETCH_ASSOC);
     if ($product) {
@@ -95,12 +97,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       echo json_encode($response);
       exit();
     }
-    
-    $stmt = $pdo->prepare('UPDATE products SET name = ?, image = ?, category_id = ?, subcategory_id = ? WHERE id = ?');
-    $stmt->execute([$productName, $imageName, $categoryId, $subcategoryId, $productId]);
+
+    $stmt = $pdo->prepare('UPDATE products SET name = ?, image = ?, category_id = ?, subcategory_id = ?, ct_id = ?, description = ? WHERE id = ?');
+    $stmt->execute([$productName, $imageName, $categoryId, $subcategoryId, $ctId, $description, $productId]);
 
     // get product details
-    $stmt = $pdo->prepare('SELECT  p.id AS id ,p.name AS name, p.image, c.name AS category,c.id AS category_id,sc.id AS subcategory_id, sc.name AS subcategory
+    $stmt = $pdo->prepare('SELECT  p.id AS id ,p.name AS name, p.image,p.ct_id,p.description, c.name AS category,c.id AS category_id,sc.id AS subcategory_id, sc.name AS subcategory
         FROM products p
         INNER JOIN categories c ON p.category_id = c.id
         LEFT JOIN subcategories sc ON p.subcategory_id = sc.id

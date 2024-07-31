@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
 }
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
   try {
-    $productsStmt = $pdo->query('SELECT p.id AS id, p.name AS name, p.image, c.name AS category,c.id AS category_id,sc.id AS subcategory_id, sc.name AS subcategory
+    $productsStmt = $pdo->query('SELECT p.id AS id, p.name AS name, p.ct_id, p.description, p.image, c.name AS category,c.id AS category_id,sc.id AS subcategory_id, sc.name AS subcategory
         FROM products p
         INNER JOIN categories c ON p.category_id = c.id
         LEFT JOIN subcategories sc ON p.subcategory_id = sc.id');
@@ -58,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     echo json_encode($response);
 
   } catch (PDOException $e) {
-     http_response_code(505);
+    http_response_code(505);
     $response = array('success' => false, 'message' => $e->getMessage());
     echo json_encode($response);
     exit();
@@ -67,11 +67,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 
   $productName = $_POST['product_name'];
   $categoryId = $_POST['category_id'];
+  $ctId = $_POST['ct_id'];
+  $description = $_POST['description'];
   $subcategoryId = $_POST['subcategory_id'] ?? null;
   if (empty($subcategoryId)) {
     $subcategoryId = null;
-}
- 
+  }
+
   $imageName = null;
 
   if (isset($_FILES['product_image']) && $_FILES['product_image']['error'] == 0) {
@@ -99,11 +101,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
       exit();
     }
 
-    $stmt = $pdo->prepare('INSERT INTO products (name, image, category_id, subcategory_id) VALUES (?, ?, ?, ?)');
-    $stmt->execute([$productName, $imageName, $categoryId, $subcategoryId]);
+    $stmt = $pdo->prepare('INSERT INTO products (name, image, category_id, subcategory_id, ct_id, description) VALUES (?, ?, ?, ?, ?, ?)');
+    $stmt->execute([$productName, $imageName, $categoryId, $subcategoryId, $ctId, $description]);
     // get last added product data
     $lastId = $pdo->lastInsertId();
-    $stmt = $pdo->prepare('SELECT p.id AS id, p.name AS name, p.image, c.name AS category,c.id AS category_id,sc.id AS subcategory_id, sc.name AS subcategory
+    $stmt = $pdo->prepare('SELECT p.id AS id, p.name AS name, p.ct_id, p.description, p.image, c.name AS category,c.id AS category_id,sc.id AS subcategory_id, sc.name AS subcategory
         FROM products p
         INNER JOIN categories c ON p.category_id = c.id
         LEFT JOIN subcategories sc ON p.subcategory_id = sc.id
@@ -164,7 +166,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     echo json_encode($response);
 
   } catch (PDOException $e) {
-     http_response_code(505);
+    http_response_code(505);
     $response = array('success' => false, 'message' => $e->getMessage());
     echo json_encode($response);
     exit();

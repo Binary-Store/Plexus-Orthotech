@@ -136,6 +136,25 @@
     </div>
   </div>
   <!-- product section end -->
+
+  <!-- Modal -->
+  <div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="productModalLabel">Product Details</h1>
+          <button type="button" class="btn-close" id="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <!-- Form -->
+          <table class="table table-striped">
+            </tbody>
+            <tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
   <!-- footer section start -->
   <div class="hc-footer-wrapper  hc-sections">
     <div class="container">
@@ -268,7 +287,6 @@
       const product_breadcrumb = $('#product-breadcrumb');
       let params = '';
       const categoryImgUrl = ["orthopedic implants.png", "Craniomaxillofacial Implants.png", "Spine Implants.png", "Arthroscopic Implants.png", "External Fixator.png", "Hip Prosthesis.png", "MAxillofacial Instruments.png"]
-
       // Function to get URL parameters
       function getUrlParams() {
         const params = {};
@@ -304,7 +322,7 @@
         }
         products.forEach(product => {
           const productItem = `
-            <div data-aos="zoom-in">
+            <div data-aos="zoom-in" class="clickable-product" data-id="${product.id}" style="cursor:pointer">
               <div class="hc-service-card">
                 <div class="hc-sercardimg hc-servone">
                   <img src='./admin/images/${product.image}' loading="lazy" class="hc-service_img" alt="${product.name}" />
@@ -313,6 +331,31 @@
               </div>
             </div>`;
           productList.append(productItem);
+        });
+
+        productList.off('click').on('click', '.clickable-product', function () {
+          const id = $(this).data('id');
+          // get product data from products array
+          const product = products.find(product => product.id == id);
+          // populate product details in modal
+          $('#productModal').modal('show');
+          // fill the data to table body of modal
+          const tableBody = $('#productModal tbody');
+          tableBody.empty();
+          tableBody.append(`
+            <tr>
+              <td>Product Name</td>
+              <td>${product.name}</td>
+            </tr>
+            <tr>
+              <td>product Id</td>
+              <td>${product.ct_id}</td>
+            </tr>
+            <tr>
+              <td>Product Description</td>
+              <td>${product.description}</td>
+            </tr>
+            `);
         });
       }
 
@@ -449,7 +492,6 @@
             }
           });
           populateClickebalProduct(uniqueProductArray);
-          console.log("%c half filter apply", "color:red");
         }
         if (params.category_id == -1 && params.subcategory_id == -1) {
           const uniqueProduct = [];

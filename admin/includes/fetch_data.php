@@ -7,53 +7,6 @@ try {
     $productsStmt = $pdo->query('SELECT * FROM products ORDER BY created_at DESC');
     $products = $productsStmt->fetchAll(PDO::FETCH_ASSOC);
 
-    // Fetch all categories
-    // $categoriesStmt = $pdo->query('SELECT * FROM categories');
-    // $categories = $categoriesStmt->fetchAll(PDO::FETCH_ASSOC);
-
-    // foreach ($categories as &$category) {
-    //     // Fetch subcategories for each category
-    //     $subcategoriesStmt = $pdo->prepare('SELECT * FROM subcategories WHERE category_id = ?');
-    //     $subcategoriesStmt->execute([$category['id']]);
-    //     $subcategories = $subcategoriesStmt->fetchAll(PDO::FETCH_ASSOC);
-
-    //     // Filter out subcategories without products
-    //     $filteredSubcategories = [];
-    //     foreach ($subcategories as $subcategory) {
-    //         $hasProducts = false;
-    //         foreach ($products as $product) {
-    //             if ($product['subcategory_id'] == $subcategory['id']) {
-    //                 $hasProducts = true;
-    //                 break;
-    //             }
-    //         }
-    //         if ($hasProducts) {
-    //             $filteredSubcategories[] = $subcategory;
-    //         }
-    //     }
-
-    //     // Assign filtered subcategories to category
-    //     $category['subcategories'] = $filteredSubcategories;
-    // }
-
-    //  //iterate over products and get all unique categoriy id
-    // $uniqueCategories = [];
-    // foreach ($products as $product) {
-    //     $uniqueCategories[] = $product['category_id'];
-    // }
-    // $uniqueCategories = array_unique($uniqueCategories);
-
-    // // Filter out categories without subcategories or category id in $categoryIds
-    // $filteredCategories = [];
-
-    // //use for loop not foreach
-    // for ($i = 0; $i < count($categories); $i++) {
-    //     if (in_array($categories[$i]['id'], $uniqueCategories) || 
-    //     count($categories[$i]['subcategories'])>0) {
-    //         $filteredCategories[] = $categories[$i];
-    //     }
-    // }
-
     // fetch all categories
     $stmt = $pdo->query('SELECT * FROM categories ORDER BY id ASC');
     $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
