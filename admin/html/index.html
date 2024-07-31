@@ -210,7 +210,6 @@
                         if (data.success) {
                             if (isEdit) {
                                 product = product.filter(element => element.id != data.product.id)
-                                isEdit = false
                             }
                             product = [data.product, ...product]
                             renderProduct(product)
@@ -224,7 +223,7 @@
                                 showConfirmButton: false,
                                 timer: 1500
                             })
-
+                            isEdit = false
                         }
                     },
                     error: function (error) {
