@@ -698,15 +698,17 @@ p {
 .hc-depfirstcard {
     text-align: center;
     transition: all 0.5s;
-    padding: 30px 20px 28px 20px;
-    /* background-image: url('../images/depborder.png');
-    background-repeat: no-repeat; */
-    /* width: 275px; */
-    margin: 0 auto;
+    padding: 10px 20px;
+    margin: 2rem auto;
     border-width: 1px;
+    display: flex;
+    gap: 20px;
+    align-items: center;
     border-style: solid;
+    justify-content: start;
     border-image: linear-gradient(to top, rgba(255, 255, 255, 0), rgba(42, 167, 255, 0.6)) 1;
     border-radius: 10px;
+    width: 100%;
 }
 
 .hc-depfirstcard h4 {
@@ -716,11 +718,15 @@ p {
 }
 
 .hc-deprcard-text {
-    margin-top: 38px;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 10px;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
-
-.hc-deprcard-text p {
-    margin-top: 14px;
+.hc-deprcard-text p{
+    text-align: left;
 }
 
 .hc-depfirstcard:hover {
@@ -733,10 +739,8 @@ p {
 }
 
 .hc-depcardimg {
-    height: 52px;
-    width: 52px;
+    padding: 0.5rem;
     border-radius: 100%;
-    margin: 0 auto;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -785,7 +789,6 @@ p {
     display: flex;
     flex-direction: column;
     text-align: left;
-    margin-bottom: 7rem !important;
 }
 
 .hc-about-top h6 {
@@ -2181,6 +2184,9 @@ span.searchBtn {
         grid-template-columns: repeat(3, 1fr);
         grid-gap: 30px;
     }
+    .contact_wrapper{
+        padding-bottom: 20rem !important;
+    }
     .hc-service-card {
         width: 100%;
         padding: 20px;
@@ -3128,4 +3134,10 @@ input[type="file"]::-webkit-file-upload-button {
 .overlay.is-visible{
     opacity: 1;
     visibility: visible;
+}
+.addressContainer{
+    background-color: var(--hc-white-color);
+    box-shadow: 13px 14px 40px rgba(39, 98, 131, 0.15);
+    padding: 10px 28px 10px 28px;
+    border-radius: 10px;
 }
