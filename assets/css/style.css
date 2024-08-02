@@ -1803,13 +1803,12 @@ p {
 }
 
 .hc-footer-icimg {
-    max-width: 16px;
     height: 16px;
 }
 
 .hc-footer-mainlogo {
     max-width: 241px;
-    max-height: 40px;
+    max-height: 80px;
     margin-bottom: 35px;
 }
 
@@ -1871,6 +1870,9 @@ p {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+.link{
+    color: var(--hc-hiver-blue) !important;
 }
 
 .linkedin a:hover {
@@ -2479,9 +2481,6 @@ span.searchBtn {
         font-size: 14px;
     }
     .hc-news-top,
-    .hc-about-top {
-        padding: 0 20px;
-    }
     .hc-news-top {
         margin-bottom: 25px;
     }
@@ -2568,6 +2567,9 @@ span.searchBtn {
     }
     .CareerForm{
         width: 100% !important;
+    }
+    .hc-depfirstcard{
+        padding: 10px !important;
     }
     .hc-about-btn {
         max-width: 130px;
@@ -2973,6 +2975,9 @@ input[type="file"]::-webkit-file-upload-button {
 .mega-menu-column ul {
     list-style-type: none;
     padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 .mega-menu-column ul li {
@@ -3139,5 +3144,9 @@ input[type="file"]::-webkit-file-upload-button {
     background-color: var(--hc-white-color);
     box-shadow: 13px 14px 40px rgba(39, 98, 131, 0.15);
     padding: 10px 28px 10px 28px;
+    border-radius: 10px;
+}
+#pop_up_image{
+    width: 270px !important;
     border-radius: 10px;
 }
