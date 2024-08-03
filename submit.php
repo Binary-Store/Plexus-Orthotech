@@ -47,7 +47,7 @@ if (!empty($state)) {
 }
 
 
-echo smtp_mailer('utsavbusa222@gmail.com', $subject, $html);
+echo smtp_mailer('info@plexusorthotech.com', $subject, $html);
 
 function smtp_mailer($to, $subject, $msg)
 {

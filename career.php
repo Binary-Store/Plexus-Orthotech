@@ -34,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Recipients
     $mail->setFrom('harshil9915vasoya@gmail.com', $name);
-    $mail->addAddress('utsavbusa222@gmail.com', 'Utsav busa'); // Add a recipient
+    $mail->addAddress('info@plexusorthotech.com', 'Info Plexus orthotech'); // Add a recipient
     $mail->addReplyTo($email, $name);
 
     // Attachments
