@@ -1,6 +1,5 @@
 <?php
 $host = 'localhost';
-
 $db = 'u371241921_plexus';
 $user = 'u371241921_root';
 $pass = 'Plexus.root.mysql7';

@@ -3150,3 +3150,6 @@ input[type="file"]::-webkit-file-upload-button {
     width: 270px !important;
     border-radius: 10px;
 }
+.preserved-content {
+    white-space: pre-wrap; /* This preserves whitespace and line breaks */
+}
