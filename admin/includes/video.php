@@ -63,40 +63,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 } else if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $postData = file_get_contents('php://input');
 
-  function convertToEmbedURL($url)
+  function getYouTubeVideoId($url)
   {
-    $parsed_url = parse_url($url);
+    $parsedUrl = parse_url($url);
 
-    // Ensure the URL has a query component
-    if (!isset($parsed_url['query'])) {
-      return null; // Invalid URL format
+    // Check for youtu.be short URL
+    if ($parsedUrl['host'] == 'youtu.be') {
+      return substr($parsedUrl['path'], 1);
     }
 
-    // Parse the query parameters
-    parse_str($parsed_url['query'], $query_params);
-
-    // Ensure the 'v' parameter is present
-    if (!isset($query_params['v'])) {
-      return null; // Invalid URL format
+    // Check for youtube.com URL
+    if ($parsedUrl['host'] == 'www.youtube.com' || $parsedUrl['host'] == 'youtube.com') {
+      parse_str($parsedUrl['query'], $queryParams);
+      return $queryParams['v'] ?? null;
     }
 
-    // Extract the video ID
-    $videoID = $query_params['v'];
+    return null;
+  }
 
-    // Construct the embed URL
-    $embedURL = "https://www.youtube.com/embed/$videoID";
-
-    // Check if there is a playlist
-    if (isset($query_params['list'])) {
-      $listID = $query_params['list'];
-      $embedURL .= "?list=$listID";
-    }
-
-    return $embedURL;
+  function createYouTubeIframeUrl($videoId)
+  {
+    return "https://www.youtube.com/embed/" . $videoId;
   }
 
   $jsonData = json_decode($postData, true);
-  $videoUrl = convertToEmbedUrl($jsonData['video_url'] ?? '');
+  $videoUrl = getYouTubeVideoId($jsonData['video_url'] ?? '');
+  $videoUrl = createYouTubeIframeUrl($videoUrl);
 
   try {
     $stmt = $pdo->prepare('INSERT INTO video (link) VALUES (?)');
